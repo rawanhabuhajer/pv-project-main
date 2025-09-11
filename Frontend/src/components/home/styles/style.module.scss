@@ -1,0 +1,13 @@
+.home-wrapper {
+  background-color: #020817;
+  // background-color: #0c111c;
+  min-height: 100vh;
+  position: relative;
+  :global {
+    .header {
+      background-color: transparent;
+      border-radius: 10px;
+      width: calc(100%);
+    }
+  }
+}

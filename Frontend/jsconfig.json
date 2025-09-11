@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": "",
+    "jsx": "react-jsx",
+    "paths": {
+      "@/styles/*": ["styles/*"],
+      "@/themes/*": ["src/themes/*"],
+      "@/helpers/*": ["src/helpers/*"],
+      "@/store/*": ["src/store/*"],
+      "@/api/*": ["src/api/*"],
+      "@/assets/*": ["src/assets/*"],
+      "@/components/*": ["src/components/*"],
+      "@/content/*": ["src/content/*"]
+    }
+  },
+  "include": ["src", "public/PollSQS.js", "pages/api/proxy.js"]
+}

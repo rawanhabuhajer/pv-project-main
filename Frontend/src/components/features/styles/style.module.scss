@@ -1,0 +1,90 @@
+@import "@/styles/variables.scss";
+
+/* ********** MEDIA QUERY ********* */
+
+.features-section {
+  margin-top: 120px;
+  :global {
+    h3 {
+      text-align: center;
+      font-size: 45px;
+      font-family: "font-medium";
+      color: #ffffff;
+      span {
+        display: inline-block;
+        background: linear-gradient(45deg, #a855f7, #3b82f6);
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1.5;
+        padding-bottom: 0px; /* يتيح مساحة للنقط */
+        text-rendering: optimizeLegibility;
+      }
+    }
+    h5 {
+      text-align: center;
+      font-size: 20px;
+
+      color: #94a3b8;
+    }
+    .features-items {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto;
+      gap: 30px;
+      row-gap: 33px;
+      margin-top: 45px;
+      .single-item {
+        background-color: transparent;
+        border: 1px solid #303541;
+        border-radius: 8px;
+        box-shadow: 0px 3px 4px 0px #151515;
+        padding: 24px;
+        .img {
+          width: 48px;
+          height: 48px;
+
+          background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.1),
+            rgba(255, 255, 255, 0.05)
+          );
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px,
+            rgba(255, 255, 255, 0.1) 0px 1px 1px inset;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 5px;
+          &::after {
+            width: 48px;
+            height: 48px;
+            content: "";
+            background: radial-gradient(
+              circle at 30% 30%,
+              rgba(139, 92, 246, 0.5),
+              transparent 70%
+            );
+            left: 0;
+            opacity: 0.2;
+            position: absolute;
+            z-index: -1;
+          }
+        }
+        h6 {
+          font-size: 24px;
+          font-family: "font-medium";
+          color: #ffffff;
+          margin-top: 10px;
+        }
+        p {
+          line-height: 1.6;
+          color: #94a3b8;
+          margin-top: 10px;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}

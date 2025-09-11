@@ -1,0 +1,115 @@
+@import "@/styles/variables.scss";
+
+.request-demo-section {
+  padding: 50px 0;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -50px;
+    width: 71%;
+    height: 100%;
+    background-color: $secondary-color;
+    z-index: -1;
+    border-radius: 40px;
+    @media (max-width: 768px) {
+      width: 100%;
+      right: 0;
+      border-radius: 0;
+    }
+  }
+  :global {
+    .row {
+      row-gap: 30px;
+      align-items: center;
+    }
+    .demo-form {
+      min-height: 300px;
+      @media (max-width: 768px) {
+        min-height: auto;
+      }
+      .form-title {
+        margin-bottom: 30px;
+        h3 {
+          font-size: 40px;
+          font-family: "font-bold";
+          color: $primary-color;
+          max-width: 60%;
+          @media (max-width: 768px) {
+            max-width: 100%;
+            font-size: 20px;
+          }
+        }
+        p {
+          font-size: 16px;
+          margin-top: 20px;
+          @media (max-width: 768px) {
+            font-size: 14px;
+          }
+          span {
+            background-color: $primary-color;
+            color: #fff;
+            border-radius: 5px;
+            padding: 2px 15px;
+            margin-inline: 10px;
+            font-size: 13px;
+          }
+        }
+      }
+      .form-body {
+        .form-group {
+          .form-control {
+            background-color: #fff;
+            border-radius: 15px;
+            height: 55px;
+            padding: 0 25px;
+            text-align: right;
+            box-shadow: none;
+            border: 1px solid transparent;
+            font-size: 16px;
+            transition: $transition;
+            background-position: left 20px center;
+            @media (max-width: 768px) {
+              height: 50px;
+              font-size: 14px;
+              border-radius: 10px;
+              padding-inline: 15px;
+            }
+            &:focus {
+              border-color: $primary-color;
+            }
+
+            &.is-invalid {
+              border-color: red;
+            }
+          }
+
+          .text-danger {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+          }
+
+          &.has-btn {
+            text-align: left;
+          }
+        }
+      }
+    }
+    .col-lg-4 {
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    .fallback-image {
+      text-align: center;
+
+      img {
+        filter: brightness(0) opacity(0.1);
+      }
+    }
+  }
+}
+/* ********** MEDIA QUERY ********* */

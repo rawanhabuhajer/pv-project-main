@@ -1,0 +1,195 @@
+@import "@/styles/variables.scss";
+
+.login-section {
+  padding: 0px 0;
+  background-color: #fff;
+  height: 100%;
+  @media (max-width: 835px) {
+    overflow: hidden;
+    overflow-y: auto;
+    max-height: 100%;
+    padding: 0;
+  }
+  :global {
+    .row {
+      justify-content: space-between;
+      height: 100%;
+
+      @media (max-width: 835px) {
+        height: auto;
+      }
+    }
+
+    .login-banner {
+      height: 100%;
+      background-color:#111827;
+
+      padding: 70px;
+
+      @media (max-width: 835px) {
+        border-radius: 0;
+        height: auto;
+        text-align: center;
+        padding: 30px;
+      }
+      img {
+        width: 150px;
+        height: 100px;
+        object-fit: contain;
+        filter: brightness(0) invert(1);
+        @media (max-width: 835px) {
+          width: 110px;
+          height: auto;
+        }
+      }
+      .login-banner__text {
+        margin-top: 150px;
+        @media (max-width: 835px) {
+          margin-top: 50px;
+        }
+        h3 {
+          color: #fff;
+          font-family: "font-bold";
+          font-size: 40px;
+          margin-bottom: 20px;
+          @media (max-width: 835px) {
+            font-size: 30px;
+          }
+        }
+        p {
+          color: #fff;
+          font-size: 18px;
+          max-width: 70%;
+          @media (max-width: 835px) {
+            max-width: 100%;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+    .login-form {
+      padding: 0 70px;
+      max-width: 50%;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      @media (max-width: 1600px) {
+        max-width: 60%;
+      }
+      @media (max-width: 835px) {
+        max-width: 100%;
+        padding: 40px 20px;
+      }
+      .login-form__header {
+        margin-bottom: 50px;
+        text-align: center;
+        h3 {
+          font-family: "font-bold";
+          font-size: 40px;
+          margin-bottom: 10px;
+          @media (max-width: 835px) {
+            font-size: 30px;
+          }
+        }
+        p {
+          font-size: 16px;
+          color: #414143;
+        }
+      }
+      .login-form__body {
+        .form-group {
+          label {
+            margin-bottom: 10px;
+            color: #414143;
+          }
+          .form-control {
+            height: 50px;
+            border-radius: 8px;
+            padding: 0 20px;
+            box-shadow: none;
+            border-color: #F3F3F3;
+            text-align: right;
+            font-size: 16px;
+            transition: $transition;
+            background-color: #F3F3F3;
+            [dir="ltr"] & {
+              text-align: left;
+            }
+            &::placeholder {
+              color: rgba(65, 65, 67, 0.5);
+            }
+            &:focus {
+              border-color: $primary-color;
+              box-shadow: none;
+            }
+
+            &.is-invalid {
+              border-color: red;
+            }
+          }
+          .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+          }
+
+          div {
+            position: relative;
+          }
+          .show-password {
+            position: absolute;
+            left: 20px;
+            border: 0;
+            padding: 0;
+            background-color: transparent;
+            top: 50%;
+            translate: 0 -50%;
+            line-height: 1;
+            transition: $transition;
+            &::after {
+              content: "";
+              position: absolute;
+              width: 1px;
+              height: 25px;
+              background-color: #414143;
+              top: 50%;
+              left: 50%;
+              translate: -50% -50%;
+              rotate: 45deg;
+              opacity: 0;
+              transition: $transition;
+            }
+
+            &.active {
+              opacity: 0.5;
+              &::after {
+                opacity: 1;
+              }
+            }
+          }
+
+          .btn {
+            width: 100%;
+            font-family: "font-bold";
+            &:disabled {
+              background-color: #a1a1a1;
+              cursor: not-allowed;
+              border-color: #a1a1a1;
+            }
+          }
+          .form-group__register {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 16px;
+            a {
+              color: $primary-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/* ********** MEDIA QUERY ********* */

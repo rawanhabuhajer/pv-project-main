@@ -1,0 +1,13 @@
+{
+  "editor.formatOnSave": true,
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#095183",
+    "titleBar.inactiveBackground": "#095183",
+    "titleBar.inactiveForeground": "#FEFBFB",
+    "titleBar.activeBackground": "#095183",
+    "titleBar.activeForeground": "#FEFBFB",
+    "activityBar.inactiveForeground": "#FEFBFB",
+    "editor.cursorStyle": "line"
+  }
+}
+ 

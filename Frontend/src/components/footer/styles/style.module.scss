@@ -1,0 +1,163 @@
+@import "@/styles/variables.scss";
+
+.footer-section {
+  padding-top: 50px;
+  @media (max-width: 625px) {
+    padding-top: 30px;
+  }
+  :global {
+    .footer--wrap {
+      background-color: #111827;
+      padding: 70px 70px 50px;
+      @media (max-width: 625px) {
+        border-radius: 30px 30px 0 0;
+        padding: 15px;
+        border-radius: 15px 15px 0 0;
+      }
+      .footer--top {
+        margin-bottom: 50px;
+        @media (max-width: 625px) {
+          margin-bottom: 30px;
+        }
+        .row {
+          justify-content: space-between;
+          align-items: flex-end;
+        }
+        .footer--right {
+          display: flex;
+          align-items: flex-end;
+          gap: 20px 100px;
+          @media (max-width: 625px) {
+            justify-content: space-between;
+            gap: 20px;
+          }
+          .footer--links {
+            width: 100%;
+            ul {
+              li {
+                a {
+                  font-size: 16px;
+                  color: rgba(255, 255, 255, 0.9);
+                  @media (max-width: 768px) {
+                    font-size: 14px;
+                  }
+                }
+              }
+            }
+          }
+          ul {
+            li {
+              margin-bottom: 5px;
+              a {
+                color: #fff;
+                font-size: 13px;
+                text-transform: none;
+                transition: $transition;
+                border-bottom: 1px solid transparent;
+                direction: ltr;
+                display: inline-block;
+                &:hover {
+                  border-color: #fff;
+                  color: #fff;
+                }
+              }
+            }
+          }
+        }
+        .footer--newsletter {
+          .form-group {
+            position: relative;
+            .form-control {
+              height: 50px;
+              border: 0;
+              border-radius: 15px;
+              padding: 0 15px;
+              box-shadow: none;
+              transition: $transition;
+
+              &:focus {
+                box-shadow: 0 0 0 1px $primary-color;
+              }
+            }
+            .btn {
+              background-color: #2465ed;
+              color: #fff;
+              min-width: auto;
+              border-radius: 15px;
+              font-size: 15px;
+              height: 40px;
+              position: absolute;
+              top: 5px;
+              left: 5px;
+              border: 0;
+              [dir="ltr"] & {
+                right: 5px;
+                left: auto;
+              }
+            }
+          }
+          .error {
+            margin-top: 7px;
+            color: #fff;
+            font-size: 13px;
+          }
+        }
+      }
+      .footer--bottom {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 1;
+
+        @media (max-width: 768px) {
+          flex-wrap: wrap;
+        }
+
+        &::before {
+          content: "";
+          position: absolute;
+          bottom: 24px;
+          right: 0;
+          width: 100%;
+          height: 1px;
+          background-color: #ffffff4f;
+          z-index: -1;
+        }
+
+        .footer--social {
+          padding: 15px;
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          background-color: $primary-color;
+          @media (max-width: 768px) {
+            padding: 0;
+          }
+          a {
+            opacity: 0.7;
+            transition: $transition;
+            img {
+              width: 32px;
+              height: 32px;
+              object-fit: contain;
+            }
+            &:hover {
+              opacity: 1;
+              translate: 0 -5px;
+            }
+          }
+        }
+        .footer--rights {
+          background-color: $primary-color;
+          padding: 15px 30px;
+          color: rgba(255, 255, 255, 0.9);
+          @media (max-width: 625px) {
+            padding-inline: 15px;
+          }
+        }
+      }
+    }
+  }
+}
+/* ********** MEDIA QUERY ********* */
