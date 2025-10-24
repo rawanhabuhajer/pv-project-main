@@ -394,7 +394,7 @@ const CompanyInfo = () => {
                 label: "> 10",
               },
             ]}
-            placeholder="اختر الحد الأقصى لعدد المنافسات"
+            placeholder="اختر الحد الأقصى لعدد المpxv360ات"
             className="form-control select-form"
             classNamePrefix="select"
             onChange={(selected) => {

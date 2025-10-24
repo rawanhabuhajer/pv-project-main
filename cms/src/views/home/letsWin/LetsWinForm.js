@@ -61,7 +61,7 @@ const LetsWinForm = ({
   return (
     <div className="card">
       <div className="card-head">
-        <h4>بيانات لنربح منافستك</h4>
+        <h4>بيانات لنربح مpxv360تك</h4>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Col xl={8} md={12}>

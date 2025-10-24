@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import imageUpload from "../../../assets/svgs/imageUpload.svg";
 import toast from "react-hot-toast";
 
-const AboutNafesForm = ({
+const AboutPVX360Form = ({
   lang,
   data,
   selectedImage,
@@ -91,7 +91,7 @@ const AboutNafesForm = ({
   return (
     <div className="card">
       <div className="card-head">
-        <h4>محتوي ماهي منصة نافس</h4>
+        <h4>محتوي ماهي منصة pxv360</h4>
       </div>
       <div className="card-body">
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -251,4 +251,4 @@ const AboutNafesForm = ({
   );
 };
 
-export default AboutNafesForm;
+export default AboutPVX360Form;

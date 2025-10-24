@@ -89,7 +89,7 @@ const Advantages = ({
   return (
     <div className="card">
       <div className="card-head">
-        <h4>بيانات أفضلية تنافسية</h4>
+        <h4>بيانات أفضلية تpxv360ية</h4>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Col xl={8} md={12}>

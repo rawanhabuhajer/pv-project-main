@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Items from "./Items";
 
-const FeaturesNafesForm = ({
+const FeaturesPVX360Form = ({
   slug,
   lang,
   data,
@@ -160,4 +160,4 @@ const FeaturesNafesForm = ({
   );
 };
 
-export default FeaturesNafesForm;
+export default FeaturesPVX360Form;

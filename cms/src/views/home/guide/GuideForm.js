@@ -64,7 +64,7 @@ const GuideForm = ({
   return (
     <div className="card">
       <div className="card-head">
-        <h4>دليل نافس</h4>
+        <h4>دليل pxv360</h4>
       </div>
       <div className="card-body">
         <form onSubmit={handleSubmit(onSubmit)}>

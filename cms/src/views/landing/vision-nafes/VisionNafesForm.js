@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { EditorComponent } from "components/shared/FormComponents";
 
-const VisionNafesForm = ({
+const VisionPVX360Form = ({
   slug,
   lang,
   data,
@@ -68,7 +68,7 @@ const VisionNafesForm = ({
   return (
     <div className="card">
       <div className="card-head">
-        <h4> مساعده نافس </h4>
+        <h4> مساعده pxv360 </h4>
       </div>
       <div className="card-body">
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -175,4 +175,4 @@ const VisionNafesForm = ({
   );
 };
 
-export default VisionNafesForm;
+export default VisionPVX360Form;

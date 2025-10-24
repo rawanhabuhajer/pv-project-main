@@ -12,7 +12,7 @@ const Index = () => {
   // const { allCmsHome } = useSelector((state) => state?.cms);
   // const blogHeaderData = getSectionData(allCmsHome, "blogs");
 
-  // const order = ["المنافسات", "دليلك", "المزايدات"];
+  // const order = ["المpxv360ات", "دليلك", "المزايدات"];
 
   // const sortedCategories = categories.sort((a, b) => {
   //   const indexA = order.indexOf(a.name.trim());

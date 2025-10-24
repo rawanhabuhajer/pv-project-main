@@ -3,7 +3,7 @@ import { Nav, Tab } from "react-bootstrap";
 
 import server from "api/server";
 import { useLocation } from "react-router-dom";
-import PartnersNafesForm from "./PartnersNafesForm";
+import PartnersPVX360Form from "./PartnersPVX360Form";
 
 const Index = () => {
   const { pathname } = useLocation();
@@ -37,7 +37,7 @@ const Index = () => {
         <Tab.Container defaultActiveKey={0} transition={true} timeout={1000}>
           <Tab.Content>
             <Tab.Pane eventKey={0}>
-              <PartnersNafesForm
+              <PartnersPVX360Form
                 lang={lang}
                 data={data}
                 setData={setData}

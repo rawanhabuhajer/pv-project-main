@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import Items from "./Items";
 import { EditorComponent } from "components/shared/FormComponents";
 
-const GuideNafesForm = ({
+const GuidePVX360Form = ({
   slug,
   lang,
   data,
@@ -155,4 +155,4 @@ const GuideNafesForm = ({
   );
 };
 
-export default GuideNafesForm;
+export default GuidePVX360Form;

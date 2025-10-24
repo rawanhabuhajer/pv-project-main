@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import imageUpload from "../../../assets/svgs/imageUpload.svg";
 import toast from "react-hot-toast";
 
-const JoinNafesForm = ({
+const JoinPVX360Form = ({
   lang,
   data,
   selectedImage,
@@ -231,4 +231,4 @@ const JoinNafesForm = ({
   );
 };
 
-export default JoinNafesForm;
+export default JoinPVX360Form;
