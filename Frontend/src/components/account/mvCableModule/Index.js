@@ -431,12 +431,6 @@ const index = () => {
                   ))}
                 </div>
 
-                <ProjectForm
-                  isOpen={isFormOpen}
-                  onClose={() => setIsFormOpen(false)}
-                  onSave={handleCreateProject}
-                />
-
                 <div className="table--pagination">
                   <PaginationControl
                     page={page}
@@ -478,7 +472,11 @@ const index = () => {
           </>
         )}
       </>
-      {/* )} */}
+      <ProjectForm
+        isOpen={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
+        onSave={handleCreateProject}
+      />
     </div>
   );
 };
