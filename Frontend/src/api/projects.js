@@ -145,17 +145,61 @@ export const deleteMvProjectsApi = async ({ cookies, mvCategoryId }) => {
 
 export const getMvSingleProjectDataApi = async ({ cookies, mvCategoryId }) => {
   const response = await server({ cookies, mvCategoryId }).get(
-    `/mvCategories/singlecategory/${mvCategoryId}`
+    `/mvSubCategories/mvSubcategory/${mvCategoryId}`
   );
   return response.data;
 };
+
+export const getMvProjectSubsApi = async ({
+  cookies,
+  pageNumber,
+  pageSize,
+  projectId,
+  search,
+  sortBy,
+  status,
+}) => {
+  let url = `/mvSubCategories/${projectId}?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+  if (search) url += `&search=${search}`;
+  if (sortBy) url += `&sortBy=${sortBy}`;
+  if (status) url += `&status=${status}`;
+  console.log(url);
+  const response = await server({ cookies }).get(url);
+
+  return response.data;
+};
+
+export const addMvSubProjectApi = async ({ cookies, projectId, data }) => {
+  const response = await server({ cookies }).post(
+    `/mvSubCategories/${projectId}`,
+    data
+  );
+  return response.data;
+};
+
+export const editMvSubProjectApi = async ({ cookies, subProjectId, data }) => {
+  const response = await server({ cookies }).patch(
+    `/mvSubCategories/mvSubcategory/update/${subProjectId}`,
+    data
+  );
+  return response.data;
+};
+
+export const deleteSubMvProjectApi = async ({ cookies, subProjectId }) => {
+ 
+  const response = await server({ cookies }).delete(
+    `/mvSubCategories/mvSubcategory/${subProjectId}`
+  );
+  return response.data;
+};
+
 export const editMvSingleProjectDataApi = async ({
   cookies,
   mvCategoryId,
   details,
 }) => {
   const response = await server({ cookies }).patch(
-    `/mvCategories/singlecategory/${mvCategoryId}`,
+    `/mvSubCategories/mvSubcategory/${mvCategoryId}`,
     { details }
   );
   return response.data;

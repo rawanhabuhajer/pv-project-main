@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import styles from "./styles/style.module.scss";
 
 const Index = () => {
-  const { allCmsHome } = useSelector((state) => state?.cms);
+  const { allCmsHome } = useSelector((state) => state.authentication);
   const terms = getSectionData(allCmsHome, "terms-and-conditions");
 
   return (

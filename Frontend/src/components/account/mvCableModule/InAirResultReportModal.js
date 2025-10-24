@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./style.module.scss";
-import { ArrowDownToLine, RefreshCw, X } from "lucide-react";
+import { ArrowDownToLine, X } from "lucide-react";
 import { Modal, Spinner, Table } from "react-bootstrap";
 import Checkmark from "../assets/images/Checkmark.svg";
 import Alertmark from "../assets/images/Alertmark.svg";
@@ -10,13 +10,12 @@ import DownloadPdf from "./DownloadPdf";
 const InAirResultReportModal = ({
   isInAirResultModalOpen,
   setIsInAirResultModalOpen,
-  handleCalculateAutomaticIz,
 }) => {
   const { MvSingleProjectsData } = useSelector((state) => state.projects);
   const [mvReportData, setMvReportData] = useState();
   const [downloadPdfStart, setDownloadPdfStart] = useState(false);
   useEffect(() => {
-    setMvReportData(MvSingleProjectsData?.category?.details[0]);
+    setMvReportData(MvSingleProjectsData?.subcategory?.details[0]);
   }, [MvSingleProjectsData]);
 
   const pdfDownloaderRef = useRef();
@@ -73,7 +72,7 @@ const InAirResultReportModal = ({
                     </div>
                   </div>
                   <div className="premium-btn">
-                    {mvReportData?.Iz?.toFixed(1)} (Iz) ≥ 
+                    {mvReportData?.Iz?.toFixed(1)} (Iz) ≥
                     {mvReportData?.inputFactor} (Ib)
                   </div>
                 </div>
@@ -181,17 +180,6 @@ const InAirResultReportModal = ({
                   </tbody>
                 </Table>
               </div>
-
-              {/* <div className="btns-wrapper">
-              <button className="btn" onClick={handleCalculateAutomaticIz}>
-                <span>Auto Calculate</span> <RefreshCw size={18} />
-              </button>
-              <button className="btn primary">
-                <span> Download as pdf</span>
-                <ArrowDownToLine size={19} />
-              </button>
-
-            </div> */}
             </div>
           </div>
           <div className="btns-wrapper">
@@ -221,7 +209,7 @@ const InAirResultReportModal = ({
         </div>
       </Modal>
       <DownloadPdf
-        mvCategoryData={MvSingleProjectsData?.category?.details[0]}
+        mvCategoryData={MvSingleProjectsData?.subcategory?.details[0]}
         ref={pdfDownloaderRef}
         pdfReportRef={pdfReportRef}
         setDownloadPdfStart={setDownloadPdfStart}

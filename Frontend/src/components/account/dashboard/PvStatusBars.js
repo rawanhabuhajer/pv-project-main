@@ -80,7 +80,7 @@ const PvStatusBars = () => {
 
   return (
     <div className="charts-wrapper">
-      <div className="chart-title">PV Module Rate</div>
+      <div className="chart-title">PV Cable Projects</div>
       <div className="legend-wrapper">
         {/* <div className="legend-single">projects count</div> */}
       </div>

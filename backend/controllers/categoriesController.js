@@ -10,7 +10,7 @@ exports.getAllCategories = async (req, res, next) => {
   const sortBy = req?.query?.sortBy || "updatedAt";
   const order = req?.query?.order === "asc" ? 1 : -1;
   const search = req?.query?.search || "";
-  const status = req?.query?.status; // 👈 Filter by category status (1, 2, 3)
+  const status = req?.query?.status;
 
   try {
     const skip = (page - 1) * limit;
@@ -65,7 +65,7 @@ exports.getAllCategories = async (req, res, next) => {
     // Step 3: Send response
     res.status(200).json({
       responseData: {
-        status: "success",
+        isSuccess: true,
         count: categories.length,
         pageIndex: page,
         pageSize: limit,
@@ -77,7 +77,7 @@ exports.getAllCategories = async (req, res, next) => {
   } catch (err) {
     console.error("Error in getAllCategories:", err);
     res.status(500).json({
-      status: "error",
+      isSuccess: false,
       message: err.message,
     });
   }
@@ -93,8 +93,8 @@ exports.getCategory = async (req, res, next) => {
     }
 
     res.status(200).json({
-      status: "success",
-      data: {
+      isSuccess: true,
+      responseData: {
         category,
       },
     });
@@ -124,8 +124,8 @@ exports.createCategory = async (req, res, next) => {
     );
 
     res.status(201).json({
-      status: "success",
-      data: {
+      isSuccess: true,
+      responseData: {
         category: newCategory,
         user: user,
       },
@@ -133,7 +133,7 @@ exports.createCategory = async (req, res, next) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      status: "error",
+      isSuccess: false,
       message: "Error creating category",
       error: err.message,
     });
@@ -156,8 +156,8 @@ exports.updateCategory = async (req, res, next) => {
     }
 
     res.status(200).json({
-      status: "success",
-      data: { category },
+      isSuccess: true,
+      responseData: { category },
     });
   } catch (err) {
     console.error("Error updating category:", err);
@@ -172,8 +172,8 @@ exports.deleteCategory = async (req, res, next) => {
   }
 
   res.status(200).json({
-    status: "success",
-    data: {},
+    isSuccess: true,
+    responseData: {},
     message: "Deleted successfully",
   });
 };

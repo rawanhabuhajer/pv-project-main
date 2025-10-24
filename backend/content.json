@@ -1,0 +1,162 @@
+[
+  {
+    "slug": "introduction",
+    "sectionId": 0,
+    "isActive": true,
+    "title": "المقدمة",
+    "subTitle": "مرحبا بكم في موقعنا",
+    "description": "هذه مقدمة عن الموقع وخدماته.",
+    "buttonLabel": null,
+    "buttonUrl": null,
+    "image": null,
+    "lang": "ar",
+    "items": []
+  },
+  {
+    "slug": "partners",
+    "sectionId": 1,
+    "isActive": true,
+    "title": "الشركاء",
+    "subTitle": "نفخر بثقة شركائنا",
+    "description": "نحن نتعاون مع مجموعة متنوعة من الشركات الرائدة.",
+    "buttonLabel": null,
+    "buttonUrl": null,
+    "image": null,
+    "lang": "ar",
+    "items": [
+      {
+        "title": null,
+        "subTitle": "",
+        "description": null,
+        "buttonLabel": "",
+        "buttonUrl": "",
+        "image": ""
+      },
+      {
+        "title": null,
+        "subTitle": "",
+        "description": null,
+        "buttonLabel": "",
+        "buttonUrl": "",
+        "image": ""
+      }
+    ]
+  },
+  {
+    "slug": "statistics",
+    "sectionId": 2,
+    "isActive": true,
+    "title": "إحصائيات من نحن",
+    "subTitle": "",
+    "description": "بعض الإحصائيات المهمة عن شركتنا.",
+    "buttonLabel": null,
+    "buttonUrl": null,
+    "image": null,
+    "lang": "ar",
+    "items": []
+  },
+  {
+    "slug": "faq",
+    "sectionId": 3,
+    "isActive": true,
+    "title": "الأسئلة الشائعة",
+    "subTitle": "",
+    "description": "أجبنا على أبرز الأسئلة التي قد تخطر في ذهنك.",
+    "buttonLabel": null,
+    "buttonUrl": null,
+    "image": null,
+    "lang": "ar",
+    "items": []
+  },
+  {
+    "slug": "customer-reviews",
+    "sectionId": 4,
+    "isActive": true,
+    "title": "آراء العملاء",
+    "subTitle": "",
+    "description": "تعرف على آراء عملائنا وتجاربهم معنا.",
+    "buttonLabel": null,
+    "buttonUrl": null,
+    "image": null,
+    "lang": "ar",
+    "items": []
+  },
+  {
+    "slug": "features",
+    "sectionId": 5,
+    "isActive": true,
+    "title": "المميزات",
+    "subTitle": "",
+    "description": "أبرز المميزات التي نقدمها لعملائنا.",
+    "buttonLabel": null,
+    "buttonUrl": null,
+    "image": null,
+    "lang": "ar",
+    "items": []
+  },
+  {
+    "slug": "use-cases",
+    "sectionId": 6,
+    "isActive": true,
+    "title": "حالات الاستخدام",
+    "subTitle": "",
+    "description": "طرق استخدام منتجاتنا في مختلف السيناريوهات.",
+    "buttonLabel": null,
+    "buttonUrl": null,
+    "image": null,
+    "lang": "ar",
+    "items": []
+  },
+  {
+    "slug": "about-us",
+    "sectionId": 7,
+    "isActive": true,
+    "title": "من نحن",
+    "subTitle": "",
+    "description": "تعرّف على فريقنا ورؤيتنا.",
+    "buttonLabel": null,
+    "buttonUrl": null,
+    "image": null,
+    "lang": "ar",
+    "items": []
+  },
+  {
+    "slug": "privacy-policy",
+    "sectionId": 8,
+    "isActive": true,
+    "title": "سياسة الخصوصية",
+    "subTitle": "",
+    "description": "تعرف على سياسة الخصوصية الخاصة بنا.",
+    "buttonLabel": null,
+    "buttonUrl": null,
+    "image": null,
+    "lang": "ar",
+    "items": []
+  },
+  {
+    "slug": "terms-and-conditions",
+    "sectionId": 9,
+    "isActive": true,
+    "title": "الشروط والأحكام",
+    "subTitle": "",
+    "description": "الشروط والأحكام الخاصة باستخدام الموقع.",
+    "buttonLabel": null,
+    "buttonUrl": null,
+    "image": null,
+    "lang": "ar",
+    "items": []
+  },
+  {
+    "slug": "settings",
+    "sectionId": 10,
+    "isActive": true,
+    "title": "الإعدادات",
+    "subTitle": "",
+    "description": "إعدادات الموقع والخيارات العامة.",
+    "buttonLabel": null,
+    "buttonUrl": null,
+    "image": null,
+    "lang": "ar",
+    "items": []
+  }
+]

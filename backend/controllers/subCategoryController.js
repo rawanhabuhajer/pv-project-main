@@ -20,15 +20,15 @@ exports.createSubcategory = async (req, res, next) => {
     );
 
     res.status(201).json({
-      status: "success",
-      data: {
+      isSuccess: true,
+      responseData: {
         subcategory: newSubcategory,
       },
     });
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      status: "error",
+      isSuccess: false,
       message: "Error creating subcategory",
       error: err.message,
     });
@@ -50,7 +50,7 @@ exports.getSubcategoriesByCategory = async (req, res, next) => {
     const category = await Category.findById(categoryId);
     if (!category) {
       return res.status(404).json({
-        status: "error",
+        isSuccess: false,
         message: "Category not found",
       });
     }
@@ -143,7 +143,7 @@ exports.getSubcategoriesByCategory = async (req, res, next) => {
 
     res.status(200).json({
       responseData: {
-        status: "success",
+        isSuccess: true,
         categoryName: category.name,
         count: subcategories.length,
         pageIndex: page,
@@ -156,7 +156,7 @@ exports.getSubcategoriesByCategory = async (req, res, next) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      status: "error",
+      isSuccess: false,
       message: "Error getting subcategories",
       error: err.message,
     });
@@ -173,13 +173,13 @@ exports.getSubCategoryById = async (req, res, next) => {
 
     if (!subcategory) {
       return res.status(404).json({
-        status: "error",
+        isSuccess: false,
         message: "Subcategory not found",
       });
     }
 
     res.status(200).json({
-      status: "success",
+      isSuccess: true,
       responseData: {
         subcategory,
         categoryName: CategoryName.category?.name || null,
@@ -188,7 +188,7 @@ exports.getSubCategoryById = async (req, res, next) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      status: "error",
+      isSuccess: false,
       message: "Error getting subcategory",
       error: err.message,
     });
@@ -210,21 +210,21 @@ exports.updateSubcategory = async (req, res, next) => {
     // Check if the subcategory exists
     if (!subcategory) {
       return res.status(404).json({
-        status: "error",
+        isSuccess: false,
         message: "Subcategory not found",
       });
     }
 
     res.status(200).json({
-      status: "success",
-      data: {
+      isSuccess: true,
+      responseData: {
         subcategory,
       },
     });
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      status: "error",
+      isSuccess: false,
       message: "Error updating subcategory",
       error: err.message,
     });
@@ -237,7 +237,7 @@ exports.updateSubcategoryInfo = async (req, res, next) => {
     const { name, description, status } = req.body;
     if (!name && !description && !status) {
       return res.status(400).json({
-        status: "error",
+        isSuccess: false,
         message: "you have to edit one thing at least",
       });
     }
@@ -259,19 +259,19 @@ exports.updateSubcategoryInfo = async (req, res, next) => {
 
     if (!updatedSubcategory) {
       return res.status(404).json({
-        status: "error",
+        isSuccess: false,
         message: "Subcategory not found",
       });
     }
 
     res.status(200).json({
-      status: "success",
-      data: updatedSubcategory,
+      isSuccess: true,
+      responseData: updatedSubcategory,
     });
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      status: "error",
+      isSuccess: false,
       message: "Error updating subcategory",
       error: err.message,
     });
@@ -286,7 +286,7 @@ exports.deleteSubcategory = async (req, res, next) => {
 
     if (!subcategory) {
       return res.status(404).json({
-        status: "error",
+        isSuccess: false,
         message: "Subcategory not found",
       });
     }
@@ -302,13 +302,13 @@ exports.deleteSubcategory = async (req, res, next) => {
     });
 
     res.status(200).json({
-      status: "success",
+      isSuccess: true,
       message: "Subcategory deleted and removed from category",
     });
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      status: "error",
+      isSuccess: false,
       message: "Error deleting subcategory",
       error: err.message,
     });

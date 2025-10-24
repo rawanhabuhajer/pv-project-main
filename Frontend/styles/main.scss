@@ -1107,11 +1107,11 @@ input[type="radio"] {
   top: -5px !important;
 }
 .css-1u23akw-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
-  background-color: #095183 !important;
+  background-color: #111827 !important;
 }
 
 .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
-  color: #095183 !important;
+  color: #111827 !important;
 }
 
 .file_preview_container {
@@ -1794,5 +1794,23 @@ span.icon_down_dir:before {
   p {
     font-size: 16px;
     color: #404b52;
+  }
+}
+.border-btn {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 8px 32px;
+  border: 0;
+  transition: $transition;
+  a {
+    color: #ffffff;
+  }
+  &:hover {
+    background-color: #2464ed;
   }
 }

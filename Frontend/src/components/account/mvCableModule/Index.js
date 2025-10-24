@@ -1,8 +1,5 @@
-import React, { useState, useEffect, CSSProperties } from "react";
+import React, { useState, useEffect } from "react";
 
-import axios from "axios";
-import FadeLoader from "react-spinners/FadeLoader";
-import AddNewProject from "./AddNewProject";
 import styles from "./style.module.scss";
 
 import { PaginationControl } from "react-bootstrap-pagination-control";
@@ -12,38 +9,21 @@ import { useDispatch, useSelector } from "react-redux";
 import ProjectCard from "./ProjectCard";
 import { PuffLoader } from "react-spinners";
 import NewProjectCard from "../project/NewProjectCard";
-import {
-  ArrowDownNarrowWide,
-  Funnel,
-  ListFilter,
-  Search,
-  Send,
-  X,
-} from "lucide-react";
+import { Funnel, ListFilter, Send, X } from "lucide-react";
 import ProjectForm from "./ProjectForm";
-import { addMvProjects, addPvProjects, getMvProjects } from "@/store/actions";
+import { addMvProjects, getMvProjects } from "@/store/actions";
 import { parseCookies } from "nookies";
 import toast from "react-hot-toast";
 import HeroImage from "../assets/images/pv/MV6.png";
 import NoDataImage from "../assets/images/noData.svg";
 import Image from "next/future/image";
-import ResultModal from "./ResultModal";
 
 const index = () => {
-  const [projectName, setProjectName] = useState();
-  const [projectDescription, setProjectDescription] = useState();
-  const [categoriesData, setCategoriesData] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isResultModalOpen, setIsResultModalOpen] = useState(true);
-  //   const navigate = useNavigate();
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const { user } = useSelector((state) => state.authentication);
   const [selectedSort, setSelectedSort] = useState();
   const [searchValue, setSearchValue] = useState("");
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+
   const [selectedFilter, setSelectedFilter] = useState("");
   const dispatch = useDispatch();
   const { MvProjectsMeta, MvProjectsLoading, MvProjects } = useSelector(
@@ -56,10 +36,6 @@ const index = () => {
     { label: "Completed", value: 3 },
   ];
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const formData = {
-    name: projectName,
-    description: projectDescription,
-  };
 
   useEffect(() => {
     if (user?.id) {
@@ -209,7 +185,7 @@ const index = () => {
                 <h3 className="status-wrapper"> Filter status : </h3>
                 <div className="status-container">
                   {statusCategories?.map((item, index) => (
-                    <div className="form_radio_btn">
+                    <div className="form_radio_btn" key={index}>
                       <label>
                         <input
                           type="radio"
@@ -440,17 +416,17 @@ const index = () => {
           </div>
         </div>
 
-        {isLoading ? (
+        {MvProjectsLoading ? (
           <div className="spinner_wrapper">
             <PuffLoader color="#4E0099" />
           </div>
         ) : (
           <>
-            {MvProjects && MvProjects.length > 0 ? (
+            {MvProjects && MvProjects?.length > 0 ? (
               <>
                 <div className="projects-grid">
                   <NewProjectCard onClick={() => setIsFormOpen(true)} />
-                  {MvProjects.map((category) => (
+                  {MvProjects?.map((category) => (
                     <ProjectCard key={category._id} project={category} />
                   ))}
                 </div>

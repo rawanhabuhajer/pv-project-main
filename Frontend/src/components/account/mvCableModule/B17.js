@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
-import styles from "./style.module.scss";
+import React from "react";
+
 import Select, { selectClasses } from "@mui/joy/Select";
 import { ChevronDown } from "lucide-react";
 import Option from "@mui/joy/Option";
 import { CFForConductorB17 } from "./MvData";
 
 const B17 = ({
-  cableCount,
-  setCableCount,
+
   resistivitiesspacing,
   setresistivitiesSpacing,
   factor,

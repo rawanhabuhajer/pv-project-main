@@ -47,3 +47,6 @@ export const SEND_CONTACT_MESSAGE_FAILURE = "SEND_CONTACT_MESSAGE_FAILURE";
 // ====================================================
 // ====================================================
 
+export const GET_ALL_CMS_HOME = "GET_ALL_CMS_HOME";
+export const GET_ALL_CMS_HOME_SUCCESS = "GET_ALL_CMS_HOME_SUCCESS";
+export const GET_ALL_CMS_HOME_FAILURE = "GET_ALL_CMS_HOME_FAILURE";

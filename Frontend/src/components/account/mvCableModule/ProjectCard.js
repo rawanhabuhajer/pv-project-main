@@ -13,12 +13,7 @@ import {
   Timer,
   Trash2,
 } from "lucide-react";
-import {
-  deleteMvProjects,
-  deletePMvProjects,
-  editMvProjects,
-  editPMvProjects,
-} from "@/store/actions";
+import { deleteMvProjects, editMvProjects } from "@/store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { parseCookies } from "nookies";
 import toast from "react-hot-toast";
@@ -27,9 +22,7 @@ import { getFullDate } from "@/helpers/functions";
 const ProjectCard = ({ project }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authentication);
-  const { MvProjects, MvProjectsMeta, MvProjectsLoading } = useSelector(
-    (state) => state.projects
-  );
+
   const cookies = parseCookies();
   const [isUpdateFormOpen, setIsUpdateFormOpen] = useState(false);
 
@@ -158,7 +151,7 @@ const ProjectCard = ({ project }) => {
           href={`account/mv-cable/${project?._id}`}
           className="card-button-link"
         >
-          <button className="card-button">View Details</button>
+          <button className="card-button">View Project</button>
         </Link>
       </div>
       <ProjectUpdateForm

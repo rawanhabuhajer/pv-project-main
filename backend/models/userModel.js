@@ -3,48 +3,52 @@ const validator = require("validator");
 const bcrypt = require("bcrypt");
 
 const Schema = mongoose.Schema;
-const userSchema = new Schema({
-  username: {
-    type: String,
-    required: true,
+const userSchema = new Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    companyName: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    phoneNumber: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: ["admin", "superAdmin", "user"],
+      default: "user",
+    },
+    agreeTerms: {
+      type: Boolean,
+      required: true,
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    verificationStart: { type: Date },
+    verificationEnd: { type: Date }, 
+    resetPasswordToken: { type: String },
+    resetPasswordExpires: { type: Date },
+    categories: [{ type: mongoose.Schema.Types.ObjectId, ref: "Category" }],
+    mvCategories: [{ type: mongoose.Schema.Types.ObjectId, ref: "MvCategory" }],
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  companyName: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  phoneNumber: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  role: {
-    type: String,
-    enum: ["admin", "superAdmin", "user"],
-    default: "user",
-    required: false,
-  },
-  agreeTerms: {
-    type: Boolean,
-    required: true,
-  },
-  isVerified: {
-    type: Boolean,
-    default: false, 
-  },
-  resetPasswordToken: { type: String, required: false },
-  resetPasswordExpires: { type: Date, required: false },
-  categories: [{ type: mongoose.Schema.Types.ObjectId, ref: "Category" }],
-  mvCategories: [{ type: mongoose.Schema.Types.ObjectId, ref: "MvCategory" }],
-});
+  { timestamps: true }
+);
 
 // static signup method
 userSchema.statics.signup = async function (
@@ -54,7 +58,8 @@ userSchema.statics.signup = async function (
   role,
   companyName,
   phoneNumber,
-  agreeTerms
+  agreeTerms,
+  timestamps
 ) {
   //validation
   if (
@@ -91,7 +96,8 @@ userSchema.statics.signup = async function (
     role,
     companyName,
     phoneNumber,
-    agreeTerms
+    agreeTerms,
+    timestamps,
   });
 
   return user;
@@ -119,7 +125,7 @@ userSchema.statics.login = async function (email, password, role) {
 };
 
 userSchema.pre(/^find/, function (next) {
-  this.populate("categories");
+  // this.populate("categories");
   next();
 });
 

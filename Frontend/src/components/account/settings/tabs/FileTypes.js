@@ -131,7 +131,7 @@ const FileTypes = () => {
                         );
                       }}
                     >
-                      <CloseIcon fill="#095183" />
+                      <CloseIcon fill="#111827" />
                     </button>
 
                     <button
@@ -143,7 +143,7 @@ const FileTypes = () => {
                         // setShowFilePreviewModal(true);
                       }}
                     >
-                      <EyeIcon fill="#095183" />
+                      <EyeIcon fill="#111827" />
                     </button>
                   </>
                 ) : (

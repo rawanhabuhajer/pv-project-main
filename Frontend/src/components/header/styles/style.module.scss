@@ -4,7 +4,9 @@
   padding: 15px 40px;
   position: relative;
   z-index: 3;
-border-bottom: 1px solid #e5e5ef33;
+  border-bottom: 1px solid #e5e5ef33;
+  background-color: transparent;
+
   @media (max-width: 625px) {
     padding: 20px 0;
   }
@@ -21,7 +23,6 @@ border-bottom: 1px solid #e5e5ef33;
       justify-content: space-between;
     }
     .logo {
-     
       @media (max-width: 625px) {
         width: 70px;
         height: auto;
@@ -54,7 +55,7 @@ border-bottom: 1px solid #e5e5ef33;
               a,
               button {
                 font-size: 20px;
-                color: #333333;
+                color: #f8f8f8;
                 transition: $transition;
                 position: relative;
                 border: 0;
@@ -382,9 +383,9 @@ border-bottom: 1px solid #e5e5ef33;
             ul {
               li {
                 a {
-                  color: #000;
+                  color: #ffffff;
                   @media (max-width: 835px) {
-                    color: #000000;
+                    color: #ffffff;
                   }
                   &::after {
                     background-color: #fff;

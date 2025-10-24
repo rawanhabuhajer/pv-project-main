@@ -15,15 +15,12 @@ import {
   deleteMvProjectsApi,
   editMvSingleProjectDataApi,
   getMvSingleProjectDataApi,
+  getMvProjectSubsApi,
+  addMvSubProjectApi,
+  deleteSubMvProjectApi,
+  editMvSubProjectApi,
 } from "@/api/projects";
-import {
-  takeEvery,
-  fork,
-  put,
-  all,
-  call,
-  takeLatest,
-} from "redux-saga/effects";
+import { fork, put, all, call, takeEvery } from "redux-saga/effects";
 import {
   addPvProjectsFailure,
   addPvProjectsSuccess,
@@ -61,6 +58,15 @@ import {
   getPvProjects,
   getProjectSubById,
   getMvProjects,
+  getMvProjectSubByIdFailure,
+  getMvProjectSubByIdSuccess,
+  addMvProjectSubByIdFailure,
+  addMvProjectSubByIdSuccess,
+  editMvProjectSubByIdFailure,
+  editMvProjectSubByIdSuccess,
+  deleteMvProjectSubByIdFailure,
+  deleteMvProjectSubByIdSuccess,
+  getMvProjectSubById,
 } from "./actions";
 import {
   GET_PV_PROJECTS,
@@ -79,6 +85,10 @@ import {
   DELETE_MV_PROJECT,
   GET_SINGLE_MV_PROJECT_DATA,
   EDIT_SINGLE_MV_PROJECT_DATA,
+  ADD_MV_PROJECT_SUB_BY_ID,
+  GET_MV_PROJECT_SUB_BY_ID,
+  EDIT_MV_PROJECT_SUB_BY_ID,
+  DELETE_MV_PROJECT_SUB_BY_ID,
 } from "./actionTypes";
 
 // ====================================================
@@ -101,9 +111,9 @@ function* getPvProjectsSaga({ payload }) {
 
 function* addPvProjectSaga({ payload }) {
   try {
-    const { data, status, message } = yield call(addPvProjectsApi, payload);
+    const { data, isSuccess, message } = yield call(addPvProjectsApi, payload);
     yield put(addPvProjectsSuccess(data));
-    if (status === "success") {
+    if (isSuccess) {
       yield payload?.dispatch(
         getPvProjects({
           pageNumber: 1,
@@ -129,9 +139,9 @@ function* addPvProjectSaga({ payload }) {
 
 function* editPvProjectsSaga({ payload }) {
   try {
-    const { data, status, message } = yield call(editPvProjectsApi, payload);
+    const { data, isSuccess, message } = yield call(editPvProjectsApi, payload);
     yield put(editPvProjectsSuccess(data));
-    if (status === "success") {
+    if (isSuccess) {
       yield payload?.dispatch(
         getPvProjects({
           pageNumber: 1,
@@ -157,9 +167,12 @@ function* editPvProjectsSaga({ payload }) {
 
 function* deletePvProjectsSaga({ payload }) {
   try {
-    const { data, status, message } = yield call(deletePvProjectsApi, payload);
+    const { data, isSuccess, message } = yield call(
+      deletePvProjectsApi,
+      payload
+    );
     yield put(deletePvProjectsSuccess(data));
-    if (status === "success") {
+    if (isSuccess) {
       yield payload?.dispatch(
         getPvProjects({
           pageNumber: 1,
@@ -199,9 +212,12 @@ function* getProjectSubByIdSaga({ payload }) {
 
 function* addProjectSubByIdSaga({ payload }) {
   try {
-    const { data, status, message } = yield call(addPvSubProjectApi, payload);
+    const { data, isSuccess, message } = yield call(
+      addPvSubProjectApi,
+      payload
+    );
     yield put(addProjectSubByIdSuccess(data));
-    if (status === "success") {
+    if (isSuccess) {
       yield payload?.dispatch(
         getProjectSubById({
           pageNumber: 1,
@@ -227,9 +243,12 @@ function* addProjectSubByIdSaga({ payload }) {
 
 function* editProjectSubByIdSaga({ payload }) {
   try {
-    const { data, status, message } = yield call(editPvSubProjectApi, payload);
+    const { data, isSuccess, message } = yield call(
+      editPvSubProjectApi,
+      payload
+    );
     yield put(editProjectSubByIdSuccess(data));
-    if (status === "success") {
+    if (isSuccess) {
       yield payload?.dispatch(
         getProjectSubById({
           pageNumber: 1,
@@ -253,12 +272,12 @@ function* editProjectSubByIdSaga({ payload }) {
 
 function* deleteProjectSubByIdSaga({ payload }) {
   try {
-    const { data, status, message } = yield call(
+    const { data, isSuccess, message } = yield call(
       deleteSubPvProjectApi,
       payload
     );
     yield put(deleteProjectSubByIdSuccess(data));
-    if (status === "success") {
+    if (isSuccess) {
       yield payload?.dispatch(
         getProjectSubById({
           pageNumber: 1,
@@ -296,17 +315,20 @@ function* getPvSubProjectDataSaga({ payload }) {
 
 function* editPvSubProjectDataSaga({ payload }) {
   try {
-    const { responseData } = yield call(editSubProjectDataApi, payload);
+    const { responseData, isSuccess } = yield call(
+      editSubProjectDataApi,
+      payload
+    );
     yield put(editSubProjectDataByIdSuccess(responseData));
+    if (isSuccess) {
+      yield payload.toast.success("sub-project updated successfully");
+    }
   } catch (error) {
     console.log(error);
     yield put(editSubProjectDataByIdFailure(error));
     yield payload.toast.error("حدث خطأ ما الرجاء المحاولة مرة أخرى");
   }
 }
-
-// ====================================================
-// ====================================================
 
 // ====================================================
 // ====================================================
@@ -328,10 +350,7 @@ function* getMvProjectsSaga({ payload }) {
 
 function* addMvProjectSaga({ payload }) {
   try {
-    const { isSuccess, message, responseData } = yield call(
-      addMvProjectsApi,
-      payload
-    );
+    const { isSuccess, responseData } = yield call(addMvProjectsApi, payload);
     yield put(addMvProjectsSuccess(responseData));
     if (isSuccess) {
       yield put(
@@ -384,7 +403,7 @@ function* editMvProjectsSaga({ payload }) {
 
 function* deleteMvProjectsSaga({ payload }) {
   try {
-    const { isSuccess, responseData, message } = yield call(
+    const { isSuccess, responseData } = yield call(
       deleteMvProjectsApi,
       payload
     );
@@ -441,6 +460,106 @@ function* editMvSingleProjectDataSaga({ payload }) {
   } catch (error) {
     console.log(error);
     yield put(editSingleProjectDataByIdFailure(error));
+    yield payload.toast.error("حدث خطأ ما الرجاء المحاولة مرة أخرى");
+  }
+}
+
+// ====================================================
+// ====================================================
+
+function* getMvProjectSubByIdSaga({ payload }) {
+  try {
+    const { responseData } = yield call(getMvProjectSubsApi, payload);
+    yield put(getMvProjectSubByIdSuccess(responseData));
+  } catch (error) {
+    console.log(error);
+    yield put(getMvProjectSubByIdFailure(error));
+    yield payload.toast.error("حدث خطأ ما الرجاء المحاولة مرة أخرى");
+  }
+}
+
+// ====================================================
+// ====================================================
+
+function* addMvProjectSubByIdSaga({ payload }) {
+  try {
+    const { responseData, isSuccess, message } = yield call(
+      addMvSubProjectApi,
+      payload
+    );
+    yield put(addMvProjectSubByIdSuccess(responseData));
+    if (isSuccess) {
+      yield put(
+        getMvProjectSubById({
+          pageNumber: 1,
+          pageSize: 10,
+          projectId: payload?.projectId,
+        })
+      );
+      yield payload.toast.success("new subproject Added successfully");
+    } else {
+      yield payload.toast.error(
+        message || "حدث خطأ ما الرجاء المحاولة مرة أخرى"
+      );
+    }
+  } catch (error) {
+    console.log(error);
+    yield put(addMvProjectSubByIdFailure(error));
+    yield payload.toast.error("حدث خطأ ما الرجاء المحاولة مرة أخرى");
+  }
+}
+
+// ====================================================
+// ====================================================
+
+function* editMvProjectSubByIdSaga({ payload }) {
+  try {
+    const { responseData, isSuccess, message } = yield call(
+      editMvSubProjectApi,
+      payload
+    );
+    yield put(editMvProjectSubByIdSuccess(responseData));
+    if (isSuccess) {
+      yield payload?.dispatch(
+        getMvProjectSubById({
+          pageNumber: 1,
+          pageSize: 10,
+          projectId: payload?.projectId,
+        })
+      );
+      yield payload.toast.success("sub-project updated successfully");
+    } else {
+      yield payload.toast.error(message || "something error happened");
+    }
+  } catch (error) {
+    console.log(error);
+    yield put(editMvProjectSubByIdFailure(error));
+    yield payload.toast.error("حدث خطأ ما الرجاء المحاولة مرة أخرى");
+  }
+}
+
+// ====================================================
+// ====================================================
+
+function* deleteMvProjectSubByIdSaga({ payload }) {
+  try {
+    const { isSuccess, message } = yield call(deleteSubMvProjectApi, payload);
+    yield put(deleteMvProjectSubByIdSuccess(payload));
+    if (isSuccess) {
+      yield put(
+        getMvProjectSubById({
+          pageNumber: 1,
+          pageSize: 10,
+          projectId: payload?.projectId,
+        })
+      );
+      yield payload.toast.success("sub-project deleted successfully");
+    } else {
+      yield payload.toast.error(message || "something wrong happened");
+    }
+  } catch (error) {
+    console.log(error);
+    yield put(deleteMvProjectSubByIdFailure(error));
     yield payload.toast.error("حدث خطأ ما الرجاء المحاولة مرة أخرى");
   }
 }
@@ -512,6 +631,22 @@ export function* watchEditMvSingleProjectDataSaga() {
   yield takeEvery(EDIT_SINGLE_MV_PROJECT_DATA, editMvSingleProjectDataSaga);
 }
 
+export function* watchGetMvProjectSubByIdSaga() {
+  yield takeEvery(GET_MV_PROJECT_SUB_BY_ID, getMvProjectSubByIdSaga);
+}
+
+export function* watchAddMvProjectSubByIdSaga() {
+  yield takeEvery(ADD_MV_PROJECT_SUB_BY_ID, addMvProjectSubByIdSaga);
+}
+
+export function* watchEditMvProjectSubByIdSaga() {
+  yield takeEvery(EDIT_MV_PROJECT_SUB_BY_ID, editMvProjectSubByIdSaga);
+}
+
+export function* watchDeleteMvProjectSubByIdSaga() {
+  yield takeEvery(DELETE_MV_PROJECT_SUB_BY_ID, deleteMvProjectSubByIdSaga);
+}
+
 // ====================================================
 // ====================================================
 
@@ -532,6 +667,10 @@ function* projectsSaga() {
   yield all([fork(watchDeleteMvProjectDataSaga)]);
   yield all([fork(watchGetMvSingleProjectDataSaga)]);
   yield all([fork(watchEditMvSingleProjectDataSaga)]);
+  yield all([fork(watchGetMvProjectSubByIdSaga)]);
+  yield all([fork(watchAddMvProjectSubByIdSaga)]);
+  yield all([fork(watchEditMvProjectSubByIdSaga)]);
+  yield all([fork(watchDeleteMvProjectSubByIdSaga)]);
 }
 
 export default projectsSaga;

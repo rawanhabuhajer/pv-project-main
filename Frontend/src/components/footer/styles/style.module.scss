@@ -1,13 +1,9 @@
 @import "@/styles/variables.scss";
 
 .footer-section {
-  padding-top: 50px;
-  @media (max-width: 625px) {
-    padding-top: 30px;
-  }
   :global {
     .footer--wrap {
-      background-color: #111827;
+      background-color: #070e1d;
       padding: 70px 70px 50px;
       @media (max-width: 625px) {
         border-radius: 30px 30px 0 0;
@@ -34,10 +30,15 @@
           .footer--links {
             width: 100%;
             ul {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 24px;
               li {
                 a {
-                  font-size: 16px;
+                  font-size: 15px;
                   color: rgba(255, 255, 255, 0.9);
+                  font-family: "font-regular";
                   @media (max-width: 768px) {
                     font-size: 14px;
                   }
@@ -65,6 +66,10 @@
           }
         }
         .footer--newsletter {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          justify-content: flex-end;
           .form-group {
             position: relative;
             .form-control {

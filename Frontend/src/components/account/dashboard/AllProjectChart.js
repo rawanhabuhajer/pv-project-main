@@ -17,7 +17,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { DatePicker } from "rsuite";
+
 import {
   getMvProjectsCountByYear,
   getPvProjectsCountByYear,
@@ -33,16 +33,14 @@ ChartJS.register(
   Legend
 );
 const AllProjectChart = () => {
-  const { locale } = useRouter();
+
   const dispatch = useDispatch();
   const cookies = parseCookies();
   const { user } = useSelector((state) => state?.authentication);
   const { pvProjectsCountByYear, mvProjectsCountByYear } = useSelector(
     (state) => state?.dashboard
   );
-  const { formatMessage } = useIntl();
-  const [tenderActivityId, setTenderActivityId] = useState();
-  const [ActivityGroupId, setActivityGroupId] = useState();
+
   const [selectedYear, setSelectedYear] = useState(null);
   const monthNames = [
     "January",
@@ -153,13 +151,13 @@ const AllProjectChart = () => {
       <div className="header-chart">
         <div className="chart-labels">
           <div className="c-label">
-            <div></div> <p>all projects</p>
+            <div></div> <p>All Projects</p>
           </div>
           <div className="c-label">
-            <div className="pv"></div> <p>PV projects </p>
+            <div className="pv"></div> <p>PV Cable Projects</p>
           </div>
           <div className="c-label">
-            <div className="mv"></div> <p>Mv projects</p>
+            <div className="mv"></div> <p>MV Cable Projects</p>
           </div>
           <div className="c-label"></div>
         </div>

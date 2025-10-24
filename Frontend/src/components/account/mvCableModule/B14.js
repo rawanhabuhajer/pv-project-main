@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from "react";
-import styles from "./style.module.scss";
+import React from "react";
+
 import Select, { selectClasses } from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 import { resistivitiesDirectBuriedSingleCore } from "./MvData";
 import { ChevronDown } from "lucide-react";
 
 const B14 = ({
-  cableCount,
-  setCableCount,
   resistivitiesspacing,
   setresistivitiesSpacing,
   factor,
   setFactor,
   conductorSize,
 }) => {
-
   const handleSpacingChange = (event, newValue) => {
     setresistivitiesSpacing(newValue);
     if (conductorSize && resistivitiesDirectBuriedSingleCore[conductorSize]) {

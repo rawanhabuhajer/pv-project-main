@@ -2,10 +2,8 @@ import { getFullDate } from "@/helpers/functions";
 import {
   ArrowRight,
   Calendar,
-  CalendarDays,
   Check,
   ClockAlert,
-  FileSpreadsheet,
   Info,
   Timer,
 } from "lucide-react";
@@ -14,9 +12,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const NearDeadlineList = () => {
-  const { nearDeadlineProjectsLoading, nearDeadlineProjects } = useSelector(
-    (state) => state.dashboard
-  );
+  const { nearDeadlineProjects } = useSelector((state) => state.dashboard);
 
   const router = useRouter();
 

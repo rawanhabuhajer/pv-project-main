@@ -121,3 +121,33 @@ export const EDIT_SINGLE_MV_PROJECT_DATA_FAILURE =
 
 // ====================================================
 // ====================================================
+
+export const ADD_MV_PROJECT_SUB_BY_ID = "ADD_MV_PROJECT_SUB_BY_ID";
+export const ADD_MV_PROJECT_SUB_BY_ID_SUCCESS = "ADD_MV_PROJECT_SUB_BY_ID_SUCCESS";
+export const ADD_MV_PROJECT_SUB_BY_ID_FAILURE = "ADD_MV_PROJECT_SUB_BY_ID_FAILURE";
+
+// ====================================================
+// ====================================================
+
+export const GET_MV_PROJECT_SUB_BY_ID = "GET_MV_PROJECT_SUB_BY_ID";
+export const GET_MV_PROJECT_SUB_BY_ID_SUCCESS = "GET_MV_PROJECT_SUB_BY_ID_SUCCESS";
+export const GET_MV_PROJECT_SUB_BY_ID_FAILURE = "GET_MV_PROJECT_SUB_BY_ID_FAILURE";
+
+// ====================================================
+// ====================================================
+
+export const EDIT_MV_PROJECT_SUB_BY_ID = "EDIT_MV_PROJECT_SUB_BY_ID";
+export const EDIT_MV_PROJECT_SUB_BY_ID_SUCCESS = "EDIT_MV_PROJECT_SUB_BY_ID_SUCCESS";
+export const EDIT_MV_PROJECT_SUB_BY_ID_FAILURE = "EDIT_MV_PROJECT_SUB_BY_ID_FAILURE";
+
+// ====================================================
+// ====================================================
+
+export const DELETE_MV_PROJECT_SUB_BY_ID = "DELETE_MV_PROJECT_SUB_BY_ID";
+export const DELETE_MV_PROJECT_SUB_BY_ID_SUCCESS =
+  "DELETE_MV_PROJECT_SUB_BY_ID_SUCCESS";
+export const DELETE_MV_PROJECT_SUB_BY_ID_FAILURE =
+  "DELETE_MV_PROJECT_SUB_BY_ID_FAILURE";
+
+// ====================================================
+// ====================================================

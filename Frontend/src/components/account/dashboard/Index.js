@@ -115,8 +115,9 @@ const Index = () => {
           </h2>
           <p>Welcome to PVX360 !</p>
           <p>
-            We’re excited to have you on board. Let’s power your journey to
-            projects tool with smart, AI-driven insights and tools.
+            We’re excited to have you on board. Let’s power your journey to PV
+            projects designing tools with professional and international
+            standards driven insights
           </p>
         </div>
         <Row>

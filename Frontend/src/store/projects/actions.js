@@ -47,6 +47,18 @@ import {
   EDIT_SINGLE_MV_PROJECT_DATA,
   EDIT_SINGLE_MV_PROJECT_DATA_FAILURE,
   EDIT_SINGLE_MV_PROJECT_DATA_SUCCESS,
+  ADD_MV_PROJECT_SUB_BY_ID,
+  ADD_MV_PROJECT_SUB_BY_ID_FAILURE,
+  ADD_MV_PROJECT_SUB_BY_ID_SUCCESS,
+  GET_MV_PROJECT_SUB_BY_ID_FAILURE,
+  GET_MV_PROJECT_SUB_BY_ID,
+  GET_MV_PROJECT_SUB_BY_ID_SUCCESS,
+  EDIT_MV_PROJECT_SUB_BY_ID,
+  EDIT_MV_PROJECT_SUB_BY_ID_FAILURE,
+  EDIT_MV_PROJECT_SUB_BY_ID_SUCCESS,
+  DELETE_MV_PROJECT_SUB_BY_ID,
+  DELETE_MV_PROJECT_SUB_BY_ID_FAILURE,
+  DELETE_MV_PROJECT_SUB_BY_ID_SUCCESS,
 } from "./actionTypes";
 
 export const getPvProjects = (payload) => {
@@ -426,6 +438,102 @@ export const editSingleProjectDataByIdSuccess = (payload) => {
 export const editSingleProjectDataByIdFailure = (payload) => {
   return {
     type: EDIT_SINGLE_MV_PROJECT_DATA_FAILURE,
+    payload,
+  };
+};
+
+// ====================================================
+// ====================================================
+
+export const getMvProjectSubById = (payload) => {
+  return {
+    type: GET_MV_PROJECT_SUB_BY_ID,
+    payload,
+  };
+};
+
+export const getMvProjectSubByIdSuccess = (payload) => {
+  return {
+    type: GET_MV_PROJECT_SUB_BY_ID_SUCCESS,
+    payload,
+  };
+};
+
+export const getMvProjectSubByIdFailure = (payload) => {
+  return {
+    type: GET_MV_PROJECT_SUB_BY_ID_FAILURE,
+    payload,
+  };
+};
+
+// ====================================================
+// ====================================================
+
+export const addMvProjectSubById = (payload) => {
+  return {
+    type: ADD_MV_PROJECT_SUB_BY_ID,
+    payload,
+  };
+};
+
+export const addMvProjectSubByIdSuccess = (payload) => {
+  return {
+    type: ADD_MV_PROJECT_SUB_BY_ID_SUCCESS,
+    payload,
+  };
+};
+
+export const addMvProjectSubByIdFailure = (payload) => {
+  return {
+    type: ADD_MV_PROJECT_SUB_BY_ID_FAILURE,
+    payload,
+  };
+};
+
+// ====================================================
+// ====================================================
+
+export const editMvProjectSubById = (payload) => {
+  return {
+    type: EDIT_MV_PROJECT_SUB_BY_ID,
+    payload,
+  };
+};
+
+export const editMvProjectSubByIdSuccess = (payload) => {
+  return {
+    type: EDIT_MV_PROJECT_SUB_BY_ID_SUCCESS,
+    payload,
+  };
+};
+
+export const editMvProjectSubByIdFailure = (payload) => {
+  return {
+    type: EDIT_MV_PROJECT_SUB_BY_ID_FAILURE,
+    payload,
+  };
+};
+
+// ====================================================
+// ====================================================
+
+export const deleteMvProjectSubById = (payload) => {
+  return {
+    type: DELETE_MV_PROJECT_SUB_BY_ID,
+    payload,
+  };
+};
+
+export const deleteMvProjectSubByIdSuccess = (payload) => {
+  return {
+    type: DELETE_MV_PROJECT_SUB_BY_ID_SUCCESS,
+    payload,
+  };
+};
+
+export const deleteMvProjectSubByIdFailure = (payload) => {
+  return {
+    type: DELETE_MV_PROJECT_SUB_BY_ID_FAILURE,
     payload,
   };
 };

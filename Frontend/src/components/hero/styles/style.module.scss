@@ -43,11 +43,6 @@
         height: 48px !important;
         display: grid;
         place-items: center;
-
-        &:last-of-type {
-          background: #060c0f7b;
-          border: 1px solid #303541;
-        }
       }
     }
 
@@ -80,6 +75,7 @@
         font-family: "font-bold";
         color: #ffffff;
         line-height: 1;
+        margin-bottom: 12px;
         @media (min-width: 1600px) {
           font-size: 60px;
         }
@@ -99,18 +95,17 @@
       }
 
       p {
-        font-size: 24px;
+        font-size: 18px;
         color: #94a3b8;
         width: 100%;
         line-height: 1.3;
-        margin-top: 15px;
+       
       }
     }
     .heroImg {
       width: 100%;
       margin-top: 65px;
       padding: 0 10%;
-
     }
   }
 }

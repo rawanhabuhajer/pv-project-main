@@ -5,7 +5,6 @@ import {
   all,
   call,
   takeLatest,
-  select,
 } from "redux-saga/effects";
 import { destroyCookie, setCookie } from "nookies";
 import router from "next/router";
@@ -18,6 +17,7 @@ import {
   postUserRegisterApi,
   forgetPasswordApi,
   sendContactMessageApi,
+  getAllCmsHomeApi,
 } from "@/api/authentication";
 
 // Login Redux States
@@ -29,6 +29,7 @@ import {
   POST_USER_REGISTER,
   FORGET_PASSWORD,
   SEND_CONTACT_MESSAGE,
+  GET_ALL_CMS_HOME,
 } from "./actionTypes";
 
 import {
@@ -38,7 +39,6 @@ import {
   logoutSuccess,
   postUserLoginFailure,
   postUserLoginSuccess,
-  resetPasswordFailure,
   resetPasswordSuccess,
   postUserRegisterFailure,
   postUserRegisterSuccess,
@@ -46,10 +46,9 @@ import {
   forgetPasswordFailure,
   sendConatctMessageSuccess,
   sendConatctMessageFailure,
+  getAllCmsHomeSuccess,
+  getAllCmsHomeFailure,
 } from "./actions";
-
-import { parseCookies } from "nookies";
-import { addWatchedTenders } from "../actions";
 
 // ====================================================
 // ====================================================
@@ -85,18 +84,23 @@ function* postUserRegister({ payload }) {
 
 function* userLogin({ payload }) {
   try {
-    const { responseData, isSuccess } = yield call(postUserLoginApi, payload);
+    const { responseData, isSuccess, error } = yield call(
+      postUserLoginApi,
+      payload
+    );
 
     yield put(postUserLoginSuccess(responseData));
     yield setCookie(null, "token", responseData?.token, { path: "/" });
 
     if (isSuccess) {
       router.push(`/account`);
+    } else {
+      yield payload?.toast.error(error);
     }
   } catch (error) {
-    console.log(error);
+   
+    yield payload?.toast.error(error.response?.data?.error);
     yield put(postUserLoginFailure(JSON.stringify(error)));
-    yield payload?.toast.error(error.response?.data?.responseData?.message);
   }
 }
 
@@ -150,7 +154,7 @@ function* resetPassword({ payload }) {
       yield payload?.reset();
       setTimeout(() => {
         router.push(`/login`);
-      }, 1000);
+      }, 2000);
     }
   } catch (error) {
     console.log(error);
@@ -170,11 +174,13 @@ function* forgetPassword({ payload }) {
     );
     yield put(forgetPasswordSuccess(responseData));
     if (isSuccess) {
-      yield payload.toast.success("a reset link has been sent to your email");
+      yield payload.toast.success(
+        message || "a reset link has been sent to your email"
+      );
       yield payload.reset();
       setTimeout(() => {
-        router.push(`/reset-password`);
-      }, 1000);
+        router.push(`/`);
+      }, 3000);
     }
   } catch (error) {
     yield put(forgetPasswordFailure(error));
@@ -213,6 +219,19 @@ function* sendConatctMessage({ payload }) {
 // ====================================================
 // ====================================================
 
+function* getAllCmsHomeSaga({ payload }) {
+  try {
+    const response = yield call(getAllCmsHomeApi, payload);
+    yield put(getAllCmsHomeSuccess(response.sections));
+  } catch (error) {
+    console.log(error);
+    yield put(getAllCmsHomeFailure(error));
+  }
+}
+
+// ====================================================
+// ====================================================
+
 export function* watchPostUserRegister() {
   yield takeLatest(POST_USER_REGISTER, postUserRegister);
 }
@@ -241,6 +260,10 @@ export function* watchSendConatctMessage() {
   yield takeLatest(SEND_CONTACT_MESSAGE, sendConatctMessage);
 }
 
+export function* watchGetAllCmsHome() {
+  yield takeEvery(GET_ALL_CMS_HOME, getAllCmsHomeSaga);
+}
+
 // ====================================================
 // ====================================================
 
@@ -252,6 +275,7 @@ function* authenticationSaga() {
   yield all([fork(watchResetPassword)]);
   yield all([fork(watchForgetPassword)]);
   yield all([fork(watchSendConatctMessage)]);
+  yield all([fork(watchGetAllCmsHome)]);
 }
 
 export default authenticationSaga;

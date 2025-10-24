@@ -93,76 +93,6 @@ function MyApp({ Component, pageProps }) {
     }
   }, [dispatch, cookies.token]);
 
-  // useEffect(() => {
-  //   if (user) {
-  //     heap?.identify(user);
-  //     heap?.addUserProperties({
-  //       Name: user?.name,
-  //       Email: user?.email,
-  //       Phone: user?.phone,
-  //     });
-  //   }
-  // }, [user]);
-
-  //render hubspot script chat if only router.aspath==="/"
-  {
-    /* HubSpot */
-  }
-  // <script
-  //   type="text/javascript"
-  //   id="hs-script-loader"
-  //   async
-  //   defer
-  //   src="//js-eu1.hs-scripts.com/144379325.js"
-  // />
-  // <script
-  //   type="text/javascript"
-  //   id="hs-script-loader"
-  //   async
-  //   defer
-  //   src="//js.hs-scripts.com/144379325.js"
-  // />
-  // useEffect(() => {
-  //   if (router.asPath === "/") {
-  //     const script = document.createElement("script");
-  //     script.src = "//js.hs-scripts.com/144379325.js";
-  //     script.id = "hs-script-loader";
-  //     script.async = true;
-  //     script.defer = true;
-  //     document.body.appendChild(script);
-
-  //     return () => {
-  //       document.body.removeChild(script);
-  //     };
-  //   }
-  // }, [router]);
-
-  // user modules
-  // "modules": [
-  //           {
-  //               "id": "030e1022-1dc0-11ef-81e8-0242ac110001",
-  //               "name": "عروضي",
-  //               "slug": "bids"
-  //           },
-  //           {
-  //               "id": "030e1022-1dc0-11ef-81e8-0242ac110002",
-  //               "name": "منافساتي ",
-  //               "slug": "my-tenders"
-  //           }
-  //       ]
-
-  //need if user write any url not exist in it's modules redirect to home page
-
-  const allowedSlugs = [
-    "account",
-    "my-tenders",
-    "my-rfp",
-    "bank-info",
-    "bank-info",
-    "bids",
-    "report",
-  ];
-
   useEffect(() => {
     if (user && user?.modules) {
       // Extract the slug from the URL
@@ -187,27 +117,6 @@ function MyApp({ Component, pageProps }) {
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
-        />
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.heap=window.heap||[],heap.load=function(e,t){
-                window.heap.appid=e,window.heap.config=t=t||{};
-                var r=document.createElement("script");
-                r.type="text/javascript",r.async=!0,r.src="https://cdn.heapanalytics.com/js/heap-"+e+".js";
-                var a=document.getElementsByTagName("script")[0];
-                a.parentNode.insertBefore(r,a);
-                for(var n=function(e){
-                  return function(){
-                    heap.push([e].concat(Array.prototype.slice.call(arguments,0)))
-                  }
-                },p=["addEventProperties","addUserProperties","clearEventProperties","identify","resetIdentity","removeEventProperty","setEventProperties","track","unsetEventProperty"],o=0;o<p.length;o++)
-                  heap[p[o]]=n(p[o])
-              };
-              heap.load("1114713212");
-            `,
-          }}
         />
       </Head>
       {Progress && <TopBarProgress />}

@@ -21,10 +21,14 @@ import {
   SEND_CONTACT_MESSAGE,
   SEND_CONTACT_MESSAGE_SUCCESS,
   SEND_CONTACT_MESSAGE_FAILURE,
+  GET_ALL_CMS_HOME,
+  GET_ALL_CMS_HOME_SUCCESS,
+  GET_ALL_CMS_HOME_FAILURE,
 } from "./actionTypes";
 
 const initialState = {
   user: {},
+  allCmsHome: [],
   isLoggedIn: false,
   loading: false,
   error: "",
@@ -156,6 +160,18 @@ const authentication = (state = initialState, action) => {
         error: null,
       };
     case SEND_CONTACT_MESSAGE_FAILURE:
+      return { ...state, loading: false, error: action.payload };
+
+    // ====================================================
+    // ====================================================
+
+    case GET_ALL_CMS_HOME:
+      return { ...state, loading: true };
+
+    case GET_ALL_CMS_HOME_SUCCESS:
+      return { ...state, loading: false, allCmsHome: action.payload };
+
+    case GET_ALL_CMS_HOME_FAILURE:
       return { ...state, loading: false, error: action.payload };
 
     // ====================================================

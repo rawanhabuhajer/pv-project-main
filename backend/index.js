@@ -7,8 +7,11 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const categoriesRoutes = require("./routes/categories");
 const subCategories = require("./routes/subCategory");
+const mvSubCategories = require("./routes/mvSubCategories");
 const mvCategories = require("./routes/mvCable");
 const dashboard = require("./routes/dashboard");
+const CmsManagment = require("./routes/CmsManagment");
+const landingContent = require("./routes/landingContent");
 // express app
 const app = express();
 const nodemailer = require("nodemailer");
@@ -21,10 +24,13 @@ app.use((req, res, next) => {
 });
 
 //Routes
-app.use("/api/user", userRoutes);
 app.use("/api/categories", categoriesRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/CmsManagment", CmsManagment);
+app.use("/api/landingContent", landingContent);
 app.use("/api/mvCategories", mvCategories);
 app.use("/api/subCategories", subCategories);
+app.use("/api/mvSubCategories", mvSubCategories);
 app.use("/api/dashboard", dashboard);
 
 app.post("/api/send-email", (req, res) => {
@@ -49,9 +55,9 @@ app.post("/api/send-email", (req, res) => {
     to: "rawanh.abuhajer@gmail.com",
     subject: "New Contact Form Submission",
     text: `Name: ${firstName} ${lastName}
-Company: ${companyName || "N/A"}
-User's Email: ${email}
-Message: ${message}`,
+          Company: ${companyName || "N/A"}
+          User's Email: ${email}
+          Message: ${message}`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {

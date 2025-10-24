@@ -1,43 +1,23 @@
-import React, { useState } from "react";
-// import Box from "@mui/material/Box";
-// import Button from "@mui/material/Button";
-// import Typography from "@mui/material/Typography";
-// import Modal from "@mui/material/Modal";
-// import Button from "../../components/Button/Button";
+import React from "react";
 
 import { Modal } from "react-bootstrap";
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "#fff",
-  boxShadow: 24,
-  borderRadius: "15px",
-  py: 2,
-  px: 3,
-};
 
 const AddNewProject = ({
   onclick,
   setProjectDescription,
   setProjectName,
   open,
-  setOpen,
   handleClose,
   handleOpen,
   projectDescription,
   projectName,
   onclickCancel,
-  subCategoryActive,
+
   subCategory,
-  editIsActive,
-  editSub,
 }) => {
   return (
     <>
-      <button title={"Add project"} onclick={handleOpen} />
+      <button title={"Add project"} onClick={handleOpen} />
 
       <Modal
         open={open}
@@ -84,11 +64,9 @@ const AddNewProject = ({
               <button onClick={onclickCancel} className="c-btn">
                 Cancel
               </button>
-              {/* <Button title={"Save"} onclick={onclick} /> */}
             </div>
           </form>
         </div>
-        {/* </Box> */}
       </Modal>
     </>
   );

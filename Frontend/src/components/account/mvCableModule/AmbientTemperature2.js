@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import styles from "./style.module.scss";
+import React, { useEffect } from "react";
+
 import Select, { selectClasses } from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 import { ChevronDown } from "lucide-react";
@@ -40,7 +40,7 @@ const AmbientTemperature2 = ({
         <label htmlFor="spacing">Ground Temperature [°C] :</label>
         <Select
           onChange={(event, value) => setAmbientTemperature(value)}
-         className="field-select"
+          className="field-select"
           placeholder="Ground Temperature [°C]"
           indicator={<ChevronDown />}
           value={ambientTemperature}

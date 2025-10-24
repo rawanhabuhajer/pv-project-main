@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import styles from "./styles/style.module.scss";
 import { useForm } from "react-hook-form";
-import Logo from "../../assets/images/logo2.svg";
+import Logo from "./assets/images/logoLast.svg";
 import Eye from "./assets/images/eye.svg";
 import Link from "next/link";
 import { postUserLogin } from "@/store/actions";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { FormattedMessage, useIntl } from "react-intl";
-import { getSectionData, handleImageLink } from "@/helpers/functions";
-import Image from "next/future/image";
+
 import ArrowIcon from "./assets/images/arrow-left.svg";
 import { parseCookies } from "nookies";
 
@@ -83,16 +82,16 @@ const Index = () => {
                       height={300}
                     />
                   ) : ( */}
-                  <Logo fill="#095183" width={120} />
+                  <Logo fill="#111827" width={150} />
                   {/* )} */}
                 </a>
               </Link>
               <div className="login-banner__text">
-                <h3>{"loginData?.title"}</h3>
+                <h3>{"Log In, Stay Connected"}</h3>
                 {/* <p
                   dangerouslySetInnerHTML={{ __html: loginData?.description }}
                 /> */}
-                <p>gfg</p>
+                <p>Access Made Simple</p>
               </div>
             </div>
           </Col>
@@ -112,13 +111,13 @@ const Index = () => {
                     <Col lg={12}>
                       <div className="form-group">
                         <label>
-                          <FormattedMessage id="email" />*
+                          <FormattedMessage id="Email" />*
                         </label>
                         <input
                           type="email"
                           className="form-control"
                           placeholder={formatMessage({
-                            id: "enterEmail",
+                            id: "Enter email",
                           })}
                           {...register("email", { required: true })}
                         />

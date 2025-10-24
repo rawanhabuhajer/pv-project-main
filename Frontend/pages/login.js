@@ -2,8 +2,7 @@ import React from "react";
 import { NextSeo } from "next-seo";
 import { wrapper } from "../src/store";
 import { END } from "redux-saga";
-import { useSelector } from "react-redux";
-import { getSectionData } from "@/helpers/functions";
+
 import dynamic from "next/dynamic";
 
 const LoginSection = dynamic(() => import("@/components/login/Index"), {
@@ -24,7 +23,7 @@ const Login = () => {
 };
 
 export const getStaticProps = wrapper.getStaticProps((store) => {
-  return async (ctx) => {
+  return async () => {
     // store.dispatch(
     //   getAllCmsHome({
     //     cookies: {},

@@ -35,3 +35,11 @@ export const sendContactMessageApi = async ({ cookies, data }) => {
   const response = await server({ cookies }).post(`/send-email`, data);
   return response.data;
 };
+
+export const getAllCmsHomeApi = async ({ cookies }) => {
+
+  const response = await server({
+    cookies,
+  }).get(`/landingContent/getAllSections`);
+  return response.data;
+};

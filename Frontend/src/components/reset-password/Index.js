@@ -5,11 +5,9 @@ import { useForm } from "react-hook-form";
 import Logo from "../../assets/images/logo2.svg";
 import Link from "next/link";
 import { resetPassword } from "@/store/actions";
-import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Eye from "./assets/images/eye.svg";
-import Image from "next/future/image";
-import { getSectionData, handleImageLink } from "@/helpers/functions";
+
 import Arrow from "./assets/images/arrow-left.svg";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useRouter } from "next/router";
@@ -20,8 +18,7 @@ const Index = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
-    getValues,
+
   } = useForm();
   const router = useRouter();
   const token = router?.query.id;
@@ -33,8 +30,8 @@ const Index = () => {
   });
 
   const submitForm = (formData) => {
-    const newPassword = formData.password
-    console.log(token);
+    const newPassword = formData.password;
+ 
     dispatch(resetPassword({ newPassword, token }));
   };
   return (
@@ -63,15 +60,13 @@ const Index = () => {
                       height={300}
                     />
                   ) : ( */}
-                  <Logo/>
+                  <Logo />
                   {/* )} */}
                 </a>
               </Link>
               <div className="login-banner__text">
-                <h3>{"resetData?.title"}</h3>
-                {/* <p
-                  dangerouslySetInnerHTML={{ __html: resetData?.description }}
-                /> */}
+                <h3>{"Almost There – Just Reset!"}</h3>
+                <p>Get Back In Safely</p>
               </div>
             </div>
           </Col>

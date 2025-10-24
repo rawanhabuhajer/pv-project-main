@@ -80,16 +80,13 @@ exports.getMvCategory = async (req, res, next) => {
 };
 exports.createMvCategory = async (req, res, next) => {
   try {
-    const { name, description, details, tableData, deadline, status } =
-      req.body;
+    const { name, description, deadline, status } = req.body;
     const userId = req.params.userId;
 
     const newMvCategory = await MvCategory.create({
       name,
       description,
       userId: userId,
-      details,
-      tableData,
       deadline,
       status,
     });
@@ -119,11 +116,10 @@ exports.updateMvCategory = async (req, res, next) => {
   const categoryId = req.params.id;
 
   try {
-    const { name, description, details, tableData, status, deadline } =
-      req.body;
+    const { name, description, status, deadline } = req.body;
     const updatedCategory = await MvCategory.findByIdAndUpdate(
       categoryId,
-      { name, description, details, tableData, status, deadline },
+      { name, description, status, deadline },
       { new: true, runValidators: true }
     );
 

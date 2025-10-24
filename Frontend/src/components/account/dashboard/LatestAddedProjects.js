@@ -2,25 +2,16 @@ import { getFullDate } from "@/helpers/functions";
 import {
   ArrowRight,
   Calendar,
-  CalendarDays,
   Check,
-  ClockAlert,
-  FileSpreadsheet,
+
   Info,
   Timer,
 } from "lucide-react";
 import { useRouter } from "next/router";
 import React from "react";
 import { useSelector } from "react-redux";
-
-import { ArrowLeft, LayoutDashboard, Rows2Icon } from "lucide-react";
-import PvStatusBars from "./PvStatusBars";
-import { Nav, Tab } from "react-bootstrap";
-import { FormattedMessage } from "react-intl";
-import MvStatusBars from "./MvStatusBars";
-
 const LatestAddedProjects = () => {
-  const { latestProjectsLoading, latestProjects } = useSelector(
+  const {  latestProjects } = useSelector(
     (state) => state.dashboard
   );
 
@@ -74,7 +65,7 @@ const LatestAddedProjects = () => {
                     </div>
                   </div>
                   <span>
-                    {item?.type === "pv" ? "PV Project" : "MV Project"}
+                    {item?.type === "pv" ? "PV Cable Project" : "MV Cable Project"}
                   </span>
                   <div className="deadline">
                     <div>

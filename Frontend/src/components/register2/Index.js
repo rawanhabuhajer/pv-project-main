@@ -2,19 +2,16 @@ import React, { useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import styles from "./styles/style.module.scss";
 import { useForm } from "react-hook-form";
-import Logo from "./assets/images/new-logo.svg";
+import Logo from "./assets/images/logoLast.svg";
 import Arrow from "./assets/images/arrow-left.svg";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { FormattedMessage, useIntl } from "react-intl";
-import { postUserRegister, registerUser } from "@/store/actions";
+import { postUserRegister } from "@/store/actions";
 import { parseCookies } from "nookies";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
-// import ar from "react-phone-input-2/lang/ar.json";
-import { getSectionData, handleImageLink } from "@/helpers/functions";
-import Image from "next/future/image";
 import phoneLengthsData from "./phoneNumber.json";
 import Eye from "./assets/images/eye.svg";
 import { useRouter } from "next/router";
@@ -123,16 +120,12 @@ const Index = () => {
               </div>
               <Link href="/">
                 <a>
-                  <Logo fill="#095183" width={120} />
+                  <Logo fill="#111827" width={150} />
                 </a>
               </Link>
               <div className="login-banner__text">
-                <h3>{"registerData?.title"}</h3>
-                {/* <p
-                  dangerouslySetInnerHTML={{
-                    __html: registerData?.description,
-                  }}
-                /> */}rrrrrrr
+                <h3>{"Create Your Account, Start Your Journey"}</h3>
+                <p>Unlock Your Potential Today</p>
               </div>
             </div>
           </Col>
@@ -205,7 +198,7 @@ const Index = () => {
                     </div>
                     <div className="form-group flex">
                       <label className="form-label">
-                        <FormattedMessage id="email" />
+                        <FormattedMessage id="Email" />
                       </label>
                       <div>
                         <input

@@ -5,7 +5,6 @@ const { sendResetEmail } = require("../utils/emailService");
 const { sendVerificationEmail } = require("../utils/verifiedEmail");
 const { newUserSignup } = require("../utils/newUserSignup");
 
-const validator = require("validator");
 const bcrypt = require("bcrypt");
 
 const createToken = (_id) => {
@@ -16,18 +15,6 @@ const populateCategories = async (userOrUserId) => {
   const userId =
     userOrUserId instanceof Object ? userOrUserId._id : userOrUserId;
   return await User.findById(userId);
-};
-
-const getAllUsers = async (req, res, next) => {
-  const users = await User.find();
-
-  res.status(200).json({
-    status: "success",
-    results: users.length,
-    data: {
-      users,
-    },
-  });
 };
 
 // login
@@ -57,53 +44,61 @@ const loginUser = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ isSuccess: false, error: error.message });
   }
 };
 
 // signup
 const signupUser = async (req, res) => {
-  const {
-    username,
-    email,
-    password,
-    role,
-    companyName,
-    phoneNumber,
-    agreeTerms,
-  } = req.body;
   try {
-    const user = await User.signup(
+    const {
       username,
       email,
-      password,
-      role,
       companyName,
+      password,
       phoneNumber,
-      agreeTerms
-    );
-    const token = createToken(user._id);
+      role,
+      agreeTerms,
+    } = req.body;
 
-    const userWithCategories = await populateCategories(user);
-    await newUserSignup(
-      user.username,
-      user.email,
-      user.phoneNumber,
-      user.companyName
-    );
-    res.status(200).json({
+    // تحقق من الحقول الأساسية
+    if (!username || !email || !companyName || !password || !phoneNumber) {
+      return res.status(400).json({
+        isSuccess: false,
+        message: "All required fields must be provided",
+      });
+    }
+
+    // تشفير كلمة السر
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // إنشاء مستخدم جديد
+    const newUser = await User.create({
+      username,
+      email,
+      companyName,
+      password: hashedPassword,
+      phoneNumber,
+      role,
+      agreeTerms,
+    });
+
+    // تحويل النتيجة إلى object وتخزين نسخة بدون كلمة السر
+    const userObj = newUser.toObject();
+    delete userObj.password;
+
+    res.status(201).json({
       isSuccess: true,
-      username: userWithCategories.username,
-      email: userWithCategories.email,
-      role: userWithCategories.role,
-      companyName: userWithCategories.companyName,
-      phoneNumber: userWithCategories.phoneNumber,
-      agreeTerms: userWithCategories.agreeTerms,
-      id: user._id,
-      token,
+      message: "User registered successfully",
+      data: userObj,
     });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({
+      isSuccess: false,
+      message: "Error while registering user",
+      error: error.message,
+    });
   }
 };
 
@@ -115,7 +110,7 @@ const getUserProfile = async (req, res) => {
       return res.status(401).json({ error: "Authorization token required" });
     }
 
-    const decoded = jwt.verify(token, process.env.SECRET); // use the same `SECRET` as createToken
+    const decoded = jwt.verify(token, process.env.SECRET);
     const user = await User.findById(decoded._id).select("-password");
 
     if (!user) {
@@ -131,11 +126,15 @@ const getUserProfile = async (req, res) => {
     res.status(200).json({
       isSuccess: true,
       responseData: {
+      id: user._id,
         username: user.username,
         email: user.email,
+        phoneNumber: user.phoneNumber,
+        companyName: user.companyName,
         role: user.role,
-        id: user._id,
         isVerified: user.isVerified,
+        verificationStart: user.verificationStart,
+        verificationEnd: user.verificationEnd,
       },
     });
   } catch (error) {
@@ -144,92 +143,37 @@ const getUserProfile = async (req, res) => {
   }
 };
 
-const verifyUser = async (req, res) => {
+const getUser = async (req, res) => {
   try {
-    const { userId } = req.params;
-
-    const user = await User.findByIdAndUpdate(
-      userId,
-      { isVerified: true },
-      { new: true, runValidators: true }
+    const user = await populateCategories(
+      await User.findById(req.params.id)
+    ).select(
+      "-password -resetPasswordToken -resetPasswordExpires -categories -mvCategories -agreeTerms"
     );
 
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ error: "No user found with that ID" });
     }
-    await sendVerificationEmail(user.email, user.username);
+
     res.status(200).json({
       isSuccess: true,
-      message: "User verified successfully",
-      user,
-    });
-  } catch (error) {
-    res.status(500).json({ error: "Error verifying user" });
-  }
-};
-
-const getUser = async (req, res) => {
-  const user = await populateCategories(req.user);
-  if (!user) {
-    new AppError("No user found with that ID", 404);
-  }
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      id: user._id,
-      username: user.username,
-      email: user.email,
-      phoneNumber: user.phoneNumber,
-      companyName: user.companyName,
-      role: user.role,
-      isVerified: user?.isVerified,
-    },
-  });
-};
-
-// };
-
-const updateUser = async (req, res, next) => {
-  try {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-
-    if (!user) {
-      new AppError("No user found with that ID", 404);
-    }
-
-    res.status(200).json({
-      status: "success",
-      data: {
-        user,
+      responseData: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        companyName: user.companyName,
+        role: user.role,
+        isVerified: user.isVerified,
+        verificationStart: user.verificationStart,
+        verificationEnd: user.verificationEnd,
       },
     });
   } catch (error) {
-    console.error("Error update user information:", error);
-    res.status(500).json({ error: "Error update user information" });
+    console.error(error);
+    res.status(500).json({ error: "Error retrieving user" });
   }
 };
-
-const deleteUser = async (req, res, next) => {
-  try {
-    const user = await User.findByIdAndDelete(req.params.id);
-    if (!user) {
-      new AppError("No user found with that ID", 404);
-    }
-
-    res.status(204).json({
-      status: "success",
-      data: null,
-    });
-  } catch (error) {
-    console.error("Error delete user information:", error);
-    res.status(500).json({ error: "Error delete user information" });
-  }
-};
-
 const generateResetToken = () => {
   return crypto.randomBytes(32).toString("hex");
 };
@@ -250,7 +194,10 @@ const requestPasswordReset = async (req, res) => {
 
     await sendResetEmail(email, token);
 
-    res.status(200).json({ message: "Password reset email sent" });
+    res.status(200).json({
+      isSuccess: true,
+      message: "Password reset email sent",
+    });
   } catch (error) {
     res.status(500).json({ error: "Error sending password reset email" });
   }
@@ -276,7 +223,9 @@ const resetPassword = async (req, res) => {
 
     await user.save();
 
-    res.status(200).json({ message: "Password updated successfully" });
+    res
+      .status(200)
+      .json({ isSuccess: true, message: "Password updated successfully" });
   } catch (error) {
     res.status(500).json({ error: "Error resetting password" });
   }
@@ -286,11 +235,7 @@ module.exports = {
   signupUser,
   loginUser,
   getUser,
-  getAllUsers,
-  updateUser,
-  deleteUser,
   requestPasswordReset,
   resetPassword,
-  verifyUser,
   getUserProfile,
 };

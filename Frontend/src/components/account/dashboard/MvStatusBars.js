@@ -79,7 +79,7 @@ const MvStatusBars = () => {
 
   return (
     <div className="charts-wrapper">
-      <div className="chart-title">MV Module Rate</div>
+      <div className="chart-title">MV Cable Projects</div>
       <div className="legend-wrapper">
         {/* <div className="legend-single">projects count</div> */}
       </div>

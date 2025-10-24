@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 // import { useParams, Link } from "react-router-dom";
 import SubprojectCard from "./SubprojectCard";
 import NewSubprojectCard from "./NewSubprojectCard";
@@ -7,15 +7,7 @@ import Link from "next/link";
 import styles from "../styles/style.module.scss";
 import { useRouter } from "next/router";
 import { Dropdown } from "react-bootstrap";
-import {
-  ArrowDownNarrowWide,
-  ArrowLeft,
-  Cookie,
-  Funnel,
-  ListFilter,
-  Search,
-  X,
-} from "lucide-react";
+import { ArrowLeft, Funnel, ListFilter, Search, X } from "lucide-react";
 import { addProjectSubById, getProjectSubById } from "@/store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { parseCookies } from "nookies";
@@ -24,21 +16,15 @@ import toast from "react-hot-toast";
 const SubprojectsPage = () => {
   const router = useRouter();
   const cookie = parseCookies();
-  const [project, setProject] = useState(null);
-  const [subprojects, setSubprojects] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
   const projectId = router.query.account[2];
-
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.authentication);
-  const { pvSubProjectsLoading, SubProjectsMeta, pvSubProjects } = useSelector(
+  const { SubProjectsMeta, pvSubProjects } = useSelector(
     (state) => state.projects
   );
-
-  const [page, setPage] = useState(1);
 
   const statusCategories = [
     { label: "Pending", value: 1 },
@@ -136,7 +122,7 @@ const SubprojectsPage = () => {
         <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
           <Link href="/account/pv-cable">
             <a>
-              <ArrowLeft size={20} color="#333" />
+              <ArrowLeft size={24} color="#333" />
             </a>
           </Link>
           <div>
@@ -321,7 +307,7 @@ const SubprojectsPage = () => {
             <Dropdown.Menu>
               <h3 className="status-wrapper"> Filter status : </h3>
               <div className="status-container">
-                {statusCategories?.map((item, index) => (
+                {statusCategories?.map((item) => (
                   <div className="form_radio_btn" key={item?.value}>
                     <label>
                       <input

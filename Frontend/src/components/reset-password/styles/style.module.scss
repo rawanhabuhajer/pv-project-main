@@ -110,13 +110,12 @@
             border-radius: 5px;
             padding: 0 20px;
             box-shadow: none;
-            border-color: #F3F3F3;
-            text-align: right;
+            border-color: #f3f3f3;
+
             font-size: 16px;
             transition: $transition;
-            background-color: #F3F3F3;
+            background-color: #f3f3f3;
             [dir="ltr"] & {
-              text-align: right;
             }
             &::placeholder {
               color: rgba(65, 65, 67, 0.5);
@@ -137,7 +136,7 @@
           }
           .show-password {
             position: absolute;
-            left: 20px;
+            right: 20px;
             border: 0;
             padding: 0;
             background-color: transparent;
@@ -170,6 +169,14 @@
           .btn {
             width: 100%;
             font-family: "font-bold";
+            background: linear-gradient(90deg, #3b82f6 -34.71%, #8200ff 100%);
+            color: #ffffff;
+            border-radius: 5px;
+
+            height: fit-content;
+            min-height: 48px;
+            display: grid;
+            place-items: center;
             &:disabled {
               background-color: #a1a1a1;
               cursor: not-allowed;

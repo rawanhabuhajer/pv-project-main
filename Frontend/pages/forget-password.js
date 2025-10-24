@@ -2,9 +2,6 @@ import React from "react";
 import { NextSeo } from "next-seo";
 import { wrapper } from "../src/store";
 import { END } from "redux-saga";
-import { getCmsFooter, getAllCmsHome, getAllSeo } from "@/store/actions";
-import { useSelector } from "react-redux";
-import { getSectionData } from "@/helpers/functions";
 
 import dynamic from "next/dynamic";
 
@@ -29,7 +26,7 @@ const ForgetPassword = () => {
 };
 
 export const getStaticProps = wrapper.getStaticProps((store) => {
-  return async (ctx) => {
+  return async () => {
     // store.dispatch(
     //   getAllCmsHome({
     //     cookies: {},

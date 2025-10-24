@@ -1,32 +1,20 @@
-import { useEffect, useState } from "react";
-// import Layout from "@/components/layout/Layout";
+import React, { useEffect, useState } from "react";
+
 import ProjectCard from "./ProjectCard";
 import NewProjectCard from "./NewProjectCard";
-// import ProjectForm from "@/components/projects/ProjectForm";
-// import { useToast } from "@/hooks/use-toast";
+
 import styles from "./styles/style.module.scss";
 import ProjectForm from "./ProjectForm";
 import { Dropdown } from "react-bootstrap";
-import {
-  ArrowDownNarrowWide,
-  Funnel,
-  ListFilter,
-  Search,
-  Send,
-  X,
-} from "lucide-react";
+import { Funnel, ListFilter, Send, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addProjectSubById,
-  addPvProjects,
-  getPvProjects,
-} from "@/store/actions";
-import Loading from "@/components/Shared/Loading";
-import { BounceLoader, PuffLoader } from "react-spinners";
+import { addPvProjects, getPvProjects } from "@/store/actions";
+
+import { PuffLoader } from "react-spinners";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import { parseCookies } from "nookies";
 import toast from "react-hot-toast";
-import ProjectUpdateForm from "./ProjectUpdateForm";
+
 import Image from "next/future/image";
 import HeroImage from "../assets/images/pv/pv.png";
 // Mock initial projects
@@ -63,7 +51,6 @@ const Index = () => {
             deadline: deadline,
           },
           dispatch,
-          toast,
         })
       );
     }
@@ -94,8 +81,8 @@ const Index = () => {
           data-aos-delay="200"
         >
           <h1>
-            Secure AI Conversations for <br></br>
-            <span>Photovoltaic Module</span>
+            Optimize Every Watt By <br></br>
+            <span>PV Cable Sizer IEC 60364 – IEC 60228</span>
           </h1>
           <div className="right-side">
             <div className="form-group">
@@ -178,7 +165,7 @@ const Index = () => {
       </div>
       <div className="page-header">
         <div>
-          <h1 className="page-title">Projects</h1>
+          <h1 className="page-title">PV Cable Projects</h1>
           <p className="page-description">
             Manage all your projects and create new ones.
           </p>
@@ -193,7 +180,7 @@ const Index = () => {
               <h3 className="status-wrapper"> Filter status : </h3>
               <div className="status-container">
                 {statusCategories?.map((item, index) => (
-                  <div className="form_radio_btn">
+                  <div className="form_radio_btn" key={index}>
                     <label>
                       <input
                         type="radio"

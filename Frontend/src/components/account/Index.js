@@ -1,22 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { Dropdown } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import Image from "next/future/image";
-import { handleImageLink } from "@/helpers/functions.js";
+import { useDispatch } from "react-redux";
 import Sidebar from "./Sidebar";
 import MvCable from "./mvCableModule/Index";
+import MvSubcategories from "./mvCableModule/sub-categories/SubCategoriesMain";
 import MvCableData from "./mvCableModule/MvCable copy";
 import PvProjects from "./project/Index";
 import PvSubProjects from "./project/subProject/SubprojectsPage";
 import SubprojectDataPage from "./project/subProject/SubprojectDataPage";
 import Dashboard from "./dashboard/Index";
 import styles from "./styles/style.module.scss";
-// import Logo from "./assets/images/newImages/newLogo.svg";
-import Logo from "./assets/images/newImages/logo4.svg";
-import Logo2 from "../account/assets/images/logoNew.svg";
+
+import Logo2 from "../account/assets/images/logoLast.svg";
 import MenuIcon from "./assets/images/menu.svg";
-import LogoutIcon from "./assets/images/newImages/logout.svg";
 import Link from "next/link";
 import { destroyCookie, parseCookies } from "nookies";
 import { logoutUser } from "@/store/actions";
@@ -27,47 +23,16 @@ const Index = () => {
   const dispatch = useDispatch();
   const { account } = router.query;
   const cookies = parseCookies();
-  const [searchFocused, setSearchFocused] = useState(false);
   const [sidebarToggled, setSidebarToggled] = useState(false);
   const [companyName, setCompanyName] = useState(false);
   const [companyPopup, setCompanyPopup] = useState(false);
   const [suggestions, setSuggestions] = useState(false);
-  const [startConversation, setStartConversation] = useState(false);
-  const [tenderKeyWord, setTenderKeyWord] = useState("");
-
-  const handleSearch = () => {
-    let query = "";
-
-    if (tenderKeyWord) {
-      query += `tenderName=${tenderKeyWord}`;
-    }
-
-    setTenderKeyWord("");
-    setSearchFocused(false);
-
-    router.push(`/account/bank-info/result?${query}`);
-  };
-
-  const [isWideScreen, setIsWideScreen] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsWideScreen(window.innerWidth > 1200);
-    };
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   return (
     <>
       <div
         className={`${styles["account-section"]} ${
-          account[1] === "mv-cable" && account.length === 3
+          account[1] === "mv-cable" && account.length === 4
             ? styles["mv-bg"]
             : ""
         }`}
@@ -82,23 +47,23 @@ const Index = () => {
             companyPopup={companyPopup}
             setSuggestions={setSuggestions}
             suggestions={suggestions}
-            startConversation={startConversation}
-            isWideScreen={isWideScreen}
           />
         </>
 
         <div className={`account--content `}>
           <div
             className={`account--content--header ${
-              account[1] === "mv-cable" && account.length === 3
+              account[1] === "mv-cable" && account.length === 4
                 ? "mv-header"
                 : ""
             }`}
           >
             <div className="logo">
-              <div>
-                <Logo2 fill="#fff" width={156} />
-              </div>
+              <Link href={"/"}>
+                <a>
+                  <Logo2 fill="#fff" width={156} />
+                </a>
+              </Link>
             </div>
             <ul>
               <li
@@ -109,7 +74,7 @@ const Index = () => {
                 } `}
               >
                 <Link href={"/account"}>
-                  <a> Home</a>
+                  <a>Dashboard</a>
                 </Link>
               </li>
               <li
@@ -118,7 +83,7 @@ const Index = () => {
                 } `}
               >
                 <Link href={"/account/pv-cable"}>
-                  <a>Pv cable</a>
+                  <a>PV Cable</a>
                 </Link>
               </li>
               <li
@@ -128,7 +93,7 @@ const Index = () => {
               >
                 {" "}
                 <Link href={"/account/mv-cable"}>
-                  <a> Mv cable</a>
+                  <a> MV Cable</a>
                 </Link>
               </li>
               <li
@@ -150,6 +115,7 @@ const Index = () => {
                   destroyCookie("", "userId", { path: "/" });
                   router.push(`/`);
                 }}
+                className="logout-btn"
               >
                 Logout &nbsp;
                 <LogOut />
@@ -176,6 +142,9 @@ const Index = () => {
               account.length == 5 && <SubprojectDataPage />}
             {account[1] === "mv-cable" && account.length == 2 && <MvCable />}
             {account[1] === "mv-cable" && account.length == 3 && (
+              <MvSubcategories />
+            )}
+            {account[1] === "mv-cable" && account.length == 4 && (
               <MvCableData />
             )}
           </div>

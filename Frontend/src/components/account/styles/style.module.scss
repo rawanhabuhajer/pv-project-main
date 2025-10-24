@@ -42,7 +42,7 @@
       }
     }
     .account--sidebar {
-      background: $primary-color;
+      background: #111827;
       width: 275px;
       z-index: 3;
       padding: 30px 20px;
@@ -360,6 +360,11 @@
             }
           }
         }
+        .logout-btn {
+          @media (max-width: 1200px) {
+            display: none;
+          }
+        }
         .dropdown {
           .dropdown-toggle {
             padding: 20px 0;
@@ -496,7 +501,7 @@
           //   left: 20px;
           //   bottom: 20px;
           //   z-index: 5;
-          //   background: #095183;
+          //   background: #111827;
           //   width: calc(100% - 40px);
           //   justify-content: center;
           //   gap: 0;

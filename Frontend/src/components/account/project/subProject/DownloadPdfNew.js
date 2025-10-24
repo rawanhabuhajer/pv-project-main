@@ -445,4 +445,5 @@ const DownloadPdfNew = forwardRef((props, ref) => {
   return null;
 });
 
+DownloadPdfNew.displayName = "DownloadPdfNew";
 export default DownloadPdfNew;

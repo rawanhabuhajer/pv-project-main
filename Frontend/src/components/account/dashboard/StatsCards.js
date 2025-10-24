@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { Line } from "rc-progress";
 
@@ -6,21 +6,18 @@ import { Rows2Icon } from "lucide-react";
 import { useSelector } from "react-redux";
 
 const StatsCards = () => {
-  const {
-    categoriesStatusStatsLoading,
-    categoriesStatusStats,
-    mvCategoriesStatusStatsLoading,
-    mvCategoriesStatusStats,
-  } = useSelector((state) => state.dashboard);
+  const { categoriesStatusStats, mvCategoriesStatusStats } = useSelector(
+    (state) => state.dashboard
+  );
 
   return (
     <div className="stats-grid">
       <div className="single-item">
         <div className="card-top">
-          <h5>Photovoltaic Project Analytics</h5>
+          <h5>PV Cable Projects Analytics</h5>
           <Rows2Icon size={16} />
         </div>
-        <span>Your progress in PV module </span>
+        <span>Your progress</span>
         <div className="card-middle">
           <div className="status">completed</div>
           <span>
@@ -45,10 +42,10 @@ const StatsCards = () => {
       </div>
       <div className="single-item">
         <div className="card-top">
-          <h5>Medium Voltage Project Analytics</h5>
+          <h5> MV Cable Projects Analytics</h5>
           <Rows2Icon size={16} />
         </div>
-        <span>Your progress in MV module </span>
+        <span>Your progress</span>
         <div className="card-middle">
           <div></div>
           <span>

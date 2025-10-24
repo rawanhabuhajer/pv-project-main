@@ -1,27 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import Table from "react-bootstrap/Table";
-// import Select from "react-select";
 import Select, { selectClasses } from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
-//
-// import min from "../../assets/min2.svg";
-// import plus from "../../assets/plus2.svg";
-// import Dropdown from "../dropdown/Dropdown";
-// import hideIcon from "../../assets/hide.svg";
-// import Select, { selectClasses } from "@mui/joy/Select";
-// import Option from "@mui/joy/Option";
-//
 import { classes as dropdownClasses } from "./DropdownData";
-// import { useLocation } from "react-router-dom";
-// import DownloadIcon from "./d.svg";
-import { Nav, Tab } from "react-bootstrap";
-// import DownloadPdf from "./DownloadPdf";
 import { v4 } from "uuid";
-// import DownloadPdfNew from "./DownloadPdfNew";
-import { PaginationControl } from "react-bootstrap-pagination-control";
 import {
-  Minus,
-  Plus,
   ChevronDown,
   CirclePlus,
   CircleMinus,
@@ -31,22 +14,19 @@ import DownloadPdfNew from "./DownloadPdfNew";
 const DataTable = ({
   handleUpateSubCategory,
   operationTemp,
-  setOperationTemp,
   tableData,
   setTableData,
   title,
   description,
-  page,
-  setPage,
-  count,
-  getSubCategoriesApi,
+
   subprojectId,
+
+  setIsDownloadStart,
 }) => {
   const [area, setArea] = useState();
   const [addNew, setAddNew] = useState();
-  const [areaPvSelected, setAreaPvSelected] = useState();
-  const [childOptions, setChildOptions] = useState([]);
-  const [areaOptions, setAreaOptions] = useState([]);
+
+
   const pdfDownloaderRef = useRef();
 
   const addInverterBelow = (index) => {
@@ -60,9 +40,9 @@ const DataTable = ({
     };
 
     const updatedInverters = [
-      ...tableData?.inverterData?.slice(0, index + 1),
+      ...(tableData?.inverterData?.slice(0, index + 1) || []),
       newInverter,
-      ...tableData?.inverterData?.slice(index + 1),
+      ...(tableData?.inverterData?.slice(index + 1) || []),
     ];
     setTableData((prev) => ({
       ...prev,
@@ -82,8 +62,6 @@ const DataTable = ({
   const addStringBelow = (inverterIndex, stringIndex) => {
     const invertersRender = tableData?.inverterData;
     const updatedInverters = [...invertersRender];
-    const previousItem =
-      invertersRender[inverterIndex].strings[stringIndex - 1];
 
     const newString = {
       id: v4(),
@@ -105,9 +83,9 @@ const DataTable = ({
     const strings = updatedInverters[inverterIndex].strings;
 
     updatedInverters[inverterIndex].strings = [
-      ...strings?.slice(0, stringIndex + 1),
+      ...(strings?.slice(0, stringIndex + 1) || []),
       newString,
-      ...strings?.slice(stringIndex + 1),
+      ...(strings?.slice(stringIndex + 1) || []),
     ];
 
     setTableData((prev) => ({
@@ -235,13 +213,6 @@ const DataTable = ({
       };
     });
   }, [operationTemp, addNew, area]);
-
-  // Reset AREA associatedValue
-  // useEffect(() => {
-  //   const selectedArea = areaOptions.find(
-  //     (areaOption) => areaOption.value === areaPvSelected
-  //   );
-  // }, [areaOptions, areaPvSelected]);
 
   // // CHANGE CLASS TYPE VLAUE
   const handleChange = (event, newValue, inverterIndex, stringIndex) => {
@@ -555,23 +526,11 @@ const DataTable = ({
     setAddNew(true);
   };
 
-  const tableRef = useRef(null);
-
   const handleDownloadClick = () => {
     if (pdfDownloaderRef.current) {
       pdfDownloaderRef.current.exportToPDF();
     }
   };
-
-  const sModuleSum = tableData?.inverterData
-    ?.flatMap((inverter) => inverter?.strings || [])
-    .reduce((sum, item) => sum + (item.seriesModule ?? 0), 0);
-
-  const TotalCapacity = (sModuleSum * tableData?.pvModuleData?.pmax) / 1000;
-  const sumPloss = tableData?.inverterData
-    ?.flatMap((inverter) => inverter?.strings || [])
-    .reduce((sum, item) => sum + (item.numberOfModules ?? 0), 0);
-  const TotalPloss = sumPloss / (TotalCapacity * 10);
 
   const summedConductorCableLengths = {};
 
@@ -613,7 +572,7 @@ const DataTable = ({
             summedConductorCableLengths[classSelected][childSelected][
               areaSelected
             ];
-          summedConductorCableLengthsArray.push({
+          summedConductorCableLengthsArray?.push({
             classSelected,
             childSelected,
             areaSelected,
@@ -626,17 +585,6 @@ const DataTable = ({
 
   return (
     <div className="data-table-card">
-      <div className="card-header">
-        <h3 className="card-title">Subproject Data</h3>
-        <div className="btn-side">
-          <button className="primaryBtn bgFree" onClick={handleDownloadClick}>
-            Downlaod report <ArrowDownToLine size={16} />
-          </button>
-          <button className="secondaryBtn" onClick={handleUpateSubCategory}>
-            Save{" "}
-          </button>
-        </div>
-      </div>
       <div className="card-content">
         <Table className="data-table" responsive>
           <thead className="table-header">
@@ -1018,22 +966,6 @@ const DataTable = ({
                             value={string?.numberOfModules?.toFixed(2) || ""}
                           ></input>
                         </td>
-                        {/* <td className="align-middle">
-                                  <input
-                                    type="number"
-                                    readOnly
-                                    value={string?.pLossTotal?.toFixed(2) || ""}
-                                  ></input>
-                                </td>
-                                <td className="align-middle">
-                                  <input
-                                    type="number"
-                                    readOnly
-                                    value={
-                                      string?.cabelsQuantity?.toFixed(2) || ""
-                                    }
-                                  ></input>
-                                </td> */}
                       </tr>
                     ))}
                     <tr></tr>
@@ -1042,25 +974,8 @@ const DataTable = ({
               : ""}
           </tbody>
         </Table>
-        {/* <div className="table--pagination">
-          <PaginationControl
-            page={1}
-            between={3}
-            total={43}
-            limit={10}
-            changePage={(page) => {
-              setPage(page);
-            }}
-            ellipsis={2}
-          />
-        </div> */}
-        <DownloadPdfNew
-          ref={pdfDownloaderRef}
-          tableData={tableData}
-          title={title}
-          description={description}
-          subprojectId={subprojectId}
-        />
+
+       
       </div>
     </div>
   );

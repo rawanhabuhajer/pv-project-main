@@ -1,21 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./style.module.scss";
-import { ArrowDownToLine, RefreshCw, X } from "lucide-react";
+import { ArrowDownToLine, X } from "lucide-react";
 import { Modal, Spinner, Table } from "react-bootstrap";
 import Checkmark from "../assets/images/Checkmark.svg";
 import Alertmark from "../assets/images/Alertmark.svg";
 import { useSelector } from "react-redux";
 import DownloadPdf from "./DownloadPdf";
-const ResultModal = ({
-  isResultModalOpen,
-  setIsResultModalOpen,
-  handleCalculateAutomaticIz,
-}) => {
+const ResultModal = ({ isResultModalOpen, setIsResultModalOpen }) => {
   const { MvSingleProjectsData } = useSelector((state) => state.projects);
   const [mvReportData, setMvReportData] = useState();
   const [downloadPdfStart, setDownloadPdfStart] = useState(false);
   useEffect(() => {
-    setMvReportData(MvSingleProjectsData?.category?.details[0]);
+    setMvReportData(MvSingleProjectsData?.subcategory?.details[0]);
   }, [MvSingleProjectsData, isResultModalOpen]);
   const pdfDownloaderRef = useRef();
   const pdfReportRef = useRef(null);
@@ -25,6 +21,7 @@ const ResultModal = ({
       pdfDownloaderRef.current.generatePDF();
     }
   };
+
 
   return (
     <div className={styles["result--modal-wrapper"]}>
@@ -71,7 +68,7 @@ const ResultModal = ({
                     </div>
                   </div>
                   <div className="premium-btn">
-                    {mvReportData?.Iz?.toFixed(1)} (Iz) ≥ 
+                    {mvReportData?.Iz?.toFixed(1)} (Iz) ≥
                     {mvReportData?.inputFactor} (Ib)
                   </div>
                 </div>
@@ -95,23 +92,32 @@ const ResultModal = ({
                 <div className="setting-wr">
                   <div className="item">
                     <h6>Installation Method</h6>
-                    <p>Buried directly in the ground/ Flat spaced</p>
+                    <p>
+                      {" "}
+                      {mvReportData?.installationMethod} /{" "}
+                      {mvReportData?.spacingMethod}
+                    </p>
                   </div>
                   <div className="item">
                     <h6>Conductors/Cores</h6>
-                    <p>Single-Core Cables</p>
+                    <p>
+                      {" "}
+                      {mvReportData?.coreType === "B.2"
+                        ? "Single-Core Cables"
+                        : "Three-Core Cables"}
+                    </p>
                   </div>
                   <div className="item">
                     <h6>Conductor Size</h6>
-                    <p>240 mm²</p>
+                    <p>{mvReportData?.conductorSize} mm²</p>
                   </div>
                   <div className="item">
                     <h6>Conductor Type</h6>
-                    <p>Copper</p>
+                    <p>{mvReportData?.conductorType}</p>
                   </div>
                   <div className="item">
                     <h6>Insulation Type</h6>
-                    <p>XLPE</p>
+                    <p>{mvReportData?.insulationType}</p>
                   </div>
                 </div>
               </div>
@@ -223,7 +229,7 @@ const ResultModal = ({
         </div>
       </Modal>
       <DownloadPdf
-        mvCategoryData={MvSingleProjectsData?.category?.details[0]}
+        mvCategoryData={MvSingleProjectsData?.subcategory?.details[0]}
         ref={pdfDownloaderRef}
         pdfReportRef={pdfReportRef}
         setDownloadPdfStart={setDownloadPdfStart}

@@ -43,16 +43,19 @@
           gap: 25px;
         }
         h1 {
-          font-size: 40px;
+          font-size: 36px;
           font-family: "font-bold";
           color: #ffffff;
           line-height: 1;
 
           @media (min-width: 1600px) {
-            font-size: 60px;
+            font-size: 50px;
           }
           @media (max-width: 991px) {
-            font-size: 40px;
+            font-size: 36px;
+          }
+          @media (max-width: 768px) {
+            font-size: 30px;
           }
           span {
             display: inline-block;
@@ -93,7 +96,7 @@
       background: #2465ed0a;
       border-bottom: 1px solid #e5e3eb;
       padding: 15px 30px;
-      @media (max-width: 768px) {
+      @media (max-width: 1200px) {
         flex-direction: column;
         align-items: flex-start;
       }
@@ -623,7 +626,7 @@
           width: 100%;
           border-radius: 5px;
           font-size: 15px;
-          background-color: #095183;
+          background-color: #111827;
           height: 45px;
           color: #fff;
         }
@@ -924,7 +927,7 @@
       background: #2465ed0a;
       border-bottom: 1px solid #e5e3eb;
       padding: 15px 30px;
-      @media (max-width: 768px) {
+      @media (max-width: 1200px) {
         flex-direction: column;
         align-items: flex-start;
       }
@@ -1376,7 +1379,12 @@
       justify-content: flex-start;
       gap: 10px;
       width: 35%;
-
+      @media (max-width: 1200px) {
+        width: 100%;
+      }
+      @media (max-width: 625px) {
+        flex-wrap: wrap;
+      }
       .dropdown-menu {
         .dropdown-item {
           .action-icon {
@@ -1706,6 +1714,20 @@
         border-radius: 15px;
       }
     }
+    .btn-side {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      .bgFree {
+        background-color: #fff;
+        border: 1px solid #111827;
+        color: #111827;
+      }
+      button {
+        width: fit-content;
+        white-space: nowrap;
+      }
+    }
     .action-btn-wrapper {
       display: flex;
       gap: 8px;
@@ -1755,7 +1777,7 @@
         text-align: center;
       }
       .nav .active {
-        background: linear-gradient(180deg, #2465ed -39.58%, #0d2964 122.92%);
+        background: linear-gradient(90deg, #3b82f6 -34.71%, #8200ff 100%);
 
         color: #fff !important;
         min-width: 120px !important;
@@ -1777,10 +1799,13 @@
 
     .page-header {
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       margin-bottom: 1.5rem;
       gap: 15px;
-      @media (max-width: 768px) {
+      svg {
+        min-width: fit-content;
+      }
+      @media (max-width: 1200px) {
         flex-direction: column;
         align-items: flex-start;
       }
@@ -1806,9 +1831,11 @@
     }
 
     .breadcrumb {
-      font-size: 0.875rem;
+      font-size: 14px;
       color: #777;
       margin-bottom: 0.25rem;
+      display: flex;
+      gap: 5px;
     }
 
     .page-title {
@@ -1896,17 +1923,6 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-
-      .btn-side {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        .bgFree {
-          background-color: #fff;
-          border: 1px solid #111827;
-          color: #111827;
-        }
-      }
     }
 
     .card-title {

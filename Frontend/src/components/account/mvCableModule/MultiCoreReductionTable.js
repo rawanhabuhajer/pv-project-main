@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import styles from "./style.module.scss";
-import Select, { selectClasses } from "@mui/joy/Select";
+import React, { useEffect } from "react";
+
+import Select from "@mui/joy/Select";
 import { ChevronDown } from "lucide-react";
 import Option from "@mui/joy/Option";
 import { MethodOfInstallation } from "./MvData";
@@ -78,7 +78,11 @@ const MultiCoreReductionTable = ({
           </Option>
         ))}
       </Select>
-      <label htmlFor="spacing" className="field-label" style={{ marginTop: "1rem" }}>
+      <label
+        htmlFor="spacing"
+        className="field-label"
+        style={{ marginTop: "1rem" }}
+      >
         Cable spacing :
       </label>
       <Select
@@ -104,7 +108,11 @@ const MultiCoreReductionTable = ({
             </Option>
           ))}
       </Select>
-      <label htmlFor="spacing" className="field-label" style={{ marginTop: "1rem" }}>
+      <label
+        htmlFor="spacing"
+        className="field-label"
+        style={{ marginTop: "1rem" }}
+      >
         Number of trays or ladders :
       </label>
       <Select
@@ -133,7 +141,11 @@ const MultiCoreReductionTable = ({
             </Option>
           ))}
       </Select>
-      <label htmlFor="spacing" className="field-label" style={{ marginTop: "1rem" }}>
+      <label
+        htmlFor="spacing"
+        className="field-label"
+        style={{ marginTop: "1rem" }}
+      >
         Number of cables per trays or ladders :
       </label>
       <Select

@@ -1,25 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { NextSeo } from "next-seo";
 import { wrapper } from "../src/store";
 import { END } from "redux-saga";
 
-import {
-
-
-} from "@/store/actions";
-import { useDispatch, useSelector } from "react-redux";
-import { parseCookies } from "nookies";
-import { getSectionData } from "@/helpers/functions";
-
 const RegisterSection = dynamic(() => import("@/components/register2/Index"), {
-  ssr: false,
+  ssr: true,
 });
 import dynamic from "next/dynamic";
 
 const Register = () => {
-  const dispatch = useDispatch();
-  const cookies = parseCookies();
-
   return (
     <>
       <NextSeo
@@ -28,15 +17,12 @@ const Register = () => {
       />
 
       <RegisterSection />
-      {/* <RegisterSection2 /> */}
     </>
   );
 };
 
 export const getStaticProps = wrapper.getStaticProps((store) => {
-  return async (ctx) => {
-   
-
+  return async () => {
     store.dispatch(END);
     await store.sagaTask.toPromise();
     return {

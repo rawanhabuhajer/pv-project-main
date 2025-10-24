@@ -14,26 +14,20 @@ import { editSubProjectDataById, getSubProjectDataById } from "@/store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { parseCookies } from "nookies";
 import toast from "react-hot-toast";
+import { ArrowDownToLine } from "lucide-react";
+import DownloadPdfNew from "./DownloadPdfNew";
 const SubprojectDataPage = () => {
-  const [project, setProject] = useState(null);
-  const [subproject, setSubproject] = useState(null);
-  const [entries, setEntries] = useState([]);
+  const [isDownloadStart, setIsDownloadStart] = useState(false);
   const router = useRouter();
   const projectId = router.query.account[2];
   const subprojectId = router.query.account[4];
 
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.authentication);
+
   const cookies = parseCookies();
 
-  const {
-    pvSubProjectsLoading,
-    SubProjectsMeta,
-    pvSubProjects,
-    pvSubProjectsData,
-  } = useSelector((state) => state.projects);
+  const { pvSubProjectsData } = useSelector((state) => state.projects);
 
-  const [isLoading, setIsLoading] = useState(false);
   const [operationTemp, setOperationTemp] = useState(0);
   const [cableSize, setCableSize] = useState();
   const [cableLength, setCableLength] = useState();
@@ -43,7 +37,6 @@ const SubprojectDataPage = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [page, setPage] = useState(1);
-  const [count, setCount] = useState();
   const [area, setArea] = useState();
   const [addNew, setAddNew] = useState();
   const [areaPvSelected, setAreaPvSelected] = useState();
@@ -117,25 +110,6 @@ const SubprojectDataPage = () => {
   }, [pvSubProjectsData]);
 
   const handleUpateSubCategory = async () => {
-    // setIsLoading(true);
-    // try {
-    //   const response = await axios.patch(
-    //     `http://localhost:8000/api/subCategories/subcategory/${subprojectId}`,
-    //     { data: tableData },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${user.token}`,
-    //         "Content-Type": "application/json",
-    //       },
-    //     }
-    //   );
-    //   getSubCategoriesApi();
-    //   toast.success("Sub edit successfully");
-    //   setIsLoading(false);
-    // } catch (err) {
-    //   console.error("Error edit Sub", err);
-    //   toast.error("Error occurred while edit Sub");
-    // }
     dispatch(
       editSubProjectDataById({
         cookies,
@@ -253,13 +227,6 @@ const SubprojectDataPage = () => {
     });
   }, [operationTemp, addNew, area]);
 
-  // Reset AREA associatedValue
-  useEffect(() => {
-    const selectedArea = areaOptions.find(
-      (areaOption) => areaOption.value === areaPvSelected
-    );
-  }, [areaOptions, areaPvSelected]);
-
   const handleOperationTemp = (e) => {
     const newOperationTemp = parseFloat(e.target.value);
     setOperationTemp(newOperationTemp);
@@ -373,7 +340,6 @@ const SubprojectDataPage = () => {
       const updatedInverterData = prevTableData?.inverterData?.map(
         (inverter) => {
           const updatedStrings = inverter?.strings?.map((string) => {
-            const r20 = string?.r20 || 0;
             const SM = string?.seriesModule || 0;
             const rTempreture = string?.rTempreture || 0;
             const conductorCableLength = string?.conductorCableLength || 0;
@@ -464,7 +430,6 @@ const SubprojectDataPage = () => {
       const updatedInverterData = prevTableData?.inverterData?.map(
         (inverter) => {
           const updatedStrings = inverter?.strings?.map((string) => {
-            const r20 = string?.r20 || 0;
             const SM = string?.seriesModule || 0;
             const rTempreture = string?.rTempreture || 0;
             const conductorCableLength = string?.conductorCableLength || 0;
@@ -553,7 +518,6 @@ const SubprojectDataPage = () => {
       const updatedInverterData = prevTableData?.inverterData?.map(
         (inverter) => {
           const updatedStrings = inverter?.strings?.map((string) => {
-            const r20 = !isNaN(string.r20) ? string.r20 : 0;
             const SM = string.seriesModule || 0;
             const rTempreture = string.rTempreture || 0;
             const conductorCableLength = string.conductorCableLength || 0;
@@ -643,7 +607,6 @@ const SubprojectDataPage = () => {
       const updatedInverterData = prevData?.inverterData?.map((inverter) => ({
         ...inverter,
         strings: inverter?.strings?.map((string) => {
-          const r20 = string.r20 || 0;
           const SM = string.seriesModule || 0;
           const rTempreture = string.rTempreture || 0;
           const conductorCableLength = string.conductorCableLength || 0;
@@ -711,7 +674,6 @@ const SubprojectDataPage = () => {
       const updatedInverterData = prevTableData?.inverterData?.map(
         (inverter) => {
           const updatedStrings = inverter.strings.map((string) => {
-            const r20 = !isNaN(string.r20) ? string.r20 : 0;
             const SM = string.seriesModule || 0;
             const rTempreture = string.rTempreture || 0;
             const conductorCableLength = string?.conductorCableLength || 0;
@@ -923,23 +885,11 @@ const SubprojectDataPage = () => {
     setAddNew(true);
   };
 
-  const tableRef = useRef(null);
-
   const handleDownloadClick = () => {
     if (pdfDownloaderRef.current) {
       pdfDownloaderRef.current.exportToPDF();
     }
   };
-
-  const sModuleSum = tableData?.inverterData
-    ?.flatMap((inverter) => inverter.strings || [])
-    .reduce((sum, item) => sum + (item.seriesModule ?? 0), 0);
-
-  const TotalCapacity = (sModuleSum * tableData?.pvModuleData?.pmax) / 1000;
-  const sumPloss = tableData?.inverterData
-    ?.flatMap((inverter) => inverter.strings || [])
-    .reduce((sum, item) => sum + (item.numberOfModules ?? 0), 0);
-  const TotalPloss = sumPloss / (TotalCapacity * 10);
 
   const summedConductorCableLengths = {};
 
@@ -996,42 +946,45 @@ const SubprojectDataPage = () => {
     <div className={styles["SubprojectDataPage-wrapper"]}>
       <Tab.Container defaultActiveKey={0} transition={true} timeout={1000}>
         <div className="page-header">
-          <Link href={`/projects/${projectId}`} className="back-button">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="19" y1="12" x2="5" y2="12"></line>
-              <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
-          </Link>
           <div className="title-header">
             <div>
               <div className="breadcrumb">
-                {pvSubProjectsData?.categoryName || ""} /{" "}
-                {pvSubProjectsData?.subcategory?.name || ""}
+                <div
+                  style={{ cursor: "pointer" }}
+                  onClick={() => router?.push(`/account/projects/${projectId}`)}
+                >
+                  {" "}
+                  {pvSubProjectsData?.categoryName || ""}{" "}
+                </div>{" "}
+                / {pvSubProjectsData?.subcategory?.name || ""}
               </div>
-              <h1 className="page-title">Manage Data</h1>
-              <p className="page-description">
-                Add and edit data entries for this subproject.
-              </p>
-            </div>
+              <h1 className="page-title">Manage Inputs</h1>
 
-            <Nav>
-              <Nav.Item>
-                <Nav.Link eventKey={0}>Table</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey={1}>PV settings</Nav.Link>
-              </Nav.Item>
-            </Nav>
+              <Nav>
+                <Nav.Item>
+                  <Nav.Link eventKey={0}>Table</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey={1}>PV Settings</Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </div>
+          </div>
+          <div className="btn-side">
+            <button className="primaryBtn bgFree" onClick={handleDownloadClick}>
+              Downlaod Report
+              {isDownloadStart ? (
+                <div
+                  className="spinner-border text-secondary"
+                  role="status"
+                ></div>
+              ) : (
+                <ArrowDownToLine size={16} />
+              )}
+            </button>
+            <button className="secondaryBtn" onClick={handleUpateSubCategory}>
+              Save{" "}
+            </button>
           </div>
         </div>
 
@@ -1073,15 +1026,21 @@ const SubprojectDataPage = () => {
                 description={description}
                 page={page}
                 setPage={setPage}
-                // getSubCategoriesApi={getSubCategoriesApi}
-                count={count}
-                // onDelete={handleDeleteEntry}
                 subprojectId={subprojectId}
+                setIsDownloadStart={setIsDownloadStart}
               />
             </Tab.Pane>
           </Tab.Content>
         </div>
       </Tab.Container>
+      <DownloadPdfNew
+        ref={pdfDownloaderRef}
+        tableData={tableData}
+        title={pvSubProjectsData?.subcategory?.name}
+        description={pvSubProjectsData?.subcategory?.description}
+        subprojectId={subprojectId}
+        setIsDownloadStart={setIsDownloadStart}
+      />
     </div>
   );
 };

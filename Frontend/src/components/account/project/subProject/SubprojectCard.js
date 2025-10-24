@@ -140,7 +140,7 @@ const SubprojectCard = ({ projectId, subproject }) => {
                       &nbsp; change status
                     </h5>
 
-                    {statusCategories?.map((item, index) => (
+                    {statusCategories?.map((item) => (
                       <div className="form_radio_btn" key={item?.value}>
                         <label>
                           <input
@@ -235,7 +235,7 @@ const SubprojectCard = ({ projectId, subproject }) => {
             href={`account/projects/${projectId}/subprojects/${subproject?._id}`}
             className="card-button-link"
           >
-            <button className="card-button">View Data</button>
+            <button className="card-button">View Project</button>
           </Link>
         </div>
       </div>

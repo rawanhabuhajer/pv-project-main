@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import styles from "./style.module.scss";
+import React, { useEffect } from "react";
+
 import Select, { selectClasses } from "@mui/joy/Select";
 import { ChevronDown } from "lucide-react";
 import Option from "@mui/joy/Option";
@@ -78,7 +78,11 @@ const SingleCoreReductionTable = ({
           )}
       </Select>
 
-      <label htmlFor="spacing" className="field-label" style={{ marginTop: "1rem" }}>
+      <label
+        htmlFor="spacing"
+        className="field-label"
+        style={{ marginTop: "1rem" }}
+      >
         Cable spacing :
       </label>
       <Select
@@ -114,7 +118,11 @@ const SingleCoreReductionTable = ({
           ))}
       </Select>
 
-      <label htmlFor="spacing" className="field-label" style={{ marginTop: "1rem" }}>
+      <label
+        htmlFor="spacing"
+        className="field-label"
+        style={{ marginTop: "1rem" }}
+      >
         Number of 3-Phase Circuits :
       </label>
       <Select

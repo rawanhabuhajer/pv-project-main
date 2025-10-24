@@ -1,18 +1,18 @@
 <svg width="826" height="694" viewBox="0 0 826 694" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g filter="url(#filter0_d_18_249)">
-<rect x="4.02539" y="144.65" width="635" height="519" rx="40" fill="#095183"/>
+<rect x="4.02539" y="144.65" width="635" height="519" rx="40" fill="#111827"/>
 </g>
 <mask id="mask0_18_249" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="23" y="160" width="596" height="488">
-<rect x="23.9336" y="160.996" width="595" height="486.307" rx="40" fill="#095183"/>
+<rect x="23.9336" y="160.996" width="595" height="486.307" rx="40" fill="#111827"/>
 </mask>
 <g mask="url(#mask0_18_249)">
 <rect x="25.2656" y="135.426" width="593.669" height="593.669" fill="url(#pattern0)"/>
 </g>
 <g filter="url(#filter1_d_18_249)">
-<rect x="463.057" y="2.97583" width="288.166" height="235.525" rx="40" fill="#095183"/>
+<rect x="463.057" y="2.97583" width="288.166" height="235.525" rx="40" fill="#111827"/>
 </g>
 <mask id="mask1_18_249" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="458" y="0" width="289" height="236">
-<rect x="458.057" y="0.411865" width="288.166" height="235.525" rx="40" fill="#095183"/>
+<rect x="458.057" y="0.411865" width="288.166" height="235.525" rx="40" fill="#111827"/>
 </mask>
 <g mask="url(#mask1_18_249)">
 <rect x="448.701" y="-7.87402" width="306.877" height="252.097" fill="url(#pattern1)"/>

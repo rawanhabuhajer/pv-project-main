@@ -19,7 +19,7 @@ import { parseCookies } from "nookies";
 import toast from "react-hot-toast";
 import ProjectUpdateForm from "./ProjectUpdateForm";
 import { getFullDate } from "@/helpers/functions";
-import { Circle, Line } from "rc-progress";
+import { Circle } from "rc-progress";
 const ProjectCard = ({ project }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.authentication);
@@ -101,7 +101,7 @@ const ProjectCard = ({ project }) => {
                   </h5>
 
                   {statusCategories?.map((item, index) => (
-                    <div className="form_radio_btn">
+                    <div className="form_radio_btn" key={index}>
                       <label>
                         <input
                           type="radio"
@@ -193,7 +193,7 @@ const ProjectCard = ({ project }) => {
           href={`account/projects/${project?._id}`}
           className="card-button-link"
         >
-          <button className="card-button">View Details</button>
+          <button className="card-button">View Project</button>
         </Link>
       </div>
       <ProjectUpdateForm

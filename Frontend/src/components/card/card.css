@@ -1,6 +1,6 @@
 .card {
   --border-radius: 0.75rem;
-  --primary-color: #095183;
+  --primary-color: #111827;
   --secondary-color: #333;
   width: 310px;
   padding: 1rem;
@@ -93,7 +93,6 @@
   top: 15px;
   z-index: 3 !important;
 }
-
 
 /* .control-icon .dropdown-toggle {
   background-color: rgba(245, 245, 245, 0.5) !important;

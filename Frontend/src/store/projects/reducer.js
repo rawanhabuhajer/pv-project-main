@@ -48,6 +48,18 @@ import {
   EDIT_SINGLE_MV_PROJECT_DATA,
   EDIT_SINGLE_MV_PROJECT_DATA_FAILURE,
   EDIT_SINGLE_MV_PROJECT_DATA_SUCCESS,
+  ADD_MV_PROJECT_SUB_BY_ID,
+  ADD_MV_PROJECT_SUB_BY_ID_FAILURE,
+  ADD_MV_PROJECT_SUB_BY_ID_SUCCESS,
+  GET_MV_PROJECT_SUB_BY_ID_FAILURE,
+  GET_MV_PROJECT_SUB_BY_ID,
+  GET_MV_PROJECT_SUB_BY_ID_SUCCESS,
+  EDIT_MV_PROJECT_SUB_BY_ID,
+  EDIT_MV_PROJECT_SUB_BY_ID_FAILURE,
+  EDIT_MV_PROJECT_SUB_BY_ID_SUCCESS,
+  DELETE_MV_PROJECT_SUB_BY_ID,
+  DELETE_MV_PROJECT_SUB_BY_ID_FAILURE,
+  DELETE_MV_PROJECT_SUB_BY_ID_SUCCESS,
 } from "./actionTypes";
 
 const initialState = {
@@ -55,6 +67,7 @@ const initialState = {
   pvSubProjects: [],
   pvSubProjectsData: {},
   MvProjects: [],
+  MvSubProjects: [],
   MvSubProjectsData: {},
   profileLoading: false,
   isLoggedIn: false,
@@ -148,8 +161,6 @@ const projects = (state = initialState, action) => {
 
     // ====================================================
     // ====================================================
-    // ====================================================
-    // ====================================================
 
     case GET_PROJECT_SUB_BY_ID:
       return { ...state, pvSubProjectsLoading: true };
@@ -239,9 +250,6 @@ const projects = (state = initialState, action) => {
     // ====================================================
     // ====================================================
 
-    // ====================================================
-    // ====================================================
-
     case GET_SUB_PROJECT_DATA_BY_ID:
       return { ...state, pvSubProjectsLoading: true };
 
@@ -249,11 +257,7 @@ const projects = (state = initialState, action) => {
       return {
         ...state,
         pvSubProjectsData: action.payload,
-        // pvSubProjectsDataMeta: {
-        //   pageNumber: action.payload.pageIndex,
-        //   pageSize: action.payload.pageSize,
-        //   count: action.payload.count,
-        // },
+
         pvSubProjectsDataLoading: false,
       };
 
@@ -399,6 +403,94 @@ const projects = (state = initialState, action) => {
         ...state,
         error: action.payload,
         editMvSingleProjectsDataLoading: false,
+      };
+
+    // ====================================================
+    // ====================================================
+
+    case GET_MV_PROJECT_SUB_BY_ID:
+      return { ...state, pvSubProjectsLoading: true };
+
+    case GET_MV_PROJECT_SUB_BY_ID_SUCCESS:
+      return {
+        ...state,
+        pvSubProjects: action.payload.items,
+        SubProjectsMeta: {
+          pageNumber: action.payload.pageIndex,
+          pageSize: action.payload.pageSize,
+          count: action.payload.count,
+          categoryName: action?.payload?.categoryName,
+        },
+        pvSubProjectsLoading: false,
+      };
+
+    case GET_MV_PROJECT_SUB_BY_ID_FAILURE:
+      return { ...state, error: action.payload, pvSubProjectsLoading: false };
+
+    // ====================================================
+    // ====================================================
+
+    case EDIT_MV_PROJECT_SUB_BY_ID:
+      return { ...state, editSubPvProjectLoading: true };
+
+    case EDIT_MV_PROJECT_SUB_BY_ID_SUCCESS:
+      return {
+        ...state,
+        editSubPvProject: action.payload,
+        editSubPvProjectLoading: false,
+      };
+
+    case EDIT_MV_PROJECT_SUB_BY_ID_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        editSubPvProjectLoading: false,
+      };
+
+    // ====================================================
+    // ====================================================
+
+    case ADD_MV_PROJECT_SUB_BY_ID:
+      return {
+        ...state,
+        addSubPvProjectsLoading: true,
+      };
+
+    case ADD_MV_PROJECT_SUB_BY_ID_SUCCESS:
+      return {
+        ...state,
+        addSubPvProjectsLoading: false,
+        AddSubPvProject: action.payload,
+      };
+
+    case ADD_MV_PROJECT_SUB_BY_ID_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        addSubPvProjectsLoading: false,
+      };
+
+    // ====================================================
+    // ====================================================
+
+    case DELETE_MV_PROJECT_SUB_BY_ID:
+      return {
+        ...state,
+        deleteSubPvProjectsLoading: true,
+      };
+
+    case DELETE_MV_PROJECT_SUB_BY_ID_SUCCESS:
+      return {
+        ...state,
+        deleteSubPvProjectsLoading: false,
+        deleteSubPvProject: action.payload,
+      };
+
+    case DELETE_MV_PROJECT_SUB_BY_ID_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        deleteSubPvProjectsLoading: false,
       };
 
     // ====================================================

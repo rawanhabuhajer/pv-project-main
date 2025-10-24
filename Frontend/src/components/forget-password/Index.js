@@ -6,9 +6,8 @@ import Logo from "../../assets/images/logo2.svg";
 import Link from "next/link";
 import { forgetPassword } from "@/store/actions";
 import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-import { getSectionData, handleImageLink } from "@/helpers/functions";
-import Image from "next/future/image";
+import { useDispatch } from "react-redux";
+
 import Arrow from "./assets/images/arrow-left.svg";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -61,15 +60,13 @@ const Index = () => {
                       height={300}
                     />
                   ) : ( */}
-                    <Logo fill="#095183" width={120} />
+                  <Logo fill="#111827" width={120} />
                   {/* )} */}
                 </a>
               </Link>
               <div className="login-banner__text">
-                <h3>{"forgetData?.title"}</h3>
-                {/* <p
-                  dangerouslySetInnerHTML={{ __html: forgetData?.description }}
-                /> */}
+                <h3>{"Forgot Something ? We’ve Got You"}</h3>
+                <p>Get Back In, Quick and Easy </p>
               </div>
             </div>
           </Col>
@@ -86,14 +83,12 @@ const Index = () => {
                     <Col lg={12}>
                       <div className="form-group">
                         <label>
-                          <FormattedMessage id="email" />*
+                          <FormattedMessage id="Email" />*
                         </label>
                         <input
                           type="email"
                           className="form-control"
-                          placeholder={
-                            formatMessage({ id: "enterEmail" }) + " " + "*"
-                          }
+                          placeholder={formatMessage({ id: "Enter email" })}
                           onKeyUp={(e) => {
                             // check if email is valid
                             if (

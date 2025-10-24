@@ -1,9 +1,6 @@
 import React from "react";
 import Logo from "./assets/images/logo.svg";
 import MenuIcon from "./assets/images/menu.svg";
-import Image from "next/future/image";
-import { useSelector } from "react-redux";
-import { handleImageLink } from "@/helpers/functions";
 
 const Header = ({ sidebarToggled, setSidebarToggled }) => {
   return (

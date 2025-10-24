@@ -7,12 +7,7 @@ module.exports = withBundleAnalyzer({
   swcMinify: false,
 
   images: {
-    domains: [
-      "localhost",
-      "api.mwwebhosting.com",
-      "nafes-api.mashserver2.com",
-      "api.nafes.ai",
-    ],
+    domains: ["localhost", "res.cloudinary.com"],
   },
 
   i18n: {

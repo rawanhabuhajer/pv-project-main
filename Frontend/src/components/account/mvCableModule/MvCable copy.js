@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./style.module.scss";
 import Select, { selectClasses } from "@mui/joy/Select";
 import { ChevronDown } from "lucide-react";
@@ -16,7 +16,6 @@ import {
   cableData,
   conductorSizes,
   resistivitiesDirectBuriedSingleCore,
-  SingleCoreInstallation,
   depthDataBuriedCables,
   depthDataInDuct,
   CFForConductorB15,
@@ -37,7 +36,7 @@ import B18 from "./B18";
 import B19 from "./B19";
 import B20 from "./B20";
 import B21 from "./B21";
-import DownloadPdf from "./DownloadPdf";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import {
@@ -49,17 +48,16 @@ import ResultModal from "./ResultModal";
 import InAirResultReportModal from "./InAirResultReportModal";
 const MvCable = () => {
   // const { mvCategoryId } = useParams();
-  const [isLoading, setIsLoading] = useState(false);
-  const { user } = useSelector((state) => state.authentication);
+
   const router = useRouter();
-  const mvCategoryId = router?.query.account[2];
+  const mvCategoryId = router?.query.account[3];
+
   const dispatch = useDispatch();
   const { MvSingleProjectsData } = useSelector((state) => state.projects);
   const cookies = parseCookies();
 
   const [isResultModalOpen, setIsResultModalOpen] = useState(false);
   const [isInAirResultModalOpen, setIsInAirResultModalOpen] = useState(false);
-  const [isGetReportData, setIsGetReportData] = useState(false);
 
   const [coreType, setCoreType] = useState("");
   const [conductorType, setConductorType] = useState("");
@@ -69,12 +67,8 @@ const MvCable = () => {
   const [conductorSize, setConductorSize] = useState(16);
   const [mvCableValue, setMvCableValue] = useState();
   const [step, setStep] = useState(1);
-  const [tableData, setTableData] = useState([]);
-  const [inputFactor, setinputFactor] = useState();
-  const [cableRuns, setCableRuns] = useState(1);
 
-  const [categoryData, setCategoryData] = useState();
-  const [mvCategoryData, setMvCategoryData] = useState();
+  const [inputFactor, setinputFactor] = useState();
 
   const [ambientTemperature, setAmbientTemperature] = useState();
   const [ambientTemperatureResult, setAmbientTemperatureResult] = useState();
@@ -151,7 +145,6 @@ const MvCable = () => {
       setCableResult();
     }
   };
-  const handleConductorSizeChange = (event, value) => setConductorSize(value);
 
   useEffect(() => {
     if (
@@ -193,65 +186,69 @@ const MvCable = () => {
   }, [mvCategoryId]);
 
   useEffect(() => {
-    setMvCategoryData(MvSingleProjectsData);
-    setCategoryData(MvSingleProjectsData?.category?.details[0]);
-    setCoreType(MvSingleProjectsData?.category?.details[0]?.coreType);
-    setConductorType(MvSingleProjectsData?.category?.details[0]?.conductorType);
+    setCoreType(MvSingleProjectsData?.subcategory?.details[0]?.coreType);
+    setConductorType(
+      MvSingleProjectsData?.subcategory?.details[0]?.conductorType
+    );
     setInsulationType(
-      MvSingleProjectsData?.category?.details[0]?.insulationType
+      MvSingleProjectsData?.subcategory?.details[0]?.insulationType
     );
     setInstallationMethod(
-      MvSingleProjectsData?.category?.details[0]?.installationMethod
+      MvSingleProjectsData?.subcategory?.details[0]?.installationMethod
     );
-    setSpacingMethod(MvSingleProjectsData?.category?.details[0]?.spacingMethod);
+    setSpacingMethod(
+      MvSingleProjectsData?.subcategory?.details[0]?.spacingMethod
+    );
     setConductorSize(
-      MvSingleProjectsData?.category?.details[0]?.conductorSize || 16
+      MvSingleProjectsData?.subcategory?.details[0]?.conductorSize || 16
     );
-    setMvCableValue(MvSingleProjectsData?.category?.details[0]?.mvCableValue);
-    setinputFactor(MvSingleProjectsData?.category?.details[0]?.inputFactor);
-    setCableRuns(MvSingleProjectsData?.category?.details[0]?.cableRuns || 1);
+    setMvCableValue(
+      MvSingleProjectsData?.subcategory?.details[0]?.mvCableValue
+    );
+    setinputFactor(MvSingleProjectsData?.subcategory?.details[0]?.inputFactor);
     setAmbientTemperature(
-      MvSingleProjectsData?.category?.details[0]?.ambientTemperature
+      MvSingleProjectsData?.subcategory?.details[0]?.ambientTemperature
     );
     setAmbientTemperatureResult(
-      MvSingleProjectsData?.category?.details[0]?.ambientTemperatureResult
+      MvSingleProjectsData?.subcategory?.details[0]?.ambientTemperatureResult
     );
     // b19 b21 b18 b20 step3
-    setSpacing(MvSingleProjectsData?.category?.details[0]?.spacing);
+    setSpacing(MvSingleProjectsData?.subcategory?.details[0]?.spacing);
     setAvailableGroups(
-      MvSingleProjectsData?.category?.details[0]?.availableGroups
+      MvSingleProjectsData?.subcategory?.details[0]?.availableGroups
     );
-    setSelectedGroup(MvSingleProjectsData?.category?.details[0]?.selectedGroup);
-    setCFFResult(MvSingleProjectsData?.category?.details[0]?.CFFResult);
+    setSelectedGroup(
+      MvSingleProjectsData?.subcategory?.details[0]?.selectedGroup
+    );
+    setCFFResult(MvSingleProjectsData?.subcategory?.details[0]?.CFFResult);
     // b14 b15  b16 b17 step4
-    setCableCount(MvSingleProjectsData?.category?.details[0]?.cableCount);
+    setCableCount(MvSingleProjectsData?.subcategory?.details[0]?.cableCount);
     setresistivitiesSpacing(
-      MvSingleProjectsData?.category?.details[0]?.resistivitiesspacing
+      MvSingleProjectsData?.subcategory?.details[0]?.resistivitiesspacing
     );
-    setFactor(MvSingleProjectsData?.category?.details[0]?.factor);
+    setFactor(MvSingleProjectsData?.subcategory?.details[0]?.factor);
     // CorrectionFactorBuriedCables CorrectionFactorBuriedCables step5
-    setSelectedDepth(MvSingleProjectsData?.category?.details[0]?.selectedDepth);
+    setSelectedDepth(
+      MvSingleProjectsData?.subcategory?.details[0]?.selectedDepth
+    );
     setSelectedConductorSize(
-      MvSingleProjectsData?.category?.details[0]?.selectedConductorSize
+      MvSingleProjectsData?.subcategory?.details[0]?.selectedConductorSize
     );
     setCorrectionFactor(
-      MvSingleProjectsData?.category?.details[0]?.correctionFactor
+      MvSingleProjectsData?.subcategory?.details[0]?.correctionFactor
     );
     // single multi cables
-    setCableMethod(MvSingleProjectsData?.category?.details[0]?.cableMethod);
+    setCableMethod(MvSingleProjectsData?.subcategory?.details[0]?.cableMethod);
     setCableInstallationType(
-      MvSingleProjectsData?.category?.details[0]?.cableInstallationType
+      MvSingleProjectsData?.subcategory?.details[0]?.cableInstallationType
     );
-    setTraysLadders(MvSingleProjectsData?.category?.details[0]?.traysLadders);
-    setCircuits(MvSingleProjectsData?.category?.details[0]?.circuits);
-    setCableResult(MvSingleProjectsData?.category?.details[0]?.cableResult);
+    setTraysLadders(
+      MvSingleProjectsData?.subcategory?.details[0]?.traysLadders
+    );
+    setCircuits(MvSingleProjectsData?.subcategory?.details[0]?.circuits);
+    setCableResult(MvSingleProjectsData?.subcategory?.details[0]?.cableResult);
   }, [MvSingleProjectsData, mvCategoryId]);
 
-  useEffect(() => {
-    if (tableData?.length > 0) {
-      setStep(6);
-    }
-  }, [tableData]);
 
   const steps = [
     { id: 1, title: "Basic Parameters", icon: Calculator },
@@ -269,64 +266,6 @@ const MvCable = () => {
     { id: 3, title: "Installation Details", icon: Settings },
     { id: 4, title: "Results", icon: Zap },
   ];
-
-  // const nextStepInAir = () => {
-  //   if (step < 3) {
-  //     setStep(step + 1);
-  //   } else if (step == 3) {
-  //     const Iz =
-  //       (mvCableValue * ambientTemperatureResult * cableResult) / cableRuns;
-
-  //     const mvData = {
-  //       coreType,
-  //       conductorType,
-  //       insulationType,
-  //       installationMethod,
-  //       spacingMethod,
-  //       conductorSize,
-  //       mvCableValue,
-  //       inputFactor: Number(inputFactor),
-  //       cableRuns: Number(cableRuns),
-  //       ambientTemperature,
-  //       ambientTemperatureResult,
-
-  //       // b19 b21 b18 b20 step3
-  //       spacing,
-  //       selectedGroup,
-  //       CFFResult,
-  //       availableGroups: availableGroups,
-  //       // b14 b15  b16 b17 step4
-  //       cableCount,
-  //       resistivitiesspacing,
-  //       factor,
-
-  //       // CorrectionFactorBuriedCables CorrectionFactorBuriedCables step5
-  //       selectedDepth,
-  //       selectedConductorSize,
-  //       correctionFactor,
-
-  //       // single multi cables
-  //       cableMethod,
-  //       cableInstallationType,
-  //       traysLadders,
-  //       circuits,
-  //       cableResult,
-
-  //       Iz,
-  //     };
-
-  //     dispatch(
-  //       editSingleProjectDataById({
-  //         cookies,
-  //         mvCategoryId: mvCategoryId,
-  //         details: mvData,
-  //         dispatch,
-  //       })
-  //     );
-  //     setIsInAirResultModalOpen(true);
-  //     setStep(1);
-  //   }
-  // };
 
   const nextStepInAir = () => {
     if (step < 3) {
@@ -389,9 +328,8 @@ const MvCable = () => {
     // ✅ Step 1: Update core output values
     const newConductorSize = conductorSizes[bestIndex];
     const newMvCableValue = selectedTable[bestIndex];
-    console.log(runs, bestIndex, newConductorSize);
+
     setConductorSize(newConductorSize);
-    setCableRuns(runs);
     setMvCableValue(newMvCableValue);
 
     // ✅ Step 2: Build mvData payload
@@ -496,6 +434,9 @@ const MvCable = () => {
     const isB6 = coreType === "B.6";
 
     while (!found && runs <= maxRunsLimit) {
+      let candidateIndex = -1;
+      let candidateIz = 0;
+
       for (let sizeIdx = 0; sizeIdx < conductorSizes?.length; sizeIdx++) {
         const sizeValue = selectedTable[sizeIdx];
         if (sizeValue === undefined || isNaN(sizeValue)) continue;
@@ -509,14 +450,17 @@ const MvCable = () => {
           runs;
 
         if (Iz > Number(inputFactor)) {
-          bestIndex = sizeIdx;
-          finalIz = Iz;
-          found = true;
-          break;
+          candidateIndex = sizeIdx;
+          candidateIz = Iz;
+          break; // ✅ we break here since conductorSizes is sorted ascending
         }
       }
 
-      if (!found) {
+      if (candidateIndex !== -1) {
+        bestIndex = candidateIndex;
+        finalIz = candidateIz;
+        found = true;
+      } else {
         runs++;
       }
     }
@@ -533,7 +477,7 @@ const MvCable = () => {
     const newMvCableValue = selectedTable[bestIndex];
 
     setConductorSize(newConductorSize);
-    setCableRuns(runs);
+
     setMvCableValue(newMvCableValue);
 
     // ✅ Step 2: Set new selectedConductorSize for depth logic
@@ -641,9 +585,6 @@ const MvCable = () => {
 
   return (
     <div className={styles["mvCable-wrapper"]}>
-      <div className="hero-actions">
-        <h1>{mvCategoryData?.name} </h1>
-      </div>
       <div className="background-effects">
         <div className="background-pattern"></div>
         <div className="blur-circle blur-circle-1"></div>
@@ -707,18 +648,12 @@ const MvCable = () => {
           <div className="form-card">
             <div className="card-content">
               {step === 1 && (
-                <div
-                  key="step1"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  className="form-step"
-                >
+                <div key="step1" className="form-step">
                   <div className="step-header">
                     <div></div>
                     <div>
                       <h2>Cable Current Carrying Capacity</h2>
-                      <p>Let's start with the basic parameters</p>
+                      <p>Lets start with the basic parameters</p>
                     </div>
                     <button onClick={handleOpenReportModal}>
                       <p> Review Report</p> <DownloadBtn />
@@ -734,26 +669,13 @@ const MvCable = () => {
                         type="number"
                         className=" field-input"
                         placeholder="Design Current (Ib)"
-                        value={inputFactor}
+                        value={inputFactor ?? ""}
                         onChange={(e) => {
                           setinputFactor(e.target.value);
                         }}
                       />
                     </div>
-                    {/* <div className="form-field">
-                      <label htmlFor="spacing" className="field-label">
-                        Cable Runs (n) :
-                      </label>
-                      <input
-                        type="number"
-                        className="field-input"
-                        placeholder="Cable Runs (n)"
-                        value={cableRuns}
-                        onChange={(e) => {
-                          setCableRuns(e.target.value);
-                        }}
-                      />
-                    </div> */}
+
                     <div className="form-field">
                       <label className="field-label" htmlFor="spacing">
                         Conductors/Cores :
@@ -763,7 +685,7 @@ const MvCable = () => {
                         className="field-select"
                         placeholder="Conductors/Cores"
                         indicator={<ChevronDown />}
-                        value={coreType}
+                        value={coreType ?? ""}
                         sx={{
                           height: 50,
                           backgroundColor: "rgb(249,249,249)",
@@ -793,7 +715,7 @@ const MvCable = () => {
                         className="field-select"
                         placeholder="Conductor Type"
                         indicator={<ChevronDown />}
-                        value={conductorType}
+                        value={conductorType ?? ""}
                         sx={{
                           height: 50,
                           backgroundColor: "rgb(249,249,249)",
@@ -822,7 +744,7 @@ const MvCable = () => {
                         className="field-select"
                         placeholder="Insulation Type"
                         indicator={<ChevronDown />}
-                        value={insulationType}
+                        value={insulationType ?? ""}
                         sx={{
                           height: 50,
                           backgroundColor: "rgb(249,249,249)",
@@ -852,7 +774,7 @@ const MvCable = () => {
                           className="field-select"
                           placeholder="Installation Method"
                           indicator={<ChevronDown />}
-                          value={installationMethod}
+                          value={installationMethod ?? ""}
                           sx={{
                             height: 50,
                             backgroundColor: "rgb(249,249,249)",
@@ -887,7 +809,7 @@ const MvCable = () => {
                           className="field-select"
                           placeholder="Cable Formation"
                           indicator={<ChevronDown />}
-                          value={installationMethod}
+                          value={installationMethod ?? ""}
                           sx={{
                             height: 50,
                             backgroundColor: "rgb(249,249,249)",
@@ -919,7 +841,7 @@ const MvCable = () => {
                           className="field-select"
                           placeholder="Cable Formation"
                           indicator={<ChevronDown />}
-                          value={spacingMethod}
+                          value={spacingMethod ?? ""}
                           sx={{
                             height: 50,
                             backgroundColor: "rgb(249,249,249)",
@@ -950,7 +872,7 @@ const MvCable = () => {
                           className="field-select"
                           placeholder="Cable Formation"
                           indicator={<ChevronDown />}
-                          value={spacingMethod}
+                          value={spacingMethod ?? ""}
                           sx={{
                             height: 50,
                             backgroundColor: "rgb(249,249,249)",
@@ -983,7 +905,7 @@ const MvCable = () => {
                           className="field-select"
                           placeholder="Cable Formation"
                           indicator={<ChevronDown />}
-                          value={spacingMethod}
+                          value={spacingMethod ?? ""}
                           sx={{
                             height: 50,
                             backgroundColor: "rgb(249,249,249)",
@@ -1016,7 +938,7 @@ const MvCable = () => {
                           className="field-select"
                           placeholder="Installation method"
                           indicator={<ChevronDown />}
-                          value={spacingMethod}
+                          value={spacingMethod ?? ""}
                           sx={{
                             height: 50,
                             backgroundColor: "rgb(249,249,249)",
@@ -1042,40 +964,6 @@ const MvCable = () => {
                         </Select>
                       </div>
                     ) : null}
-
-                    {/* <div className="form-field">
-                      {" "}
-                      <label className="field-label" htmlFor="spacing">
-                        Conductor size:
-                      </label>
-                      <Select
-                        onChange={handleConductorSizeChange}
-                        className="field-select"
-                        placeholder="Conductor size"
-                        indicator={<ChevronDown />}
-                        value={conductorSize}
-                        sx={{
-                          height: 50,
-                          backgroundColor: "rgb(249,249,249)",
-                          fontWeight: 400,
-                          fontSize: 14,
-                          borderRadius: 3,
-                          fontFamily: "Open Sans, sans-serif",
-                          [`& .${selectClasses.indicator}`]: {
-                            transition: "0.2s",
-                            [`&.${selectClasses.expanded}`]: {
-                              transform: "rotate(-180deg)",
-                            },
-                          },
-                        }}
-                      >
-                        {conductorSizes?.map((size) => (
-                          <Option key={size} value={size}>
-                            {size}
-                          </Option>
-                        ))}
-                      </Select>
-                    </div> */}
                   </div>
                   {mvCableValue && (
                     <h1 className="result-text">
@@ -1151,13 +1039,7 @@ const MvCable = () => {
                 )}
 
               {step === 3 && (
-                <div
-                  key="step3"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  className="form-step"
-                >
+                <div key="step3" className="form-step">
                   <div className="form-grid">
                     <div className="form-field">
                       <>
@@ -1430,13 +1312,11 @@ const MvCable = () => {
       <ResultModal
         isResultModalOpen={isResultModalOpen}
         setIsResultModalOpen={setIsResultModalOpen}
-        isGetReportData={isGetReportData}
         handleCalculateAutomaticIz={handleCalculateAutomaticIz}
       />
       <InAirResultReportModal
         isInAirResultModalOpen={isInAirResultModalOpen}
         setIsInAirResultModalOpen={setIsInAirResultModalOpen}
-        isGetReportData={isGetReportData}
         handleCalculateAutomaticIz={handleCalculateAutomaticIz}
       />
     </div>

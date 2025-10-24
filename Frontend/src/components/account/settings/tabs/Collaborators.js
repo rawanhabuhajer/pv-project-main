@@ -56,7 +56,7 @@ const Collaborators = () => {
       title: formatMessage({ id: "confirmDeleteParticipant" }),
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#095183",
+      confirmButtonColor: "#111827",
       cancelButtonColor: "#d33",
       confirmButtonText: formatMessage({ id: "yes" }),
       cancelButtonText: formatMessage({ id: "no" }),
@@ -197,7 +197,7 @@ const Collaborators = () => {
                       }
                     >
                       <button type="button" className="info-icon">
-                        <InfoIcon fill="#095183" />
+                        <InfoIcon fill="#111827" />
                       </button>
                     </OverlayTrigger>
                   </div>

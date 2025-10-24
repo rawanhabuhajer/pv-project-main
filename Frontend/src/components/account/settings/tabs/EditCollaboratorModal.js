@@ -139,7 +139,7 @@ const EditCollaboratorModal = ({ show, onHide, selectedCollaborator }) => {
                   }
                 >
                   <button type="button" className="info-icon">
-                    <InfoIcon fill="#095183" />
+                    <InfoIcon fill="#111827" />
                   </button>
                 </OverlayTrigger>
               </div>

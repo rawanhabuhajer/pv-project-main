@@ -76,8 +76,8 @@
       display: flex;
       flex-flow: column;
       justify-content: center;
-     
-      @media (min-width: 991px) and (max-width : 1599px) {
+
+      @media (min-width: 991px) and (max-width: 1599px) {
         max-width: 80%;
       }
       @media (max-width: 991px) {
@@ -112,7 +112,7 @@
             text-align: right;
             font-size: 16px;
             transition: $transition;
-            background-color: #F3F3F3;
+            background-color: #f3f3f3;
             [dir="ltr"] & {
               text-align: left;
             }
@@ -175,20 +175,41 @@
               text-align: right;
             }
             a {
-              color: $primary-color;
+              display: inline-block;
+              background: linear-gradient(45deg, #a855f7, #3b82f6);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              line-height: 1.5;
+              padding-bottom: 8px;
+              text-rendering: optimizeLegibility;
               font-size: 16px;
             }
           }
           .btn {
             width: 100%;
             font-family: "font-bold";
+            background: linear-gradient(90deg, #3b82f6 -34.71%, #8200ff 100%);
+            color: #ffffff;
+            border-radius: 5px;
+
+            height: fit-content;
+            min-height: 48px;
+            display: grid;
+            place-items: center;
           }
           .form-group__register {
-            margin-top: 10px;
             text-align: center;
+            margin-top: 16px;
             font-size: 16px;
             a {
               color: $primary-color;
+              display: inline-block;
+              background: linear-gradient(45deg, #a855f7, #3b82f6);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              line-height: 1.5;
+              padding-bottom: 8px;
+              text-rendering: optimizeLegibility;
             }
           }
         }

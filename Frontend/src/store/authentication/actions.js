@@ -20,7 +20,9 @@ import {
   SEND_CONTACT_MESSAGE,
   SEND_CONTACT_MESSAGE_SUCCESS,
   SEND_CONTACT_MESSAGE_FAILURE,
-
+  GET_ALL_CMS_HOME,
+  GET_ALL_CMS_HOME_SUCCESS,
+  GET_ALL_CMS_HOME_FAILURE,
 } from "./actionTypes";
 
 export const postUserRegister = (payload) => {
@@ -177,3 +179,24 @@ export const sendConatctMessageFailure = (error) => {
 
 // ====================================================
 // ====================================================
+
+export const getAllCmsHome = (payload) => {
+  return {
+    type: GET_ALL_CMS_HOME,
+    payload,
+  };
+};
+
+export const getAllCmsHomeSuccess = (payload) => {
+  return {
+    type: GET_ALL_CMS_HOME_SUCCESS,
+    payload,
+  };
+};
+
+export const getAllCmsHomeFailure = (payload) => {
+  return {
+    type: GET_ALL_CMS_HOME_FAILURE,
+    payload,
+  };
+};

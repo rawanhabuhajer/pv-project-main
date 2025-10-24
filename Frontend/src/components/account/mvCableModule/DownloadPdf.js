@@ -84,7 +84,7 @@ const DownloadPdf = forwardRef((props, ref) => {
           const imgData = canvas.toDataURL("image/png");
 
           const pageWidth = pdf.internal.pageSize.getWidth();
-          const pageHeight = pdf.internal.pageSize.getHeight();
+
           const imgWidth = pageWidth - 30;
           const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
@@ -124,4 +124,5 @@ const DownloadPdf = forwardRef((props, ref) => {
   return <div></div>;
 });
 
+DownloadPdf.displayName = "DownloadPdf";
 export default DownloadPdf;
