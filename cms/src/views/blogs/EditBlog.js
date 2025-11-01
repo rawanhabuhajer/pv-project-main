@@ -35,7 +35,7 @@ const EditBlog = () => {
   const [selectedTags, setSelectedTags] = useState([]);
 
   const { singleBlog } = useSelector((state) => state.blogs);
-  const { categories } = useSelector((state) => state.categories);
+
 
   const imageChange = async (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -229,28 +229,7 @@ const EditBlog = () => {
                       )}
                     </div>
                   </Col>
-                  <Col lg={6} xs={12}>
-                    <div className="form-group required">
-                      <h5>تصنيف المدونة</h5>
-                      <div>
-                        <select
-                          className="form-control form-select"
-                          {...register("cmsCategoryId", { required: true })}
-                        >
-                          <option value="">اختر تصنيف المدونة</option>
-                          {categories?.map((category, index) => (
-                            <option value={category.id} key={index}>
-                              {category.name}
-                            </option>
-                          )) || []}
-                        </select>
-                      </div>
-                      <p className="error-hint">
-                        {errors?.cmsCategoryId?.type === "required" &&
-                          "يرجي اختيار تصنيف المدونة"}
-                      </p>
-                    </div>
-                  </Col>
+                
                   <Col lg={6} xs={12}>
                     <div className="form-group">
                       <h5>حالة المدونة (مفعل / غير مفعل)</h5>

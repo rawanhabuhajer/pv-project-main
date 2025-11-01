@@ -22,9 +22,7 @@ const Footer = dynamic(() => import("@/components/footer/Index"), {
   ssr: false,
 });
 
-const Header = dynamic(() => import("@/components/header/Index"), {
-  ssr: false,
-});
+
 
 const SingleBlog = () => {
   const { singleBlog } = useSelector((state) => state.blogs);
@@ -32,23 +30,23 @@ const SingleBlog = () => {
   return (
     <>
       <NextSeo
-        title={singleBlog?.title}
-        description={singleBlog?.metaDescription}
+        title={"singleBlog?.title"}
+        description={"singleBlog?.metaDescription"}
         openGraph={{
-          title: singleBlog?.metaTitle,
-          description: singleBlog?.metaDescription,
-          images: [
-            {
-              url: singleBlog?.image,
-              width: 800,
-              height: 600,
-              alt: singleBlog?.title,
-            },
-          ],
+          title: "singleBlog?.metaTitle",
+          description: "singleBlog?.metaDescription",
+          // images: [
+          //   {
+          //     url: singleBlog?.image,
+          //     width: 800,
+          //     height: 600,
+          //     alt: singleBlog?.title,
+          //   },
+          // ],
         }}
-        canonical={singleBlog?.canonicalTag}
+        canonical={"singleBlog?.canonicalTag"}
       />
-      <Header />
+
       <SingleBlogSection />
       <Footer />
     </>
@@ -64,39 +62,22 @@ export async function getStaticPaths() {
 
 export const getStaticProps = wrapper.getStaticProps((store) => {
   return async ({ params, ctx }) => {
-    const { slug } = params;
+    const { id } = params;
 
-    store.dispatch(
-      getSingleBlog({
-        cookies: {},
-        slug,
-      })
-    );
-
-    store.dispatch(
-      getCmsFooter({
-        cookies: {},
-        lang: ctx?.locale || "ar",
-      })
-    );
-
-    store.dispatch(
-      getAllBlogs({
-        cookies: {},
-        lang: ctx?.locale || "ar",
-      })
-    );
-
-    store.dispatch(
-      getBlogCategories({
-        cookies: {},
-      })
-    );
+    store.dispatch(getSingleBlog({ cookies: {}, id }));
+    store.dispatch(getAllBlogs({ cookies: {} }));
 
     store.dispatch(END);
     await store.sagaTask.toPromise();
+
+    // Sanitize any Error objects to prevent serialization issues
+    const state = store.getState();
+    if (state.blogs?.error instanceof Error) {
+      state.blogs.error = state.blogs.error.message;
+    }
+
     return {
-      props: {},
+      props: { initialState: state },
       revalidate: 1,
     };
   };

@@ -5,7 +5,7 @@ const hero = ({ singleBlog }) => {
   return (
     <div className="hero-wrapper">
       <Image
-        src={handleImageLink(singleBlog?.image)}
+        src={handleImageLink(singleBlog?.imageUrl)}
         className="hero-img"
         width={1000}
         height={1000}

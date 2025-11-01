@@ -8,82 +8,63 @@ import styles from "./styles/style.module.scss";
 import { Col, Container, Row } from "react-bootstrap";
 import { Feather } from "lucide-react";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { getSectionData } from "@/helpers/functions";
 const index = () => {
+  const { allCmsHome } = useSelector((state) => state.authentication);
+  const featuresData = getSectionData(allCmsHome, "features");
+
   return (
     <div className={styles["tools-section"]}>
       <Container>
-        <span>Unlimited users with role-based access control</span>
+        <span>{featuresData?.description}</span>
         <br></br>
-        <h3>Featured Our Tools</h3>
+        <h3>{featuresData?.title}</h3>
         <div className="tools-wrapper">
-          <Row data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-            <Col lg={6}>
-              <Feture1 />
-            </Col>
-            <Col lg={6}>
-              <div className="text-section">
-                <h5>Custom Enterprise Pricing</h5>
-                <p>
-                  We offer tailored pricing packages for enterprises and
-                  government agencies based on your specific needs and scale.
-                </p>
-                <ul>
-                  <li>
-                    <Feather color="#2465ED" /> &nbsp; Unlimited users with
-                    role-based access control
-                  </li>
-                  <li>
-                    <Feather color="#2465ED" /> &nbsp; Enterprise-grade security
-                    and compliance
-                  </li>
-                  <li>
-                    <Feather color="#2465ED" /> &nbsp; Access to all LLM models
-                  </li>
-                  <li>
-                    <Feather color="#2465ED" /> &nbsp; Customizable knowledge
-                    base size
-                  </li>
-                </ul>
-                <Link href={"/"}>
-                  <a>{"Learn more"}</a>
-                </Link>
-              </div>
-            </Col>
-          </Row>
-          <Row data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-            <Col lg={6}>
-              <div className="text-section right-side">
-                <h5>Custom Enterprise Pricing</h5>
-                <p>
-                  We offer tailored pricing packages for enterprises and
-                  government agencies based on your specific needs and scale.
-                </p>
-                <ul>
-                  <li>
-                    <Feather color="#2465ED" /> &nbsp; Unlimited users with
-                    role-based access control
-                  </li>
-                  <li>
-                    <Feather color="#2465ED" /> &nbsp; Enterprise-grade security
-                    and compliance
-                  </li>
-                  <li>
-                    <Feather color="#2465ED" /> &nbsp; Access to all LLM models
-                  </li>
-                  <li>
-                    <Feather color="#2465ED" /> &nbsp; Customizable knowledge
-                    base size
-                  </li>
-                </ul>
-                <Link href={"/"}>
-                  <a>{"Learn more"}</a>
-                </Link>
-              </div>
-            </Col>
-            <Col lg={6}>
-              <Feture1 />
-            </Col>
-          </Row>
+          {featuresData?.items.map((item, index) => (
+            <Row
+              data-aos="fade-up"
+              data-aos-duration="800"
+              data-aos-delay="200"
+              key={index}
+            >
+              {(index + 1) % 2 === 0 ? (
+                <>
+                  <Col lg={6}>
+                    <div className={`text-section right-side`}>
+                      <h5>{item?.title}</h5>
+                      <p>{item?.subTitle}</p>
+
+                      <div
+                        dangerouslySetInnerHTML={{ __html: item?.description }}
+                        className="subtitle"
+                      />
+                    </div>
+                  </Col>{" "}
+                  <Col lg={6}>
+                    <Image src={item?.image} alt="" width={500} height={500} />
+                  </Col>
+                </>
+              ) : (
+                <>
+                  <Col lg={6}>
+                    <Image src={item?.image} alt="" width={500} height={500} />
+                  </Col>
+                  <Col lg={6}>
+                    <div className={`text-section `}>
+                      <h5>{item?.title}</h5>
+                      <p>{item?.subTitle}</p>
+
+                      <div
+                        dangerouslySetInnerHTML={{ __html: item?.description }}
+                        className="subtitle"
+                      />
+                    </div>
+                  </Col>
+                </>
+              )}
+            </Row>
+          ))}
         </div>{" "}
       </Container>
     </div>

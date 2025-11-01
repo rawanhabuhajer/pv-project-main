@@ -98,7 +98,6 @@ function* userLogin({ payload }) {
       yield payload?.toast.error(error);
     }
   } catch (error) {
-   
     yield payload?.toast.error(error.response?.data?.error);
     yield put(postUserLoginFailure(JSON.stringify(error)));
   }
@@ -179,7 +178,7 @@ function* forgetPassword({ payload }) {
       );
       yield payload.reset();
       setTimeout(() => {
-        router.push(`/`);
+        router.push(`/reset-request`);
       }, 3000);
     }
   } catch (error) {

@@ -5,22 +5,19 @@ import { useRouter } from "next/router";
 import React from "react";
 import CalendarIcon from "./assets/date.svg";
 import UserIcon from "./assets/user.svg";
-import ImagIcon from "./assets/img.png";
 import { FormattedMessage } from "react-intl";
 
 const BlogCard = ({ blog }) => {
-  const { locale } = useRouter();
-
   return (
     <div className="blog-card">
       <div className="blog-image">
         <Image
-          src={ImagIcon}
+          src={handleImageLink(blog?.imageUrl)}
           alt={blog?.title}
           width={400}
           height={400}
         />
-        <Link href={`/blogs/${blog?.slug}`}>
+        <Link href={`/blogs/${blog?._id}`}>
           <a> </a>
         </Link>
       </div>
@@ -28,7 +25,7 @@ const BlogCard = ({ blog }) => {
         <ul>
           <li>
             <CalendarIcon fill="#000" />
-            {getFullDate(blog?.date, locale)}
+            {getFullDate(blog?.createdAt)}
           </li>
           <li title={blog?.author}>
             <UserIcon fill="#000" />
@@ -38,7 +35,7 @@ const BlogCard = ({ blog }) => {
         </ul>
 
         <h2>
-          <Link href={`/blogs/${blog?.slug}`}>
+          <Link href={`/blogs/${blog?._id}`}>
             <a>{blog?.title}</a>
           </Link>
         </h2>
@@ -49,7 +46,7 @@ const BlogCard = ({ blog }) => {
             __html: blog?.content,
           }}
         />
-        <Link href={`/blogs/${blog?.slug}`}>
+        <Link href={`/blogs/${blog?._id}`}>
           <a className="btn">
             <FormattedMessage id="readMore" />
           </a>

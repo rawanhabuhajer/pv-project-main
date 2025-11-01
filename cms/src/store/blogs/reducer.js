@@ -36,7 +36,8 @@ const blogs = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        blogs: action.payload,
+        blogs: action.payload.responseData,
+        meta: action.payload.pagination,
       };
 
     case GET_ALL_BLOGS_FAILURE:

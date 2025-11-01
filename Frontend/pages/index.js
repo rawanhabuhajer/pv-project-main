@@ -20,23 +20,30 @@ const Home = () => {
   );
 };
 
-export const getStaticProps = wrapper.getStaticProps((store) => async () => {
-  // dispatch action لتحميل الـ CMS sections
-  store.dispatch(
-    getAllCmsHome({
-      cookies: {},
-      lang: "en",
-    })
-  );
+export const getStaticProps = wrapper.getStaticProps((store) => {
+  return async () => {
+    let allCmsHomeData = [];
 
-  // إنهاء كل sagas والانتظار حتى تنتهي
-  store.dispatch(END);
-  await store.sagaTask.toPromise();
+    // Dispatch action with callback to capture data
+    store.dispatch(
+      getAllCmsHome({ cookies: {} }, (err, data) => {
+        if (!err && data) {
+          allCmsHomeData = data;
+        }
+      })
+    );
 
-  return {
-    props: {}, // لا حاجة لتمرير البيانات يدوياً، لأنها في الـ store
-    revalidate: 1,
+    store.dispatch(END); // Signal saga to finish
+    await store.sagaTask.toPromise(); // Wait for saga completion
+
+    console.log("Server fetched CMS Home:", allCmsHomeData);
+
+    return {
+      props: {
+        allCmsHome: allCmsHomeData,
+      },
+      revalidate: 1,
+    };
   };
 });
-
 export default Home;

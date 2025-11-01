@@ -1,7 +1,6 @@
 @import "@/styles/variables.scss";
 
 .privacy-section {
-  padding: 30px 0;
   background-color: #020817;
 
   min-height: 100vh;
@@ -11,6 +10,7 @@
     .privacy-inner {
       color: #fff;
       line-height: 2.4;
+      padding: 30px 0;
       ul {
         list-style-type: initial;
         padding-left: 32px;

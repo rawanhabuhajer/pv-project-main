@@ -126,7 +126,7 @@ const getUserProfile = async (req, res) => {
     res.status(200).json({
       isSuccess: true,
       responseData: {
-      id: user._id,
+        id: user._id,
         username: user.username,
         email: user.email,
         phoneNumber: user.phoneNumber,
@@ -196,7 +196,8 @@ const requestPasswordReset = async (req, res) => {
 
     res.status(200).json({
       isSuccess: true,
-      message: "Password reset email sent",
+      responseData: "Password reset email sent",
+      message: "Reset password link has been sent to your email",
     });
   } catch (error) {
     res.status(500).json({ error: "Error sending password reset email" });

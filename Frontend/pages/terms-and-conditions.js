@@ -6,10 +6,6 @@ import { getAllCmsHome } from "@/store/actions";
 
 import dynamic from "next/dynamic";
 
-const Header = dynamic(() => import("@/components/header/Index"), {
-  ssr: false,
-});
-
 const Footer = dynamic(() => import("@/components/footer/Index"), {
   ssr: false,
 });
@@ -25,7 +21,7 @@ const PrivacyPolicy = () => {
         title={"termsSeo?.title"}
         description={"termsSeo?.description"}
       />
-      <Header />
+
       <TermsSection />
       <Footer />
     </>
@@ -37,7 +33,6 @@ export const getStaticProps = wrapper.getStaticProps((store) => {
     store.dispatch(
       getAllCmsHome({
         cookies: {},
-        lang: "en",
       })
     );
 
@@ -45,7 +40,7 @@ export const getStaticProps = wrapper.getStaticProps((store) => {
     await store.sagaTask.toPromise();
     return {
       props: {},
-      revalidate: 1,
+      revalidate: 60,
     };
   };
 });

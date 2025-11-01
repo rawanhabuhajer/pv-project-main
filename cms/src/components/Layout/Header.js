@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 
 import userimg from "../../assets/images/user.png";
-import logo from "../../assets/images/new-logo.svg";
+import logo  from "assets/images/LogoNew.svg";
 // import { logoutUser } from "store/actions";
 import { useSelector } from "react-redux";
 
@@ -46,19 +46,19 @@ const Header = () => {
                   fillRule="evenodd"
                   clipRule="evenodd"
                   d="M15.75 1C15.75 0.585786 15.4142 0.25 15 0.25H6C5.58579 0.25 5.25 0.585786 5.25 1C5.25 1.41421 5.58579 1.75 6 1.75H15C15.4142 1.75 15.75 1.41421 15.75 1Z"
-                  fill="#0daca3"
+                  fill="#0b0b0b"
                 />
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"
                   d="M15.75 13C15.75 12.5858 15.4142 12.25 15 12.25H9C8.58579 12.25 8.25 12.5858 8.25 13C8.25 13.4142 8.58579 13.75 9 13.75H15C15.4142 13.75 15.75 13.4142 15.75 13Z"
-                  fill="#0daca3"
+                  fill="#0b0b0b"
                 />
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"
                   d="M15.75 7C15.75 6.58579 15.4142 6.25 15 6.25H1C0.585787 6.25 0.25 6.58579 0.25 7C0.25 7.41421 0.585787 7.75 1 7.75H15C15.4142 7.75 15.75 7.41421 15.75 7Z"
-                  fill="#0daca3"
+                  fill="#0b0b0b"
                 />
               </svg>
             </button>
@@ -74,7 +74,7 @@ const Header = () => {
                         <img src={userimg} alt="" />
                       </div>
                       <div className="au-data">
-                        <h4>{user?.fullName}</h4>
+                        <h4>{user?.username}</h4>
                       </div>
                     </div>
                     {/* <svg

@@ -21,8 +21,6 @@ const AddBlog = () => {
     formState: { errors },
   } = useForm();
 
-  const { categories } = useSelector((state) => state.categories);
-
   const [selectedImage, setSelectedImage] = useState({
     preview: null,
     path: null,
@@ -50,14 +48,17 @@ const AddBlog = () => {
   };
 
   const onSubmit = (data) => {
-    if (selectedImage?.preview !== undefined)
-      data.image = selectedImage?.path || "";
+    if (
+      selectedImage?.preview === null ||
+      selectedImage === undefined ||
+      selectedTags?.length === 0
+    ) {
+      toast.error("جميع العناصر مطلوبة ");
+      return;
+    }
+    data.imageUrl = selectedImage?.path || "";
     data.content = description;
-    data.tags = selectedTags.map((tag) => {
-      return (tag = {
-        name: tag.value,
-      });
-    });
+    data.tags = selectedTags.map((tag) => tag.value);
     dispatch(
       addBlog({
         data,
@@ -159,55 +160,19 @@ const AddBlog = () => {
                   </Col>
                   <Col lg={6} xs={12}>
                     <div className="form-group required">
-                      <h5>لغة المدونة</h5>
+                      <h5>الكاتب</h5>
                       <div>
-                        <select
-                          className="form-control form-select"
-                          {...register("lang", { required: true })}
-                        >
-                          <option value="">اختر لغة المدونة</option>
-                          <option value="ar">العربية</option>
-                          <option value="en">الانجليزية</option>
-                        </select>
-                      </div>
-                      {errors?.lang?.type === "required" &&
-                        "يرجي اختيار لغة المدونة"}
-                    </div>
-                  </Col>
-                  <Col lg={6} xs={12}>
-                    <div className="form-group required">
-                      <h5>تصنيف المدونة</h5>
-                      <div>
-                        <select
-                          className="form-control form-select"
-                          {...register("cmsCategoryId", { required: true })}
-                        >
-                          <option value="">اختر تصنيف المدونة</option>
-                          {categories?.map((category, index) => (
-                            <option value={category.id} key={index}>
-                              {category.name}
-                            </option>
-                          )) || []}
-                        </select>
+                        <input
+                          type="text"
+                          className="form-control form-outline"
+                          placeholder="الكاتب"
+                          {...register("author", { required: true })}
+                        />
                       </div>
                       <p className="error-hint">
-                        {errors?.cmsCategoryId?.type === "required" &&
-                          "يرجي اختيار تصنيف المدونة"}
+                        {errors?.author?.type === "required" &&
+                          "يرجي ادخال اسم الكاتب"}
                       </p>
-                    </div>
-                  </Col>
-                  <Col lg={6} xs={12}>
-                    <div className="form-group">
-                      <h5> الحالة (مفعل / غير مفعل)</h5>
-
-                      <div className="theme-switcher">
-                        <input
-                          type="checkbox"
-                          id="themeSwitcher"
-                          {...register("isActive")}
-                        />
-                        <label htmlFor="themeSwitcher"></label>
-                      </div>
                     </div>
                   </Col>
 
@@ -226,51 +191,10 @@ const AddBlog = () => {
                     </div>
                   </Col>
 
-                  <Col lg={6} xs={12}>
-                    <div className="form-group required">
-                      <h5>الكاتب</h5>
-                      <div>
-                        <input
-                          type="text"
-                          className="form-control form-outline"
-                          placeholder="الكاتب"
-                          {...register("author", { required: true })}
-                        />
-                      </div>
-                      <p className="error-hint">
-                        {errors?.author?.type === "required" &&
-                          "يرجي ادخال اسم الكاتب"}
-                      </p>
-                    </div>
-                  </Col>
-                  <Col lg={6} xs={12}>
-                    <div className="form-group required">
-                      <h5>تاريخ المدونة</h5>
-                      <div>
-                        <input
-                          type="date"
-                          className="form-control form-outline"
-                          placeholder="تاريخ المدونة"
-                          {...register("date", { required: true })}
-                        />
-                      </div>
-                      <p className="error-hint">
-                        {errors?.date?.type === "required" &&
-                          "يرجي ادخال تاريخ المدونة"}
-                      </p>
-                    </div>
-                  </Col>
-
                   <Col lg={12} xs={12}>
                     <div className="form-group required">
                       <h5>الكلمات الدلالية</h5>
                       <div>
-                        {/* <input
-                          type="text"
-                          className="form-control form-outline"
-                          placeholder="الكلمات الدلالية"
-                          {...register("tags", { required: true })}
-                        /> */}
                         <CreatableSelect
                           isRtl={true}
                           isSearchable={true}
@@ -297,13 +221,9 @@ const AddBlog = () => {
                         {selectedTags?.length < 1 &&
                           " يرجي اختيار الكلمات الدلالية"}
                       </p>
-                      {/* <p className="error-hint">
-                        {errors?.tags?.type === "required" &&
-                          " يرجي اختيار الكلمات الدلالية"}
-                      </p> */}
                     </div>
                   </Col>
-
+                  {/* 
                   <Col lg={12} xs={12}>
                     <div className="seo-wrap">
                       <Row>
@@ -380,7 +300,7 @@ const AddBlog = () => {
                         </Col>
                       </Row>
                     </div>
-                  </Col>
+                  </Col> */}
 
                   <Col lg={4} xs={12}>
                     <div className="form-group">

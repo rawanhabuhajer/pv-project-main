@@ -12,6 +12,7 @@ const mvCategories = require("./routes/mvCable");
 const dashboard = require("./routes/dashboard");
 const CmsManagment = require("./routes/CmsManagment");
 const landingContent = require("./routes/landingContent");
+const blogRoutes = require("./routes/blogs");
 // express app
 const app = express();
 const nodemailer = require("nodemailer");
@@ -32,6 +33,7 @@ app.use("/api/mvCategories", mvCategories);
 app.use("/api/subCategories", subCategories);
 app.use("/api/mvSubCategories", mvSubCategories);
 app.use("/api/dashboard", dashboard);
+app.use("/api/blogs", blogRoutes);
 
 app.post("/api/send-email", (req, res) => {
   const { firstName, lastName, companyName, message, email } = req.body;

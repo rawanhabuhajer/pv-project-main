@@ -78,7 +78,7 @@ const ProjectCard = ({ project }) => {
                   onClick={() => {
                     dispatch(
                       deleteMvProjects({
-                        mvCategoryId: project?.id,
+                        mvCategoryId: project?._id,
                         userId: user?.id,
                         cookies,
                         toast,

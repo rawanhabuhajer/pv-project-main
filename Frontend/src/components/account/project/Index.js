@@ -9,7 +9,7 @@ import { Dropdown } from "react-bootstrap";
 import { Funnel, ListFilter, Send, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { addPvProjects, getPvProjects } from "@/store/actions";
-
+import NoDataImage from "../assets/images/noData.svg";
 import { PuffLoader } from "react-spinners";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import { parseCookies } from "nookies";
@@ -368,13 +368,26 @@ const Index = () => {
         </div>
       ) : (
         <>
-          <div className="projects-grid">
-            <NewProjectCard onClick={() => setIsFormOpen(true)} />
-            {pvProjects?.map((project) => (
-              <ProjectCard key={project?._id} project={project} />
-            ))}
-          </div>
-
+          {pvProjects?.length > 0 ? (
+            <>
+              <div className="projects-grid">
+                <NewProjectCard onClick={() => setIsFormOpen(true)} />
+                {pvProjects?.map((project) => (
+                  <ProjectCard key={project?._id} project={project} />
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="projects-grid">
+                <NewProjectCard onClick={() => setIsFormOpen(true)} />
+              </div>
+              <div className="noData">
+                <NoDataImage />
+                <p>No data found</p>
+              </div>
+            </>
+          )}
           <ProjectForm
             isOpen={isFormOpen}
             onClose={() => setIsFormOpen(false)}

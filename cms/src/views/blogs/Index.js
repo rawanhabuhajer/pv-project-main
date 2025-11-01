@@ -11,7 +11,7 @@ const Index = () => {
   const [lang, setLang] = useState("ar");
 
   useEffect(() => {
-    dispatch(getBlogs({ lang }));
+    dispatch(getBlogs({ PageSize: 10, PageNumber: 1 }));
   }, [dispatch, lang]);
 
   return (

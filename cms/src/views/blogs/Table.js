@@ -19,7 +19,7 @@ const Table = ({ lang }) => {
 
   const [pending, setPending] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const { blogs } = useSelector((state) => state.blogs);
+  const { blogs, meta } = useSelector((state) => state.blogs);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -31,12 +31,11 @@ const Table = ({ lang }) => {
   const [filterText, setFilterText] = useState("");
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
 
-  const filteredItems = blogs?.items?.filter(
+  const filteredItems = blogs?.filter(
     (item) =>
       JSON.stringify(item).toLowerCase().indexOf(filterText.toLowerCase()) !==
       -1
   );
-
 
   const subHeaderComponent = useMemo(() => {
     const handleClear = () => {
@@ -67,23 +66,13 @@ const Table = ({ lang }) => {
     {
       name: "صورة المدونة",
       selector: (row) => (
-        <img src={row?.image} alt="blog" className="store-logo" />
+        <img src={row?.imageUrl} alt="blog" className="store-logo" />
       ),
       sortable: true,
     },
     {
       name: "عنوان المدونة",
       selector: (row) => row?.title,
-      sortable: true,
-    },
-    {
-      name: "التصنيف",
-      selector: (row) => row?.cmsCategory?.name,
-      sortable: true,
-    },
-    {
-      name: "الحالة",
-      selector: (row) => (row?.isActive ? "مفعل" : "غير مفعل"),
       sortable: true,
     },
 
@@ -97,7 +86,7 @@ const Table = ({ lang }) => {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item onClick={(e) => handleEditBlog(row?.id)}>
+                <Dropdown.Item onClick={(e) => handleEditBlog(row?._id)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="12"
@@ -110,7 +99,7 @@ const Table = ({ lang }) => {
                   </svg>
                   تعديل
                 </Dropdown.Item>
-                <Dropdown.Item onClick={(e) => handleDeleteBlog(row?.slug)}>
+                <Dropdown.Item onClick={(e) => handleDeleteBlog(row?._id)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="12"
@@ -167,7 +156,11 @@ const Table = ({ lang }) => {
           </div>
         </div>
       </div>
-      <DeleteModal show={showDeleteModal} setShow={setShowDeleteModal} lang={lang}/>
+      <DeleteModal
+        show={showDeleteModal}
+        setShow={setShowDeleteModal}
+        lang={lang}
+      />
     </>
   );
 };
