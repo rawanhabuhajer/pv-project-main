@@ -3,21 +3,9 @@ import { NextSeo } from "next-seo";
 import { wrapper } from "../../src/store";
 import { END } from "redux-saga";
 import dynamic from "next/dynamic";
-import {
-  getCmsFooter,
-  getAllCmsHome,
-  getAllSeo,
-  getAllBlogs,
-  getBlogCategories,
-} from "@/store/actions";
-import { useSelector } from "react-redux";
-import { getSectionData } from "@/helpers/functions";
+import { getAllBlogs } from "@/store/actions";
 
 const Blog = dynamic(() => import("@/components/blogs/Index"), {
-  ssr: false,
-});
-
-const Header = dynamic(() => import("@/components/header/Index"), {
   ssr: false,
 });
 
@@ -29,7 +17,6 @@ const Blogs = () => {
   return (
     <>
       <NextSeo title={"blogs"} description={"blogsSeo?.description"} />
-      <Header />
       <Blog />
       <Footer />
     </>
@@ -37,13 +24,12 @@ const Blogs = () => {
 };
 
 export const getStaticProps = wrapper.getStaticProps((store) => {
-  return async (ctx) => {
-    // store.dispatch(
-    //   getAllBlogs({
-    //     cookies: {},
-    //     lang: ctx?.locale || "ar",
-    //   })
-    // );
+  return async () => {
+    store.dispatch(
+      getAllBlogs({
+        cookies: {},
+      })
+    );
 
     // store.dispatch(
     //   getBlogCategories({

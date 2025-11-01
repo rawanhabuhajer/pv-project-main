@@ -18,6 +18,7 @@ import LogoutIcon from "./assets/images/sidebar-icons/logout.svg";
 import { FormattedMessage } from "react-intl";
 
 import CloseIcon from "./assets/images/close.svg";
+import { CircleUser, LayoutGrid, LogOut, Sheet, SquareKanban } from "lucide-react";
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -77,58 +78,55 @@ const Index = () => {
                     </Link>
                   </li>
 
-                  <li>
-                    {cookies?.token ? (
+                  {cookies?.token ? (
+                    <li className="drop-menu">
                       <Dropdown>
                         <Dropdown.Toggle>
-                          <UserIcon fill="#fff" />
+                          <CircleUser color="#fff" /> {" "}
                           <FormattedMessage id="myAccount" />
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
                           <Link href="/account">
                             <a className="dropdown-item">
-                              <HomeIcon fill="#333" />
+                              <LayoutGrid color="#333" size={22} />
                               <FormattedMessage id="statistics" />
                             </a>
                           </Link>
 
                           <Link href="/account/pv-cable">
                             <a className="dropdown-item">
-                              <SettingsIcon fill="#333" />
+                              <Sheet color="#333" size={22} />
                               <FormattedMessage id="PvCable" />
                             </a>
                           </Link>
                           <Link href="/account/mv-cable">
                             <a className="dropdown-item">
-                              <SettingsIcon fill="#333" />
+                              <SquareKanban color="#333" size={22} />
                               <FormattedMessage id="mvCable" />
                             </a>
                           </Link>
                           <Dropdown.Item onClick={handleLogout}>
-                            <LogoutIcon fill="#333" />
+                            <LogOut color="#333" size={22} />
                             <FormattedMessage id="logout" />
                           </Dropdown.Item>
                         </Dropdown.Menu>
-                      </Dropdown>
-                    ) : (
-                      <Link href="/login">
-                        <a>
-                          <FormattedMessage id="login" />
-                        </a>
-                      </Link>
-                    )}
-                  </li>
-                  <button className="border-btn">
-                    <Link href={"/login"}>
-                      <a>Login</a>
-                    </Link>
-                  </button>
-                  <button className="border-btn">
-                    <Link href={"/register"}>
-                      <a>Register</a>
-                    </Link>
-                  </button>
+                      </Dropdown>{" "}
+                    </li>
+                  ) : (
+                    <>
+                      <button className="border-btn">
+                        <Link href={"/login"}>
+                          <a>Login</a>
+                        </Link>
+                      </button>
+                      <button className="border-btn">
+                        <Link href={"/register"}>
+                          <a>Register</a>
+                        </Link>
+                      </button>
+                    </>
+                  )}
                 </ul>
 
                 <div className="user--area">

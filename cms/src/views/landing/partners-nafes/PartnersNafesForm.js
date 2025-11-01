@@ -6,7 +6,7 @@ import imageUpload from "../../../assets/svgs/imageUpload.svg";
 import toast from "react-hot-toast";
 import Items from "./Items";
 
-const PartnersNafesForm = ({
+const PartnersPVX360Form = ({
   slug,
   lang,
   data,
@@ -241,4 +241,4 @@ const PartnersNafesForm = ({
   );
 };
 
-export default PartnersNafesForm;
+export default PartnersPVX360Form;

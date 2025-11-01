@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addMvProjectSubById, getMvProjectSubById } from "@/store/actions";
 import styles from "../style.module.scss";
 import toast from "react-hot-toast";
+import NoDataImage from "../../assets/images/noData.svg";
+import { PuffLoader } from "react-spinners";
 const SubCategoriesMain = () => {
   const router = useRouter();
   const cookies = parseCookies();
@@ -20,7 +22,7 @@ const SubCategoriesMain = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const projectId = router.query.account[2];
   const dispatch = useDispatch();
-  const { SubProjectsMeta, pvSubProjects } = useSelector(
+  const { SubProjectsMeta, mvSubProjects, mvSubProjectsLoading } = useSelector(
     (state) => state.projects
   );
 
@@ -337,18 +339,38 @@ const SubCategoriesMain = () => {
           </Dropdown>
         </div>
       </div>
-
-      <div className="subprojects-grid">
-        <NewSubprojectCard onClick={() => setIsFormOpen(true)} />
-        {pvSubProjects?.map((subproject, index) => (
-          <SubprojectCard
-            key={index}
-            subproject={subproject}
-            projectId={projectId}
-          />
-        ))}
-      </div>
-
+      {mvSubProjectsLoading ? (
+        <div className="spinner_wrapper">
+          <PuffLoader color="#4E0099" />
+        </div>
+      ) : (
+        <>
+          <>
+            {mvSubProjects?.length > 0 ? (
+              <div className="subprojects-grid">
+                <NewSubprojectCard onClick={() => setIsFormOpen(true)} />
+                {mvSubProjects?.map((subproject, index) => (
+                  <SubprojectCard
+                    key={index}
+                    subproject={subproject}
+                    projectId={projectId}
+                  />
+                ))}
+              </div>
+            ) : (
+              <>
+                <div className="subprojects-grid">
+                  <NewSubprojectCard onClick={() => setIsFormOpen(true)} />
+                </div>
+                <div className="noData">
+                  <NoDataImage />
+                  <p>No data found</p>
+                </div>
+              </>
+            )}
+          </>
+        </>
+      )}
       <SubprojectForm
         isOpen={isFormOpen}
         onClose={() => setIsFormOpen(false)}

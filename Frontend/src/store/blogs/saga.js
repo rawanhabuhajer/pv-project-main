@@ -25,8 +25,8 @@ function* getAllBlogsSaga({ payload }) {
     const { responseData } = yield call(getAllBlogsApi, payload);
     yield put(getAllBlogsSuccess(responseData));
   } catch (error) {
-    console.log(error);
-    yield put(getAllBlogsFailure(error));
+    console.log(error || "error");
+    yield put(getAllBlogsFailure(error || "error"));
   }
 }
 
@@ -38,8 +38,8 @@ function* getSingleBlogSaga({ payload }) {
     const { responseData } = yield call(getSingleBlogApi, payload);
     yield put(getSingleBlogSuccess(responseData));
   } catch (error) {
-    console.log(error);
-    yield put(getSingleBlogFailure(error));
+    console.log(error || "error");
+    yield put(getSingleBlogFailure(error || "error"));
   }
 }
 
@@ -51,8 +51,8 @@ function* getBlogCategoriesSaga({ payload }) {
     const { responseData } = yield call(getBlogCategoriesApi, payload);
     yield put(getBlogCategoriesSuccess(responseData));
   } catch (error) {
-    console.log(error);
-    yield put(getBlogCategoriesFailure(error));
+    console.log(error || "error");
+    yield put(getBlogCategoriesFailure(error || "error"));
   }
 }
 

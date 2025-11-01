@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 
 import userimg from "../../assets/images/user.png";
-import logo from "../../assets/images/new-logo.svg";
+import logo  from "assets/images/LogoNew.svg";
 // import { logoutUser } from "store/actions";
 import { useSelector } from "react-redux";
 
@@ -74,7 +74,7 @@ const Header = () => {
                         <img src={userimg} alt="" />
                       </div>
                       <div className="au-data">
-                        <h4>{user?.fullName}</h4>
+                        <h4>{user?.username}</h4>
                       </div>
                     </div>
                     {/* <svg

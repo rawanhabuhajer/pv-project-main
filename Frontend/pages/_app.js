@@ -140,7 +140,8 @@ function MyApp({ Component, pageProps }) {
 MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async () => {
   store.dispatch(END);
   await store.sagaTask.toPromise();
-  return {};
+
+  return { pageProps: {} };
 });
 
 export default wrapper.withRedux(MyApp);

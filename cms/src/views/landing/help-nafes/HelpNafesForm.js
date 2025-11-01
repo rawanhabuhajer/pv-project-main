@@ -6,7 +6,7 @@ import imageUpload from "../../../assets/svgs/imageUpload.svg";
 import toast from "react-hot-toast";
 import { EditorComponent } from "components/shared/FormComponents";
 
-const HelpNafesForm = ({
+const HelpPVX360Form = ({
   slug,
   lang,
   data,
@@ -97,7 +97,7 @@ const HelpNafesForm = ({
   return (
     <div className="card">
       <div className="card-head">
-        <h4> مساعده نافس </h4>
+        <h4> مساعده pxv360 </h4>
       </div>
       <div className="card-body">
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -257,4 +257,4 @@ const HelpNafesForm = ({
   );
 };
 
-export default HelpNafesForm;
+export default HelpPVX360Form;

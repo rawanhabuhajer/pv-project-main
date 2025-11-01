@@ -29,7 +29,7 @@ import {
 
 function* getAllBlogsSaga({ payload }) {
   try {
-    const { responseData } = yield call(getBlogsApi, payload);
+    const  responseData  = yield call(getBlogsApi, payload);
     yield put(getBlogsSuccess(responseData));
   } catch (error) {
     console.log(error);
@@ -98,14 +98,17 @@ function* updateBlogSaga({ payload }) {
 
 function* deleteBlogSaga({ payload }) {
   try {
-    const { responseData, isSuccess , message } = yield call(deleteBlogApi, payload);
+    const { responseData, isSuccess, message } = yield call(
+      deleteBlogApi,
+      payload
+    );
     yield put(deleteBlogSuccess(responseData));
     if (isSuccess) {
       yield payload?.setShow(false);
       yield payload?.toast?.success("تم الحذف بنجاح");
       yield put(
         getBlogs({
-          lang : payload?.lang || "ar",
+          lang: payload?.lang || "ar",
           PageNumber: 1,
           PageSize: 10,
         })

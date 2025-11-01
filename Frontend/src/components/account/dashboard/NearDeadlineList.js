@@ -25,7 +25,7 @@ const NearDeadlineList = () => {
           {/* CATEGORIES */}
           {nearDeadlineProjects?.categories
             ?.filter((item) => item?.status !== 3)
-            .map((item, index) => (
+            ?.map((item, index) => (
               <div
                 key={`cat-${index}`}
                 className={`deadline-item ${
@@ -92,13 +92,54 @@ const NearDeadlineList = () => {
                 router?.push(`/account/mv-cable/${item?._id}`);
               }}
             >
-              <div>{item?.name}</div>
-              <div>{item?.deadline}</div>
+              <div className="title">
+                <div className="icon">
+                  <ClockAlert size={20} />
+                </div>
+                <h5>{item?.name}</h5>
+              </div>
+
+              <div className="date-status">
+                <div className="date-wr">
+                  <Calendar size={16} color="#000" />
+                  <span>Deadline : {getFullDate(item?.deadline)}</span>
+                </div>
+                <div
+                  className={`project-status ${
+                    item?.status === 1
+                      ? "pending"
+                      : item?.status === 2
+                      ? "Inprogress"
+                      : ""
+                  }`}
+                >
+                  {item?.status === 3 ? (
+                    <Check size={14} color="#166534" />
+                  ) : item?.status === 2 ? (
+                    <Info size={14} color="#2563eb" />
+                  ) : (
+                    <Timer size={14} color="#d97706" />
+                  )}
+                  {item?.status === 3
+                    ? "Completed"
+                    : item?.status === 2
+                    ? "In-progress"
+                    : "Pending"}
+                </div>
+              </div>
+
+              <p>{item?.description}</p>
+
+              <div className="action-btn">
+                <span>Take Action</span> <ArrowRight size={18} />
+              </div>
             </div>
           ))}
         </div>
       ) : (
-        <div>No near-deadline projects</div>
+        <div className="no-data">
+          <p>No near-deadline projects</p>
+        </div>
       )}
     </div>
   );

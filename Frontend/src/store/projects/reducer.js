@@ -409,23 +409,23 @@ const projects = (state = initialState, action) => {
     // ====================================================
 
     case GET_MV_PROJECT_SUB_BY_ID:
-      return { ...state, pvSubProjectsLoading: true };
+      return { ...state, mvSubProjectsLoading: true };
 
     case GET_MV_PROJECT_SUB_BY_ID_SUCCESS:
       return {
         ...state,
-        pvSubProjects: action.payload.items,
+       mvSubProjects: action.payload.items,
         SubProjectsMeta: {
           pageNumber: action.payload.pageIndex,
           pageSize: action.payload.pageSize,
           count: action.payload.count,
           categoryName: action?.payload?.categoryName,
         },
-        pvSubProjectsLoading: false,
+        mvSubProjectsLoading: false,
       };
 
     case GET_MV_PROJECT_SUB_BY_ID_FAILURE:
-      return { ...state, error: action.payload, pvSubProjectsLoading: false };
+      return { ...state, error: action.payload, mvSubProjectsLoading: false };
 
     // ====================================================
     // ====================================================

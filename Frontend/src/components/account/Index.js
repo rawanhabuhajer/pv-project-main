@@ -96,7 +96,7 @@ const Index = () => {
                   <a> MV Cable</a>
                 </Link>
               </li>
-              <li
+              {/* <li
                 className={`menu-tab ${
                   account[1] === "contact-us" ? "active" : ""
                 } `}
@@ -105,7 +105,7 @@ const Index = () => {
                 <Link href={"/account/contact-us"}>
                   <a> Contact us</a>
                 </Link>
-              </li>
+              </li> */}
             </ul>
             <ul>
               <li

@@ -8,7 +8,7 @@ const DeleteModal = ({ show, setShow, lang }) => {
   const dispatch = useDispatch();
   const handleDeleteModal = () => {
     try {
-      dispatch(deleteBlog({ slug: show, setShow, toast, lang }));
+      dispatch(deleteBlog({ id: show, setShow, toast }));
     } catch (error) {
       console.log(error);
     }

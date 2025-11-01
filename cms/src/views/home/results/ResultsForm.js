@@ -58,7 +58,7 @@ const ResultsForm = ({
   return (
     <div className="card">
       <div className="card-head">
-        <h4>نتائج نافس</h4>
+        <h4>نتائج pxv360</h4>
       </div>
       <div className="card-body">
         <form onSubmit={handleSubmit(onSubmit)}>

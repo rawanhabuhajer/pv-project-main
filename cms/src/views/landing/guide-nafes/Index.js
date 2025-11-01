@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import server from "api/server";
 import { useLocation } from "react-router-dom";
 import { Nav, Tab } from "react-bootstrap";
-import GuideNafesForm from "./GuideNafesForm";
+import GuidePVX360Form from "./GuidePVX360Form";
 
 const Index = () => {
   const { pathname } = useLocation();
@@ -33,7 +33,7 @@ const Index = () => {
         <Tab.Container defaultActiveKey={0} transition={true} timeout={1000}>
           <Tab.Content>
             <Tab.Pane eventKey={0}>
-              <GuideNafesForm
+              <GuidePVX360Form
                 lang={lang}
                 data={data}
                 setData={setData}

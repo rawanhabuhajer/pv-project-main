@@ -30,20 +30,23 @@ const PrivacyPolicy = () => {
 };
 
 export const getStaticProps = wrapper.getStaticProps((store) => async () => {
+  // dispatch action لتحميل الـ CMS sections
   store.dispatch(
     getAllCmsHome({
       cookies: {},
-      lang: "en",
+  
     })
   );
 
+  // إنهاء كل sagas والانتظار حتى تنتهي
   store.dispatch(END);
   await store.sagaTask.toPromise();
 
   return {
-    props: {},
-    revalidate: 60,
+    props: {}, // لا حاجة لتمرير البيانات يدوياً، لأنها في الـ store
+    revalidate: 1,
   };
 });
+
 
 export default PrivacyPolicy;

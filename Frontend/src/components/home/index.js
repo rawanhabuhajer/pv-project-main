@@ -53,7 +53,7 @@ const index = () => {
         </Container>
       )}
       {/* {blogHeaderData?.isActive && <Blogs />}
-      {FrequentlyAskedQuestionsData?.isActive && <FaqNafes />} */}
+      {FrequentlyAskedQuestionsData?.isActive && <FaqPVX360 />} */}
 
       <Container>
         <ContactUs />
