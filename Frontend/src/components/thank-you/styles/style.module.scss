@@ -7,6 +7,7 @@
   gap: 25px;
   height: 59vh;
   padding: 50px 20px;
+
   @media (max-width: 768px) {
     height: calc(100vh - 320px);
     gap: 10px;
@@ -15,7 +16,15 @@
     h1 {
       font-size: 68px;
       font-family: "font-medium";
-      color: $primary-color;
+      text-align: center;
+      display: inline-block;
+      background: linear-gradient(45deg, #8523e1, #3b82f6);
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+      padding-bottom: 8px; /* يتيح مساحة للنقط */
+      text-rendering: optimizeLegibility;
       @media (max-width: 768px) {
         font-size: 30px;
       }
@@ -23,8 +32,24 @@
     p {
       text-align: center;
       font-size: 20px;
+      color: #dde8ff;
+
       @media (max-width: 768px) {
         font-size: 16px;
+      }
+    }
+    .btn {
+      font-family: "font-medium";
+      background: linear-gradient(90deg, #3b82f6 -34.71%, #8200ff 100%);
+      border-radius: 5px;
+      border: 0;
+      padding: 0;
+  
+      a {
+        color: #ffffff;
+        width: 100%;
+        height: 100%;    display: grid;
+      place-items: center;
       }
     }
     button {

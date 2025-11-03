@@ -36,7 +36,6 @@ const EditBlog = () => {
 
   const { singleBlog } = useSelector((state) => state.blogs);
 
-
   const imageChange = async (e) => {
     if (e.target.files && e.target.files.length > 0) {
       const formData = new FormData();
@@ -77,24 +76,20 @@ const EditBlog = () => {
       metaTitle: singleBlog?.metaTitle,
       metaDescription: singleBlog?.metaDescription,
       canonicalTag: singleBlog?.canonicalTag,
-      slug: singleBlog?.slug,
       tags: singleBlog?.tags,
-      cmsCategoryId: singleBlog?.cmsCategory?.id,
-      isActive: singleBlog?.isActive,
-      lang: singleBlog?.lang,
     });
 
     setDescription(singleBlog?.content);
     setSelectedImage({
-      preview: singleBlog?.image,
-      path: singleBlog?.image,
+      preview: singleBlog?.imageUrl,
+      path: singleBlog?.imageUrl,
     });
 
     setSelectedTags(
       singleBlog?.tags?.map((tag) => {
         return (tag = {
-          value: tag.name,
-          label: tag.name,
+          value: tag,
+          label: tag,
         });
       }) || []
     );
@@ -102,14 +97,12 @@ const EditBlog = () => {
 
   const onSubmit = (data) => {
     if (selectedImage?.preview !== undefined)
-      data.image = selectedImage?.path || "";
+      data.imageUrl = selectedImage?.path || "";
     data.content = description;
-    data.lang = singleBlog?.lang;
-    data.tags = selectedTags.map((tag) => {
-      return (tag = {
-        name: tag.value,
-      });
-    });
+
+    data.tags = selectedTags?.map((tag) =>
+      typeof tag === "string" ? tag : tag.value
+    );
     data.id = id;
 
     dispatch(
@@ -209,39 +202,6 @@ const EditBlog = () => {
                         {errors?.title?.type === "required" &&
                           "يرجي ادخال عنوان المدونة"}
                       </p>
-                    </div>
-                  </Col>
-                  <Col lg={6} xs={12}>
-                    <div className="form-group required">
-                      <h5>لغة المدونة</h5>
-                      <div>
-                        <select
-                          className="form-control form-select"
-                          {...register("lang", { required: true })}
-                        >
-                          <option value="">اختر لغة المدونة</option>
-                          <option value="ar">العربية</option>
-                          <option value="en">الانجليزية</option>
-                        </select>
-                      </div>
-                      {errors?.lang?.type === "required" && (
-                        <p className="error-hint">يرجي اختيار لغة المدونة</p>
-                      )}
-                    </div>
-                  </Col>
-                
-                  <Col lg={6} xs={12}>
-                    <div className="form-group">
-                      <h5>حالة المدونة (مفعل / غير مفعل)</h5>
-
-                      <div className="theme-switcher">
-                        <input
-                          type="checkbox"
-                          id="themeSwitcher"
-                          {...register("isActive")}
-                        />
-                        <label htmlFor="themeSwitcher"></label>
-                      </div>
                     </div>
                   </Col>
 
@@ -383,23 +343,6 @@ const EditBlog = () => {
                             <p className="error-hint">
                               {errors?.canonicalTag?.type === "required" &&
                                 "يرجي ادخال Canonical Tag"}
-                            </p>
-                          </div>
-                        </Col>
-                        <Col lg={6} xs={12}>
-                          <div className="form-group required">
-                            <h5>slug</h5>
-                            <div>
-                              <input
-                                type="text"
-                                className="form-control form-outline"
-                                placeholder="slug"
-                                {...register("slug", { required: true })}
-                              />
-                            </div>
-                            <p className="error-hint">
-                              {errors?.slug?.type === "required" &&
-                                "يرجي ادخال slug"}
                             </p>
                           </div>
                         </Col>

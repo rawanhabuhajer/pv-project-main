@@ -33,7 +33,7 @@
       font-size: 18px;
 
       margin-top: 50px;
-      a {
+      button {
         background: linear-gradient(180deg, #3b82f6 -14.71%, #8200ff 100%);
 
         color: #ffffff;
@@ -43,6 +43,7 @@
         height: 48px !important;
         display: grid;
         place-items: center;
+        border: 0;
       }
     }
 

@@ -10,7 +10,7 @@ const blogSchema = new mongoose.Schema(
     tags: [{ type: String }],
     metaTitle: { type: String },
     metaDescription: { type: String },
-    canonicalUrl: { type: String },
+    canonicalTag: { type: String },
     date: { type: Date, default: Date.now },
   },
   { timestamps: true }

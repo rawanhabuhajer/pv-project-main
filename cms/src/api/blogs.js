@@ -18,7 +18,7 @@ export const addBlogApi = async ({ data }) => {
 };
 
 export const updateBlogApi = async ({ data }) => {
-  const response = await server().put(`/blogs/updateBlog`, data);
+  const response = await server().patch(`/blogs/updateBlog/${data?.id}`, data);
   return response.data;
 };
 

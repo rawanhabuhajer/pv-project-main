@@ -80,7 +80,7 @@ const DownloadPdfNew = forwardRef((props, ref) => {
 
     doc.autoTable({ body: projectTableData, ...projectTableOptions });
 
-    const currentUrl = `http://localhost:3000/download/${props?.subprojectId}`;
+    const currentUrl = `http://pvmicrogrid.com/download/${props?.subprojectId}`;
     const qrDataUrl = await QRCode.toDataURL(currentUrl);
     const pageWidthQr = doc.internal.pageSize.getWidth();
     const qrWidth = 30;

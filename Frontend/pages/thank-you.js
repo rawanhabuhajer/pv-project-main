@@ -23,10 +23,12 @@ const ThankYouSection = dynamic(() => import("@/components/thank-you/Index"), {
 const Thankyou = () => {
   return (
     <>
-      <NextSeo title={"Thank you"} description={"thankYouSeo?.description"} />
-      <Header />
-      <ThankYouSection />
-      <Footer />
+      <NextSeo title={"Thank you"} description={"thankYouSeo?.description"} />{" "}
+      <div className="reset-wrapper-main">
+        <Header />
+        <ThankYouSection />
+        <Footer />
+      </div>
     </>
   );
 };

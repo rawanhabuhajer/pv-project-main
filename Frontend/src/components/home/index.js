@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./styles/style.module.scss";
 import Hero from "../hero/index";
 import Footer from "../footer/Index";
@@ -22,15 +22,16 @@ const index = () => {
   const featuresData = getSectionData(allCmsHome, "features");
   const useCasesData = getSectionData(allCmsHome, "use-cases");
   const clientsData = getSectionData(allCmsHome, "testimonials");
-  // const blogHeaderData = getSectionData(allCmsHome, "blogs");
-  // const FrequentlyAskedQuestionsData = getSectionData(
-  //   allCmsHome,
-  //   "FrequentlyAskedQuestions"
-  // );
+
   useEffect(() => {
     dispatch(getAllCmsHome({ cookies: {} }));
   }, []);
 
+  const contactRef = useRef(null);
+
+  const scrollToContact = () => {
+    contactRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
   return (
     <div className={styles["home-wrapper"]}>
       <BlurCursor />
@@ -38,7 +39,7 @@ const index = () => {
         <Header />
       </div>
 
-      {heroData?.isActive && <Hero />}
+      {heroData?.isActive && <Hero scrollToContact={scrollToContact} />}
       {partnersData?.isActive && <Clients />}
       {useCasesData?.isActive && <Tools />}
       {featuresData?.isActive && (
@@ -52,10 +53,8 @@ const index = () => {
           <Testimonials />
         </Container>
       )}
-      {/* {blogHeaderData?.isActive && <Blogs />}
-      {FrequentlyAskedQuestionsData?.isActive && <FaqPVX360 />} */}
 
-      <Container>
+      <Container ref={contactRef}>
         <ContactUs />
       </Container>
 

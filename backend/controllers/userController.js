@@ -1,7 +1,7 @@
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
-const { sendResetEmail } = require("../utils/emailService");
+const { sendResetEmail, sendRegisterEmail } = require("../utils/emailService");
 const { sendVerificationEmail } = require("../utils/verifiedEmail");
 const { newUserSignup } = require("../utils/newUserSignup");
 
@@ -28,6 +28,13 @@ const loginUser = async (req, res) => {
       return res
         .status(403)
         .json({ error: "Your account has not been verified by an admin yet." });
+    }
+
+    if (user.verificationEnd && new Date() > new Date(user.verificationEnd)) {
+      return res.status(403).json({
+        error:
+          "Your verification period has expired. Please contact the admin to renew your access.",
+      });
     }
 
     const token = createToken(user._id);
@@ -61,7 +68,6 @@ const signupUser = async (req, res) => {
       agreeTerms,
     } = req.body;
 
-    // تحقق من الحقول الأساسية
     if (!username || !email || !companyName || !password || !phoneNumber) {
       return res.status(400).json({
         isSuccess: false,
@@ -69,10 +75,8 @@ const signupUser = async (req, res) => {
       });
     }
 
-    // تشفير كلمة السر
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // إنشاء مستخدم جديد
     const newUser = await User.create({
       username,
       email,
@@ -83,7 +87,6 @@ const signupUser = async (req, res) => {
       agreeTerms,
     });
 
-    // تحويل النتيجة إلى object وتخزين نسخة بدون كلمة السر
     const userObj = newUser.toObject();
     delete userObj.password;
 
@@ -92,6 +95,10 @@ const signupUser = async (req, res) => {
       message: "User registered successfully",
       data: userObj,
     });
+
+    sendRegisterEmail(username, email, companyName, phoneNumber).catch((err) =>
+      console.error("Failed to send registration email:", err)
+    );
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -145,11 +152,11 @@ const getUserProfile = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
-    const user = await populateCategories(
-      await User.findById(req.params.id)
-    ).select(
-      "-password -resetPasswordToken -resetPasswordExpires -categories -mvCategories -agreeTerms"
-    );
+    const user = await User.findById(req.params.id)
+      .select(
+        "-password -resetPasswordToken -resetPasswordExpires -categories -mvCategories -agreeTerms"
+      )
+      .lean(); // optional: يجعل النتيجة كـ plain object
 
     if (!user) {
       return res.status(404).json({ error: "No user found with that ID" });
@@ -170,10 +177,11 @@ const getUser = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error retrieving user" });
+    console.error("Error retrieving user:", error);
+    res.status(500).json({ error: error.message });
   }
 };
+
 const generateResetToken = () => {
   return crypto.randomBytes(32).toString("hex");
 };

@@ -35,48 +35,56 @@ app.use("/api/mvSubCategories", mvSubCategories);
 app.use("/api/dashboard", dashboard);
 app.use("/api/blogs", blogRoutes);
 
-app.post("/api/send-email", (req, res) => {
+app.post("/api/send-email", async (req, res) => {
   const { firstName, lastName, companyName, message, email } = req.body;
 
-  const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-    tls: {
-      rejectUnauthorized: false,
-    },
-  });
+  if (!firstName || !lastName || !email || !message) {
+    return res.status(400).json({
+      isSuccess: false,
+      message: "All required fields must be provided",
+    });
+  }
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    replyTo: email,
-    to: "rawanh.abuhajer@gmail.com",
-    subject: "New Contact Form Submission",
-    text: `Name: ${firstName} ${lastName}
-          Company: ${companyName || "N/A"}
-          User's Email: ${email}
-          Message: ${message}`,
-  };
+  try {
+    const transporter = nodemailer.createTransport({
+      host: "smtp.hostinger.com", 
+      port: 465, 
+      secure: true,
+      auth: {
+        user: "admin@pvmicrogrid.com",
+        pass: process.env.EMAIL_PASS, 
+      },
+    });
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error("Nodemailer Error:", error);
-      return res.status(500).json({
-        isSuccess: false,
-        message: "Failed to send email. Check server logs.",
-        error: error.message,
-      });
-    }
+    const mailOptions = {
+      from: '"PV Microgrid" <admin@pvmicrogrid.com>',
+      replyTo: email,
+      to: "admin@pvmicrogrid.com",
+      subject: "New Contact Form Submission",
+      html: `
+        <p><strong>Name:</strong> ${firstName} ${lastName}</p>
+        <p><strong>Company:</strong> ${companyName || "N/A"}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Message:</strong><br/>${message}</p>
+      `,
+    };
+
+
+    const info = await transporter.sendMail(mailOptions);
+
     res.status(200).json({
       isSuccess: true,
       responseData: info,
       message: "Your message was sent successfully!",
     });
-  });
+  } catch (error) {
+    console.error("Nodemailer Error:", error);
+    res.status(500).json({
+      isSuccess: false,
+      message: "Failed to send email. Check server logs.",
+      error: error.message,
+    });
+  }
 });
 
 //connect to db

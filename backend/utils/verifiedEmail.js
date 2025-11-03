@@ -9,13 +9,12 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendVerificationEmail = async (email, username) => {
-  const loginLink = `http://localhost:5011/en/login`;
+  const loginLink = `https://pvmicrogrid.com/en/login`;
   const mailOptions = {
     from: "info@io-tool.com",
     to: email,
     subject: "Account Verified by Admin",
     text: `Dear ${username},\n\nYour account has been successfully verified by the admin.\n\nThank you! \n\n Login from here : ${loginLink}`,
-
   };
 
   try {

@@ -97,12 +97,7 @@ const Table = ({
           SearchValue={SearchValue}
           onclick={handleSearch}
         />
-        <Filter
-          placeholder="بحث عن شركة"
-          onFilter={handleCompanyTextChange}
-          filterText={companyText}
-          onClear={handleClear}
-        />
+
         <div className="actions-wrapper">
           <Dropdown>
             <Dropdown.Toggle>
@@ -164,56 +159,6 @@ const Table = ({
                   </div>
                 </div>
 
-                <div className="filter-wrapper">
-                  <p className="filter-title">تجربة مجانية</p>
-                  <div>
-                    {[
-                      {
-                        label: "نعم",
-                        value: "true",
-                      },
-                      {
-                        label: "لا",
-                        value: "false",
-                      },
-                    ].map((date, index) => (
-                      <div className="form-group" key={index}>
-                        <div>
-                          <label>
-                            <input
-                              type="radio"
-                              name="isFreeTrial"
-                              value={date?.value}
-                              className="form-checkbox"
-                              checked={isFreeTrial === date.value}
-                              onChange={(e) => {
-                                setIsFreeTrial(e.target.value);
-                                setPage(1);
-                                dispatch(
-                                  getUsers({
-                                    pageNumber: 1,
-                                    pageSize: pageSize,
-                                    SearchValue: SearchValue || "",
-                                    CompanyName: CompanyName || "",
-                                    IsFreeTrial: e.target.value,
-                                    IsExternal: isExternalUser,
-                                    IsDesLastLogin: logedInDate,
-                                    IsDesJoiningDate: selectedDate,
-                                    IsVerified: IsVerified,
-                                  })
-                                );
-                              }}
-                            />
-
-                            <span>
-                              <p>{date?.label}</p>
-                            </span>
-                          </label>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
                 <div className="filter-wrapper">
                   <p className="filter-title">التفعيل</p>
                   <div>

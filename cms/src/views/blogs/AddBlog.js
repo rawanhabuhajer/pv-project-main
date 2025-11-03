@@ -223,7 +223,7 @@ const AddBlog = () => {
                       </p>
                     </div>
                   </Col>
-                  {/* 
+
                   <Col lg={12} xs={12}>
                     <div className="seo-wrap">
                       <Row>
@@ -281,26 +281,9 @@ const AddBlog = () => {
                             </p>
                           </div>
                         </Col>
-                        <Col lg={6} xs={12}>
-                          <div className="form-group required">
-                            <h5>slug</h5>
-                            <div>
-                              <input
-                                type="text"
-                                className="form-control form-outline"
-                                placeholder="slug"
-                                {...register("slug", { required: true })}
-                              />
-                            </div>
-                            <p className="error-hint">
-                              {errors?.slug?.type === "required" &&
-                                "يرجي ادخال slug"}
-                            </p>
-                          </div>
-                        </Col>
                       </Row>
                     </div>
-                  </Col> */}
+                  </Col>
 
                   <Col lg={4} xs={12}>
                     <div className="form-group">

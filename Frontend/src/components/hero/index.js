@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "./styles/style.module.scss";
 import Link from "next/link";
-
+import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { getSectionData } from "@/helpers/functions";
 import Image from "next/future/image";
-const index = () => {
+const index = ({ scrollToContact }) => {
   const { allCmsHome } = useSelector((state) => state.authentication);
 
   const heroData = getSectionData(allCmsHome, "hero");
@@ -34,9 +34,9 @@ const index = () => {
         />
 
         <div className="button-wrapper">
-          <Link href={"/"}>
-            <a>{"Request demo"}</a>
-          </Link>
+          <button className="primary-btn" onClick={scrollToContact}>
+            Request demo
+          </button>
         </div>
         <div
           className="heroImg"

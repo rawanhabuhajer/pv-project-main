@@ -4,10 +4,12 @@ import styles from "./styles/style.module.scss";
 import { Feather } from "lucide-react";
 import { useSelector } from "react-redux";
 import { getSectionData } from "@/helpers/functions";
+import Image from "next/future/image";
 const index = () => {
   const { allCmsHome } = useSelector((state) => state.authentication);
   const useCasesData = getSectionData(allCmsHome, "use-cases");
 
+  console.log(useCasesData)
   return (
     <div className={styles["features-section"]}>
       <h3>
@@ -24,7 +26,7 @@ const index = () => {
             data-aos-delay="200"
           >
             <div className="img">
-              <Feather color="#fff" />
+              <Image src={item?.image} alt="" width={24} height={24}/>
             </div>
             <h6>{item?.title}</h6>
 

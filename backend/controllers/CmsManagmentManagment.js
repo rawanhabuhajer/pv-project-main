@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const { sendVerificationEmail } = require("../utils/verifiedEmail");
 const jwt = require("jsonwebtoken");
+const { sendVerifyEmail, sendUnVerifyEmail } = require("../utils/emailService");
 
 const createToken = (user) => {
   return jwt.sign({ _id: user._id, role: user.role }, process.env.SECRET, {
@@ -155,24 +156,23 @@ const verifyUser = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // تحديث الحقول المطلوبة فقط
     user.verificationStart = verificationStart;
     user.verificationEnd = verificationEnd;
 
-    // تحديث حالة isVerified بناءً على التاريخ الحالي
     const now = new Date();
     user.isVerified = now >= verificationStart && now <= verificationEnd;
 
-    // تجاوز validators عند الحفظ
     await user.save({ validateBeforeSave: false });
-
-    await sendVerificationEmail(user.email, user.username);
 
     res.status(200).json({
       isSuccess: true,
       message: "User verification period set successfully",
       user,
     });
+
+    sendVerifyEmail(user.email).catch((err) =>
+      console.error("Failed to send registration email:", err)
+    );
   } catch (error) {
     console.error(error);
     res
@@ -200,6 +200,10 @@ const unVerifyUser = async (req, res) => {
       message: "User is now unverified",
       user,
     });
+
+    sendUnVerifyEmail(user.email).catch((err) =>
+      console.error("Failed to send registration email:", err)
+    );
   } catch (error) {
     console.error(error);
     res.status(500).json({
